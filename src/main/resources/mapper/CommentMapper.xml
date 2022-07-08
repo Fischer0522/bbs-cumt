@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fischer.mapper.CommentMapper">
+
+    <sql id="selectResult" >
+        select
+               C.id,C.body,C.article_id,C.user_id,C.created_at
+        from comments C
+        left join users u on C.user_id = u.id
+        left join articles a on C.article_id = a.id
+
+    </sql>
+    <select id="getComments" resultMap="commentResultMap">
+    <include refid="selectResult"/>
+    <where>
+        <if test="articleId!=null">
+            AND article_id=#{articleId}
+        </if>
+    </where>
+    <if test="orderType !=null">
+        <trim suffixOverrides=",">
+            order by C.created_at
+            /*0为升序 1为降序*/
+            <if test="orderType == 1">
+                DESC
+            </if>
+        </trim>
+    </if>
+        limit #{page.offset},#{page.limit}
+
+    </select>
+    <resultMap id="commentResultMap" type="com.fischer.pojo.CommentDO">
+        <result property="id" column="id"/>
+        <result property="body" column="id"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="userId" column="user_id"/>
+        <result property="articleId" column="article_id"/>
+    </resultMap>
+</mapper>

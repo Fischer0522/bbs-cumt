@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fischer.mapper.InfoMapper">
+    
+    <select id="getInfo" resultMap="randInfo">
+
+        select
+            id,rand_name,rand_image,used
+        from info
+        <where>
+            used != 1
+        </where>
+        order by used
+        limit 1;
+
+    </select>
+
+
+    <resultMap id="randInfo" type="com.fischer.pojo.InfoDO">
+        <result property="username" column="username"/>
+        <result property="image" column="image"/>
+    </resultMap>
+    
+</mapper>

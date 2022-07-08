@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fischer.mapper.AdjMapper">
+
+    <select id="getAdj" resultMap="adjResultMap">
+        select id,word,used
+        from adj
+        order by used
+        limit 1
+    </select>
+
+    <resultMap id="adjResultMap" type="com.fischer.pojo.AdjDO">
+        <result property="id" column="id"/>
+        <result property="word" column="word"/>
+        <result property="used" column="used"/>
+    </resultMap>
+
+</mapper>
