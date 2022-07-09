@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
 import java.time.Duration;
+import java.util.Optional;
+
 @Service
 @NoArgsConstructor
 public class RedisServiceImpl implements RedisService {
@@ -43,9 +45,9 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public String getKey(Integer id) {
+    public Optional<String> getKey(Integer id) {
         String key = preKey+id;
         String s = stringRedisTemplate.opsForValue().get(key);
-        return s;
+        return Optional.ofNullable(s);
     }
 }

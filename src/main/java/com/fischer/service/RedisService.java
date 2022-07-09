@@ -2,6 +2,8 @@ package com.fischer.service;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 /**
  * @author fisher
  */
@@ -20,5 +22,5 @@ public interface RedisService {
      *@param id  查询的id
      * @return 对应的value
      */
-    String getKey(Integer id);
+    Optional<String> getKey(Integer id);
 }

@@ -25,7 +25,7 @@ public class TestUserService {
     @Test
     void TestGetUserById(){
         Integer id = 1243;
-        Optional<UserDO> userDO = userService.gerUserById(id);
+        Optional<UserDO> userDO = userService.getUserById(id);
         System.out.println(userDO.get());
     }
     @Test

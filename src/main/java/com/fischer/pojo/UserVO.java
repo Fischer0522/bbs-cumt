@@ -17,4 +17,12 @@ public class UserVO {
     private String email;
     private String image;
     private String token;
+
+    public UserVO(UserDO userDO,String token) {
+        this.id = userDO.getId();
+        this.email = userDO.getEmail();
+        this.image = userDO.getImage();
+        this.username = userDO.getUsername();
+        this.token = token;
+    }
 }

@@ -16,7 +16,12 @@ public interface UserService {
      * @param id 用户Id
      * @return Optional进行空判断
      */
-    Optional<UserDO> gerUserById(Integer id);
+    Optional<UserDO> getUserById(Integer id);
+    /** 按邮箱进行重复性匹配
+     * @param email 用户邮箱
+     * @return optional用于处理查询为空的结果*/
+    Optional<UserDO> getUserByEmail(String email);
+
     /** 按用户名模糊查询
      * @param username 用户名
      * @return 以list形式返回所有的匹配结果

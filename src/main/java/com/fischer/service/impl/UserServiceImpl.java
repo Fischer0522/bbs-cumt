@@ -60,12 +60,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<UserDO> gerUserById(Integer id) {
+    public Optional<UserDO> getUserById(Integer id) {
         UserDO userDO = userMapper.selectById(id);
         return Optional.ofNullable(userDO);
     }
 
+    @Override
+    public Optional<UserDO> getUserByEmail(String email) {
 
+        LambdaQueryWrapper<UserDO> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(UserDO::getEmail,email);
+        UserDO userDO = userMapper.selectOne(lqw);
+        return Optional.ofNullable(userDO);
+    }
 
     @Override
     public List<UserDO> searchUser(String username) {
