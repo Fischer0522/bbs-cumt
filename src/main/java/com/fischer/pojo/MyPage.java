@@ -1,9 +1,14 @@
 package com.fischer.pojo;
 
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 /**
  * @author fischer
  */
+@Getter
+@NoArgsConstructor
 public class MyPage {
     private static final int MAX_LIMIT=100;
     private int offset = 0;

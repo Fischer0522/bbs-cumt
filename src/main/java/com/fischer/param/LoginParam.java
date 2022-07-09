@@ -1,9 +1,9 @@
-package com.fischer.pojo;
+package com.fischer.param;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author fisher
@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonRootName("user")
 public class LoginParam {
     private String email;
     private String verifyCode;

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.fischer.mapper.AdjMapper;
 import com.fischer.mapper.InfoMapper;
 import com.fischer.mapper.UserMapper;
+import com.fischer.param.UpdateUserCommand;
 import com.fischer.pojo.AdjDO;
 import com.fischer.pojo.InfoDO;
 import com.fischer.pojo.UserDO;
@@ -86,5 +87,26 @@ public class UserServiceImpl implements UserService {
     public Integer getUserCount() {
         Integer integer = userMapper.selectCount(null);
         return integer;
+    }
+
+    @Override
+    public Optional<UserDO> updateUser(UpdateUserCommand updateUserCommand) {
+        UserDO userDO = updateUserCommand.getTargetUser();
+        String username = updateUserCommand.getUpdateUserParam().getUsername();
+        String image = updateUserCommand.getUpdateUserParam().getImage();
+
+        if(Strings.isNotEmpty(username)) {
+            userDO.setUsername(username);
+        }
+        if(Strings.isNotEmpty(image)) {
+            userDO.setImage(image);
+        }
+
+        int i = userMapper.updateById(userDO);
+        if(i > 0) {
+            return Optional.of(userDO);
+        } else {
+            return Optional.empty();
+        }
     }
 }

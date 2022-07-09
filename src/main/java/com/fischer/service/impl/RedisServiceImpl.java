@@ -14,6 +14,9 @@ import java.sql.SQLException;
 import java.time.Duration;
 import java.util.Optional;
 
+/**
+ * @author fisher
+ */
 @Service
 @NoArgsConstructor
 public class RedisServiceImpl implements RedisService {
@@ -49,5 +52,11 @@ public class RedisServiceImpl implements RedisService {
         String key = preKey+id;
         String s = stringRedisTemplate.opsForValue().get(key);
         return Optional.ofNullable(s);
+    }
+
+    @Override
+    public Optional<String> getKey(String email) {
+        String verifyCode = stringRedisTemplate.opsForValue().get(email);
+        return Optional.ofNullable(verifyCode);
     }
 }

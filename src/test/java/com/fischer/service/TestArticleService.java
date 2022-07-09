@@ -49,7 +49,7 @@ public class TestArticleService {
 
     @Test
     void testGetArticleFuzzy(){
-        articleService.getArticleFuzzy("丁真",1242);
+       // articleService.getArticleFuzzy("丁真",1242);
     }
     @Test
     void testFavoriteArticle(){

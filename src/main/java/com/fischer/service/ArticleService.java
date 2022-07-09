@@ -57,7 +57,7 @@ public interface ArticleService {
       * @return 返回VO
       */
 
-     ArticleVO getArticleFuzzy(String title, Integer userId);
+     ArticleVO getArticleFuzzy(String title, Integer userId,Integer offset,Integer limit);
 
      /** 点赞文章，不可重复点赞
       * @param articleId 要点赞的文章Id

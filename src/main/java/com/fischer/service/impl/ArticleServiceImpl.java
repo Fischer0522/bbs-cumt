@@ -1,6 +1,8 @@
 package com.fischer.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fischer.mapper.ArticleMapper;
 import com.fischer.mapper.CommentMapper;
 import com.fischer.mapper.FavoriteMapper;
@@ -93,11 +95,15 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleVO getArticleFuzzy(String title, Integer userId) {
+    public ArticleVO getArticleFuzzy(String title, Integer userId,Integer offset,Integer limit) {
+        MyPage myPage = new MyPage(offset,limit);
+        IPage<ArticleDO> page = new Page(myPage.getOffset(),myPage.getLimit());
+
         LambdaQueryWrapper<ArticleDO> lqw = new LambdaQueryWrapper();
         lqw.like(Strings.isNotEmpty(title),ArticleDO::getTitle,title);
         lqw.ne(ArticleDO::getStatus,2);
-        List<ArticleDO> articleDOList = articleMapper.selectList(lqw);
+        IPage<ArticleDO> pageResult = articleMapper.selectPage(page, lqw);
+        List<ArticleDO> articleDOList = pageResult.getRecords();
         List<ArticleBO> articleBOList = articleDOList.stream()
                 .map(articleDO -> fillExtraInfo(articleDO, userId))
                 .collect(Collectors.toList());

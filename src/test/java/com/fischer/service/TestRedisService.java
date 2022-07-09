@@ -20,8 +20,7 @@ public class TestRedisService {
     @Test
     void testGetKey(){
         Integer id = 1242;
-        String key = redisService.getKey(id);
-        System.out.println(key);
+        //System.out.println(key);
     }
 
     @Test

@@ -11,4 +11,6 @@ public interface EmailService {
      * @param email 需获取验证码的邮箱*/
     void send(String email);
 
+
+
 }

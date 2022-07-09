@@ -1,5 +1,6 @@
 package com.fischer.service;
 
+import com.fischer.param.UpdateUserCommand;
 import com.fischer.pojo.UserDO;
 
 import java.util.List;
@@ -31,5 +32,9 @@ public interface UserService {
      * @return 人数
      */
     Integer getUserCount();
+    /** 更新用户基本信息
+     * @param updateUserCommand 要更新的目标用户和更新表单，用于进行校验
+     * @return 返回更新后的用户信息*/
+    Optional<UserDO> updateUser(UpdateUserCommand updateUserCommand);
 
 }

@@ -18,9 +18,14 @@ public interface RedisService {
     */
     void deleteKey(Integer id);
 
-    /**从redis中查询是否存在该key
+    /**从redis中查询是否存在该key,针对用检验用户是否已经登录
      *@param id  查询的id
      * @return 对应的value
      */
     Optional<String> getKey(Integer id);
+
+    /** 从redis中获取对应的验证码，用于进行登录
+     * @param email 用户邮箱
+     * @return 对应的验证码*/
+    Optional<String> getKey(String email);
 }
