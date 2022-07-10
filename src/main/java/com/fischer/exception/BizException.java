@@ -1,9 +1,14 @@
 package com.fischer.exception;
 
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 /**
  * @author fischer
  */
+@Getter
+@NoArgsConstructor
 public class BizException extends RuntimeException{
     private Integer code;
     private String msg;

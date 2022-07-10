@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.fischer.mapper.AdjMapper;
 import com.fischer.mapper.InfoMapper;
 import com.fischer.mapper.UserMapper;
-import com.fischer.param.UpdateUserCommand;
+import com.fischer.data.UpdateUserCommand;
 import com.fischer.pojo.AdjDO;
 import com.fischer.pojo.InfoDO;
 import com.fischer.pojo.UserDO;

@@ -1,9 +1,10 @@
 package com.fischer.controller;
 
 
+import com.fischer.result.ResponseResult;
 import com.fischer.exception.BizException;
 import com.fischer.exception.ExceptionStatus;
-import com.fischer.param.NewArticleParam;
+import com.fischer.data.NewArticleParam;
 import com.fischer.pojo.ArticleBO;
 import com.fischer.pojo.ArticleDO;
 import com.fischer.pojo.ArticleVO;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * @author fisher
  */
+@ResponseResult
 @RestController
 @RequestMapping("articles")
 public class ArticleController {
@@ -50,6 +52,7 @@ public class ArticleController {
                 .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
         return ResponseEntity.ok(articleBO);
     }
+
     @GetMapping("exact")
     ResponseEntity<ArticleVO> getArticles(@RequestParam(value = "favoriteBy",required = false) Integer favoriteBy,
                                           @RequestParam(value = "author",required = false) Integer author,
@@ -69,6 +72,7 @@ public class ArticleController {
         return ResponseEntity.ok(articles);
 
     }
+
     @GetMapping("fuzzy")
     ResponseEntity<ArticleVO> getArticlesFuzzy(@RequestParam(value = "keyword" ) String keyword,
                                                @RequestHeader("Authorization") String token,

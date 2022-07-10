@@ -1,6 +1,6 @@
 package com.fischer.service;
 
-import com.fischer.param.UpdateUserCommand;
+import com.fischer.data.UpdateUserCommand;
 import com.fischer.pojo.UserDO;
 
 import java.util.List;

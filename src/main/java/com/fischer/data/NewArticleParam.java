@@ -1,8 +1,7 @@
-package com.fischer.param;
+package com.fischer.data;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

@@ -1,6 +1,5 @@
-package com.fischer.param;
+package com.fischer.data;
 
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.fischer.pojo.UserDO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

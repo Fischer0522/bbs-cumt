@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -52,7 +53,10 @@ public class CommentServiceImpl implements CommentService {
     public Optional<CommentBO> deleteComment(Integer commentId, Integer userId) {
         CommentDO commentDO = commentMapper.selectById(commentId);
         ArticleDO articleDO = articleMapper.selectById(commentDO.getArticleId());
-        if(userId.equals(commentDO.getUserId())||userId.equals(articleDO.getUserId())){
+        if (Objects.isNull(articleDO)) {
+            throw new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR);
+        }
+        if (userId.equals(commentDO.getUserId())||userId.equals(articleDO.getUserId())) {
             commentMapper.deleteById(commentId);
             CommentBO commentBO = fillExtraInfo(commentDO);
             return Optional.of(commentBO);

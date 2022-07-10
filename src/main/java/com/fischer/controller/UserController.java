@@ -1,12 +1,13 @@
 package com.fischer.controller;
 
-import com.fischer.param.UpdateUserCommand;
-import com.fischer.param.UpdateUserParam;
+import com.fischer.data.UpdateUserCommand;
+import com.fischer.data.UpdateUserParam;
 import com.fischer.exception.BizException;
 import com.fischer.exception.ExceptionStatus;
-import com.fischer.param.LoginParam;
+import com.fischer.data.LoginParam;
 import com.fischer.pojo.UserDO;
 import com.fischer.pojo.UserVO;
+import com.fischer.result.ResponseResult;
 import com.fischer.service.EmailService;
 import com.fischer.service.JwtService;
 import com.fischer.service.RedisService;
@@ -23,6 +24,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("users")
+@ResponseResult
 public class UserController {
     private UserService userService;
     private RedisService redisService;
@@ -86,11 +88,13 @@ public class UserController {
         return ResponseEntity.ok(userDO);
 
     }
+
     @GetMapping("email")
     ResponseEntity<Object> getVerifyCode(@RequestParam("email") String email) {
         emailService.send(email);
         return ResponseEntity.ok(null);
     }
+    @ResponseResult
     @PutMapping
     ResponseEntity<UserDO> updateUser(@RequestBody UpdateUserParam updateUserParam,
                                       @RequestHeader("Authorization") String token) {

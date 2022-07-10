@@ -1,9 +1,10 @@
 package com.fischer.controller;
 
-import com.fischer.param.CommentParam;
+import com.fischer.data.CommentParam;
 import com.fischer.exception.BizException;
 import com.fischer.exception.ExceptionStatus;
 import com.fischer.pojo.*;
+import com.fischer.result.ResponseResult;
 import com.fischer.service.CommentService;
 import com.fischer.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("comments")
+@ResponseResult
 public class CommentController {
 
     private CommentService commentService;
@@ -24,6 +26,7 @@ public class CommentController {
         this.commentService = commentService;
         this.jwtService = jwtService;
     }
+
     @GetMapping("{articleId}")
     ResponseEntity<CommentVO> getComments(@PathVariable(value = "articleId") Integer articleId,
                                           @RequestParam(value = "offset",defaultValue = "0") Integer offset,
