@@ -13,7 +13,7 @@ public enum ExceptionStatus {
     /*参数校验失败*/
     BAD_REQUEST(400,"参数校验失败，请重新填写"),
     /*未授权*/
-    UNAUTHORIZED(401, "Unauthorized"),
+    UNAUTHORIZED(401, "未经授权的操作"),
     /*无权限，禁止操作*/
     FORBIDDEN(403,"您无权限这么做"),
     /*资源不存在*/

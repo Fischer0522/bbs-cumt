@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
 /**
  * @author fisher
  */
-public class MyInterceptor implements HandlerInterceptor {
+public class ResultInterceptor implements HandlerInterceptor {
     private static final String RESPONSE_RESULT = "RESPONSE_RESULT";
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

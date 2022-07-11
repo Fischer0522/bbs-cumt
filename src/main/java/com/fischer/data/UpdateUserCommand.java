@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Validated
 public class UpdateUserCommand {
     private UserDO targetUser;
     private UpdateUserParam updateUserParam;

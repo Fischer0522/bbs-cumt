@@ -18,8 +18,6 @@ import java.util.Objects;
 @ControllerAdvice
 public class ResultHandler implements ResponseBodyAdvice<Object> {
 
-
-
     public static final String RESPONSE_RESULT = "RESPONSE_RESULT";
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
@@ -34,7 +32,6 @@ public class ResultHandler implements ResponseBodyAdvice<Object> {
 
         Method method = methodParameter.getMethod();
         ResponseResult annotation = method.getAnnotation(ResponseResult.class);
-        System.out.println(annotation+"111111111111111111111111111111111");
         if (Objects.isNull(annotation)) {
            return ResultType.success(body);
         } else {
@@ -42,9 +39,6 @@ public class ResultHandler implements ResponseBodyAdvice<Object> {
             String msg = annotation.msg();
             return new ResultType(code,body,msg);
         }
-
-
-
 
     }
 }

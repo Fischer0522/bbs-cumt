@@ -15,11 +15,11 @@ import java.util.List;
 @Data
 public class ArticleVO {
 
-    private List<ArticleBO> articleVOList;
+    private List<ArticleBO> articleList;
     private Integer articleCount;
 
-    public ArticleVO (List<ArticleBO> articleVOList ,Integer articleCount){
+    public ArticleVO (List<ArticleBO> articleList ,Integer articleCount){
         this.articleCount = articleCount;
-        this.articleVOList = articleVOList;
+        this.articleList = articleList;
     }
 }
