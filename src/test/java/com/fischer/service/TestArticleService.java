@@ -2,6 +2,7 @@ package com.fischer.service;
 
 import com.fischer.pojo.ArticleDO;
 import com.fischer.pojo.ArticleBO;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
+@Slf4j
 public class TestArticleService {
     private ArticleService articleService;
     @Autowired
@@ -60,7 +62,8 @@ public class TestArticleService {
 
     @Test
     void testUnFavoriteArticle(){
-        articleService.unfavoriteArticle(6,1242);
+        //articleService.unfavoriteArticle(6,1242);
+
 
     }
 

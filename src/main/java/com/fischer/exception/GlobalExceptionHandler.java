@@ -10,6 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author fisher
  * @date 2022 7 10
@@ -18,6 +21,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 public class GlobalExceptionHandler {
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+
 
     @ExceptionHandler(BizException.class)
     public ResponseEntity<ResultType> bizExceptionHandler(BizException e) {

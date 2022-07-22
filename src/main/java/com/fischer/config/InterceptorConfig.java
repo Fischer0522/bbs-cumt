@@ -1,6 +1,7 @@
 package com.fischer.config;
 
 import com.fischer.intercepter.RequestInterceptor;
+import com.fischer.intercepter.RestrainInterceptor;
 import com.fischer.intercepter.ResultInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,8 +41,22 @@ public class InterceptorConfig implements WebMvcConfigurer {
         return new RequestInterceptor();
     }
 
+    @Bean
+    public RestrainInterceptor restrainInterceptor() {
+        return new RestrainInterceptor();
+    }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+
+
+        registry.addInterceptor(restrainInterceptor())
+                    .addPathPatterns("/articles/**")
+                    .addPathPatterns("/comments/**")
+                    .excludePathPatterns("/articles/exact")
+                    .excludePathPatterns("/articles/fuzzy")
+                    .excludePathPatterns("/comments/{articleId}");
+
 
         registry.addInterceptor(requestInterceptor())
                 .addPathPatterns("/**")

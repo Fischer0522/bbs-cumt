@@ -21,7 +21,9 @@ import java.util.Objects;
  */
 @NoArgsConstructor
 public class RequestInterceptor implements HandlerInterceptor {
+    @Autowired
     private JwtService jwtService;
+    @Autowired
     private RedisService redisService;
     private final String PREKEY= "loginUser:";
     @Autowired

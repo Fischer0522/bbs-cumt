@@ -4,6 +4,7 @@ import com.fischer.pojo.UserDO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * @author fisher

@@ -94,6 +94,7 @@ public class UserController {
         emailService.send(email);
         return ResponseEntity.ok(null);
     }
+
     @ResponseResult
     @PutMapping
     ResponseEntity<UserDO> updateUser(@RequestBody UpdateUserParam updateUserParam,
