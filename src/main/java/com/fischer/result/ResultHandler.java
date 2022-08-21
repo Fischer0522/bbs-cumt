@@ -1,8 +1,11 @@
 package com.fischer.result;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
@@ -16,6 +19,7 @@ import java.lang.reflect.Method;
 import java.util.Objects;
 
 @ControllerAdvice
+@Slf4j
 public class ResultHandler implements ResponseBodyAdvice<Object> {
 
     public static final String RESPONSE_RESULT = "RESPONSE_RESULT";
@@ -33,6 +37,12 @@ public class ResultHandler implements ResponseBodyAdvice<Object> {
         Method method = methodParameter.getMethod();
         ResponseResult annotation = method.getAnnotation(ResponseResult.class);
         if (Objects.isNull(annotation)) {
+            if (body instanceof ErrorResult) {
+                if (((ErrorResult) body).getCode() == 500) {
+                    return new ResponseEntity<ErrorResult>((ErrorResult) body, HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+                return body;
+            }
            return ResultType.success(body);
         } else {
             Integer code = Integer.parseInt(annotation.code());

@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author fisher
@@ -24,7 +25,7 @@ public class NewArticleParam {
     private String description;
     @Length(max = 20000,message = "文章最大字数为20000字")
     private String content;
-    @NotBlank(message = "请选择文章所属的板块")
+    @NotNull(message = "请选择文章所属的板块")
     private Integer type;
 
 

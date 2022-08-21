@@ -16,6 +16,7 @@ public class ResultInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (handler instanceof HandlerMethod) {
+
             final HandlerMethod handlerMethod = (HandlerMethod) handler;
             final Class<?> clazz = ((HandlerMethod) handler).getBeanType();
             final Method method = handlerMethod.getMethod();

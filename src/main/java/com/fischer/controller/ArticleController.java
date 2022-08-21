@@ -14,16 +14,19 @@ import com.fischer.service.JwtService;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Stack;
 
 /**
  * @author fisher
  */
-@ResponseResult
+
 @RestController
 @RequestMapping("articles")
+@Validated
 public class ArticleController {
     private JwtService jwtService;
     private ArticleService articleService;
@@ -33,9 +36,13 @@ public class ArticleController {
         this.articleService = articleService;
         this.jwtService = jwtService;
     }
+
+    @ResponseResult
     @PostMapping
-    ResponseEntity<ArticleDO> createArticle(@RequestBody NewArticleParam articleParam,
+    ResponseEntity<ArticleDO> createArticle(@Valid @RequestBody NewArticleParam articleParam,
                                             @RequestHeader("Authorization") String token) {
+
+
         UserDO user = jwtService.getUser(token);
         Integer userId = user.getId();
         ArticleDO articleDO = articleService.createArticle(articleParam.getTitle(),

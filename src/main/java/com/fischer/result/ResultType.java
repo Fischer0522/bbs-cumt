@@ -19,4 +19,11 @@ public class ResultType {
     public static ResultType success(Object body) {
         return new ResultType(200,body,"OK");
     }
+
+    public ResultType(Integer code,String msg) {
+        this.code = code;
+        this.data = null;
+        this.msg = msg;
+    }
+
 }
