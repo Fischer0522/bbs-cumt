@@ -12,6 +12,10 @@ import com.fischer.pojo.UserDO;
 import com.fischer.service.UserService;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +29,8 @@ import java.util.Optional;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class UserServiceImpl implements UserService {
+
+    private  String CACHE_KEY = "com.fischer.userInfo";
     private UserMapper userMapper;
     private InfoMapper infoMapper;
     private AdjMapper adjMapper;
@@ -60,6 +66,7 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Cacheable(cacheNames = "user",key = "'com.fischer.userInfo:'+ #id")
     @Override
     public Optional<UserDO> getUserById(Integer id) {
         UserDO userDO = userMapper.selectById(id);
@@ -89,6 +96,7 @@ public class UserServiceImpl implements UserService {
         return integer;
     }
 
+    @CachePut(cacheNames = "user",key = "'com.fischer.userInfo:'+ #updateUserCommand.targetUser.id")
     @Override
     public Optional<UserDO> updateUser(UpdateUserCommand updateUserCommand) {
         UserDO userDO = updateUserCommand.getTargetUser();
@@ -108,5 +116,9 @@ public class UserServiceImpl implements UserService {
         } else {
             return Optional.empty();
         }
+    }
+
+    public String getCACHE_KEY() {
+        return CACHE_KEY;
     }
 }

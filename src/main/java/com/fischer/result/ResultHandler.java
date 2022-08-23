@@ -1,7 +1,6 @@
 package com.fischer.result;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -43,11 +42,11 @@ public class ResultHandler implements ResponseBodyAdvice<Object> {
                 }
                 return body;
             }
-           return ResultType.success(body);
+           return CommonResult.success(body);
         } else {
             Integer code = Integer.parseInt(annotation.code());
             String msg = annotation.msg();
-            return new ResultType(code,body,msg);
+            return new CommonResult(code,body,msg);
         }
 
     }

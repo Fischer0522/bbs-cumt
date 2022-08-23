@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 
 /**
  * @author fischer
@@ -15,7 +17,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @TableName("adj")
-public class AdjDO {
+public class AdjDO implements Serializable {
     private Integer id;
     private String word;
     private Integer used;

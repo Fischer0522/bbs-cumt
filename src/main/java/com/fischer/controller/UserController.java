@@ -15,8 +15,10 @@ import com.fischer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 /**
@@ -25,6 +27,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("users")
 @ResponseResult
+@Validated
 public class UserController {
     private UserService userService;
     private RedisService redisService;
@@ -44,7 +47,7 @@ public class UserController {
 
     @Transactional(rollbackFor = {Exception.class})
     @PostMapping(path = "login")
-    ResponseEntity<UserVO> loginUser(@RequestBody LoginParam loginParam){
+    ResponseEntity<UserVO> loginUser(@Valid @RequestBody LoginParam loginParam){
         /*需要回滚的异常需要在核对*/
         boolean present = userService.getUserByEmail(loginParam.getEmail()).isPresent();
         if(!present) {
@@ -97,7 +100,7 @@ public class UserController {
 
     @ResponseResult
     @PutMapping
-    ResponseEntity<UserDO> updateUser(@RequestBody UpdateUserParam updateUserParam,
+    ResponseEntity<UserDO> updateUser(@Valid @RequestBody UpdateUserParam updateUserParam,
                                       @RequestHeader("Authorization") String token) {
 
         UserDO user = jwtService.getUser(token);

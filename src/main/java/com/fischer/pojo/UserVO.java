@@ -1,5 +1,6 @@
 package com.fischer.pojo;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonRootName("user")
 public class UserVO {
     private Integer id;
     private String username;

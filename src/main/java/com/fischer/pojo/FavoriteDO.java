@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 
 /**
  * @author fischer
@@ -13,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("favorite")
-public class FavoriteDO {
+public class FavoriteDO implements Serializable {
     private Integer articleId;
     private Integer userId;
 }

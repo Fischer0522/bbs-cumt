@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 
 /**
  * @author fischer
@@ -14,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @TableName("comments")
-public class CommentDO {
+public class CommentDO implements Serializable {
     @TableId(type = IdType.AUTO)
     private Integer id;
     private String body;

@@ -1,5 +1,6 @@
 package com.fischer.pojo;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -13,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @Data
+@JsonRootName("articles")
 public class ArticleVO {
 
     private List<ArticleBO> articleList;
