@@ -23,7 +23,7 @@ public class RedisServiceImpl implements RedisService {
     private StringRedisTemplate stringRedisTemplate;
     private UserMapper userMapper;
     private String preKey;
-    private long outDate = 7;
+    private  final long outDate = 7;
     @Autowired
     public RedisServiceImpl(StringRedisTemplate stringRedisTemplate,UserMapper userMapper) {
         this.stringRedisTemplate =stringRedisTemplate;
@@ -38,6 +38,7 @@ public class RedisServiceImpl implements RedisService {
         stringRedisTemplate.opsForValue().set(key,username);
         Duration sessionTime = Duration.ofDays(outDate);
         stringRedisTemplate.expire(key,sessionTime);
+
     }
 
     @Override

@@ -3,6 +3,10 @@ package com.fischer.exception;
 
 import com.fischer.result.ErrorResult;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.util.Strings;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,6 +23,9 @@ import static io.lettuce.core.pubsub.PubSubOutput.Type.message;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+
+    @Autowired
+    StringRedisTemplate redisTemplate;
 
     @ExceptionHandler(BizException.class)
     public ErrorResult bizExceptionHandler(BizException e) {
@@ -53,6 +60,17 @@ public class GlobalExceptionHandler {
         }
         log.error("表单校验未通过，原因为："+message);
         return new ErrorResult(400,totalMessage);
+
+    }
+
+    @ExceptionHandler(LoginException.class)
+    public ErrorResult loginExceptionHandler(LoginException e) {
+        String key = e.getKey();
+        String s = redisTemplate.opsForValue().get(key);
+        if(Strings.isNotEmpty(s)) {
+            redisTemplate.delete(key);
+        }
+        return new ErrorResult(500,"登录异常");
 
     }
 }

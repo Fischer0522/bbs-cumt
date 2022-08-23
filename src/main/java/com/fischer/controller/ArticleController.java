@@ -11,6 +11,7 @@ import com.fischer.pojo.ArticleVO;
 import com.fischer.pojo.UserDO;
 import com.fischer.service.ArticleService;
 import com.fischer.service.JwtService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ import java.util.Stack;
 /**
  * @author fisher
  */
-
+@Slf4j
 @RestController
 @RequestMapping("articles")
 @Validated
@@ -76,6 +77,8 @@ public class ArticleController {
         if(Strings.isNotEmpty(token)) {
             UserDO user = jwtService.getUser(token);
              userId = user.getId();
+        } else {
+            log.info("用户匿名访问"+getClass().getName()+":"+"getArticles");
         }
         ArticleVO articles = articleService.getArticles(favoriteBy, author, type, offset, limit, orderBy, orderType, userId);
         return ResponseEntity.ok(articles);
@@ -91,6 +94,8 @@ public class ArticleController {
         if(Strings.isNotEmpty(token)) {
             UserDO user = jwtService.getUser(token);
             userId = user.getId();
+        } else {
+            log.info("用户匿名访问"+getClass().getName()+":"+"getArticleFuzzy");
         }
         ArticleVO articleFuzzy = articleService.getArticleFuzzy(keyword,userId,offset,limit);
         return ResponseEntity.ok(articleFuzzy);

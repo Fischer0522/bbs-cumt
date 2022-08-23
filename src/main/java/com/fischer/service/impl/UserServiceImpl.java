@@ -2,6 +2,7 @@ package com.fischer.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.fischer.exception.BizException;
 import com.fischer.mapper.AdjMapper;
 import com.fischer.mapper.InfoMapper;
 import com.fischer.mapper.UserMapper;
@@ -10,6 +11,7 @@ import com.fischer.pojo.AdjDO;
 import com.fischer.pojo.InfoDO;
 import com.fischer.pojo.UserDO;
 import com.fischer.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -19,6 +21,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,8 +29,9 @@ import java.util.Optional;
 /**
  * @author fischer
  */
+@Slf4j
 @Service
-@Transactional(rollbackFor = Exception.class)
+
 public class UserServiceImpl implements UserService {
 
     private  String CACHE_KEY = "com.fischer.userInfo";
@@ -45,23 +49,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDO createUser(String email) {
+    @Transactional(rollbackFor = {SQLException.class,RuntimeException.class})
+    public synchronized UserDO createUser(String email) {
         try {
             InfoDO info = infoMapper.getInfo();
             AdjDO adj = adjMapper.getAdj();
             String randNickname = adj.getWord()+info.getRandName();
             UserDO userDO = new UserDO(randNickname,email,info.getRandImage());
-            LambdaUpdateWrapper<InfoDO> lqw = new LambdaUpdateWrapper<>();
+            // LambdaUpdateWrapper<InfoDO> lqw = new LambdaUpdateWrapper<>();
             info.setUsed(info.getUsed()+1);
             int insert = userMapper.insert(userDO);
             infoMapper.updateById(info);
             adj.setUsed(adj.getUsed()+1);
+            // 用户名和前缀的使用次数均+1，继续生成下一个用户名
             adjMapper.updateById(adj);
+            // 保证获取id和对形容词修改的一致性，防止一个形容词被多人使用
+            log.info("创建用户成功，生成的用户名为:"+randNickname);
             return userDO;
 
         } catch (RuntimeException e){
-            /*后续改为自定义的异常*/
-            throw e;
+            // 抛出异常,回滚掉
+            throw new BizException(500,"用户创建失败");
         }
 
     }
@@ -118,7 +126,4 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public String getCACHE_KEY() {
-        return CACHE_KEY;
-    }
 }

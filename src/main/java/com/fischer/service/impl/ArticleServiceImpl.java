@@ -11,6 +11,7 @@ import com.fischer.pojo.*;
 import com.fischer.service.ArticleService;
 import com.fischer.exception.BizException;
 import com.fischer.exception.ExceptionStatus;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,11 +29,13 @@ import java.util.stream.Collectors;
  * @author fischer
  */
 @Service
+@Slf4j
 public class ArticleServiceImpl implements ArticleService {
     private UserMapper userMapper;
     private ArticleMapper articleMapper;
     private FavoriteMapper favoriteMapper;
     private CommentMapper commentMapper;
+    private final Integer LIMIT_LEVEL = 2;
     @Autowired
     ArticleServiceImpl (UserMapper userMapper,
                         ArticleMapper articleMapper,
@@ -49,23 +52,26 @@ public class ArticleServiceImpl implements ArticleService {
         ArticleDO articleDO = new ArticleDO(title,body,description,type,userId);
         int insert = articleMapper.insert(articleDO);
         if(insert > 0) {
+            log.info("创建文章成功，用户id为："+userId.toString());
             return Optional.of(articleDO);
         } else {
+            log.warn("文章创建失败");
             return Optional.empty();
         }
 
     }
 
     @Override
-    public ArticleVO getArticles(Integer favoriteBy, Integer author, Integer type, Integer offset, Integer limit, Integer orderBy, Integer orderType, Integer userId) {
+    public synchronized ArticleVO getArticles(Integer favoriteBy, Integer author, Integer type, Integer offset, Integer limit, Integer orderBy, Integer orderType, Integer userId) {
         MyPage myPage = new MyPage(offset,limit);
         List<ArticleDO> articleDOList = articleMapper.getArticles(favoriteBy, author, type, myPage, orderBy, orderType);
+        // 补全用户相关信息
         List<ArticleBO> articleBOList = articleDOList.stream()
                 .map(articleDO -> fillExtraInfo(articleDO, userId))
                 .collect(Collectors.toList());
         Integer integer = articleMapper.selectArticleCount(favoriteBy,author,type);
         ArticleVO articleVO = new ArticleVO(articleBOList,integer);
-        /*多线程问题尚待解决*/
+        // 保证 list和总共数量的原子性 添加synchronized关键字
         return articleVO;
     }
     @Transactional(rollbackFor = {SQLException.class})
@@ -73,9 +79,11 @@ public class ArticleServiceImpl implements ArticleService {
     public Optional<ArticleBO> deleteArticle(Integer articleId, Integer userId) {
         ArticleDO articleDO = articleMapper.selectById(articleId);
         if(Objects.isNull(articleDO)) {
+            log.error("当前要删除的文章不存在，要删除的文章id:"+articleId.toString()+"当前用户为:"+userId.toString());
             throw new BizException(ExceptionStatus.NOT_FOUND);
         }
         if(!Objects.equals(articleDO.getUserId(), userId)) {
+            log.info("无权限操作，要删除的文章id:"+articleId.toString()+"当前用户为:"+userId.toString());
             throw new BizException(ExceptionStatus.FORBIDDEN);
         }
         int i = articleMapper.deleteById(articleId);
@@ -86,6 +94,7 @@ public class ArticleServiceImpl implements ArticleService {
             commentMapper.delete(lqw);
             return Optional.of(articleBO);
         } else {
+            // 手动回滚 保证文章删除和相关评论删除的原子性
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             throw new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR);
 
@@ -95,35 +104,38 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleVO getArticleFuzzy(String title, Integer userId,Integer offset,Integer limit) {
+    public synchronized ArticleVO getArticleFuzzy(String title, Integer userId,Integer offset,Integer limit) {
         MyPage myPage = new MyPage(offset,limit);
         IPage<ArticleDO> page = new Page(myPage.getOffset(),myPage.getLimit());
 
         LambdaQueryWrapper<ArticleDO> lqw = new LambdaQueryWrapper();
         lqw.like(Strings.isNotEmpty(title),ArticleDO::getTitle,title);
-        lqw.ne(ArticleDO::getStatus,2);
+        // LIMIT_LEVEL为屏蔽级别 2级为屏蔽级别不予显示
+        lqw.ne(ArticleDO::getStatus,LIMIT_LEVEL);
         IPage<ArticleDO> pageResult = articleMapper.selectPage(page, lqw);
         List<ArticleDO> articleDOList = pageResult.getRecords();
         List<ArticleBO> articleBOList = articleDOList.stream()
                 .map(articleDO -> fillExtraInfo(articleDO, userId))
                 .collect(Collectors.toList());
         Integer integer = articleMapper.selectCount(lqw);
-        /*多线程问题尚待解决*/
+        // synchronized 保证文章list和总数的原子性
         ArticleVO articleVO = new ArticleVO(articleBOList,integer);
         return articleVO;
     }
     @Transactional(rollbackFor = {SQLException.class})
     @Override
-    public Optional<ArticleBO> favoriteArticle(Integer articleId, Integer userId) {
+    public synchronized Optional<ArticleBO> favoriteArticle(Integer articleId, Integer userId) {
         LambdaQueryWrapper<FavoriteDO> lqw = new LambdaQueryWrapper<>();
         lqw.eq(FavoriteDO::getArticleId,articleId);
         lqw.eq(FavoriteDO::getUserId,userId);
         FavoriteDO favoriteDO = favoriteMapper.selectOne(lqw);
         if(!Objects.isNull(favoriteDO)){
             /*异常处理或者进行判断,*/
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            // 无需回滚
+            // TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             throw new BizException(403,"已经为点赞状态");
         } else{
+            // 保证favorite和article的原子性
             FavoriteDO newFavorite = new FavoriteDO(articleId,userId);
             favoriteMapper.insert(newFavorite);
             ArticleDO articleDO = articleMapper.selectById(articleId);
@@ -138,7 +150,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
     @Transactional(rollbackFor = {SQLException.class})
     @Override
-    public Optional<ArticleBO> unfavoriteArticle(Integer articleId, Integer userId) {
+    public synchronized Optional<ArticleBO> unfavoriteArticle(Integer articleId, Integer userId) {
         LambdaQueryWrapper<FavoriteDO> lqw = new LambdaQueryWrapper<>();
         lqw.eq(FavoriteDO::getArticleId,articleId);
         lqw.eq(FavoriteDO::getUserId,userId);

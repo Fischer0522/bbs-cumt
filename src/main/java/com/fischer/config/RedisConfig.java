@@ -63,22 +63,6 @@ public class RedisConfig {
      * 可以根据业务情况，配置多个生成策略
      * 如: @Cacheable(value = "key", keyGenerator = "cacheKeyGenerator")
      */
-    @Bean
-    public KeyGenerator keyGenerator() {
-        /**
-         * target: 类
-         * method: 方法
-         * params: 方法参数
-         */
-        return (target, method, params) -> {
-            //获取代理对象的最终目标对象
-            StringBuilder sb = new StringBuilder();
-            sb.append(target.getClass().getSimpleName()).append(":");
-            //调用SimpleKey的key生成器
-            Object key = SimpleKeyGenerator.generateKey(params);
-            return sb.append(key);
-        };
-    }
 
 
     /**

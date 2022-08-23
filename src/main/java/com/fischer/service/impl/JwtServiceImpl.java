@@ -9,6 +9,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +22,7 @@ import java.util.Optional;
 /**
  * @author fisher
  */
+@Slf4j
 @Service
 public class JwtServiceImpl implements JwtService {
 
@@ -43,9 +45,10 @@ public class JwtServiceImpl implements JwtService {
             String sub = claimsJws.getBody().getSubject();
 
             if(Strings.isEmpty(sub)) {
-
+                log.error("token解析失败");
                 return Optional.empty();
         } else {
+                log.info("从token中解析出用户id");
                 return Optional.of(Integer.parseInt(sub));
             }
 
@@ -58,6 +61,7 @@ public class JwtServiceImpl implements JwtService {
                 .orElseThrow(() -> new BizException(ExceptionStatus.UNAUTHORIZED));
         UserDO userDO = userMapper.selectById(id);
         if(Objects.isNull(userDO)) {
+            log.error("token解析出的id在数据库中没有对应的用户");
             throw new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR);
             /*伪造token，服务器装死*/
         }
@@ -72,6 +76,9 @@ public class JwtServiceImpl implements JwtService {
                 .setExpiration(expireTimeFromNow())
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
+        if (Strings.isNotEmpty(token)) {
+            log.info("token生成成功");
+        }
         return token;
     }
     private Date expireTimeFromNow(){

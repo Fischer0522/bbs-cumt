@@ -2,6 +2,8 @@ package com.fischer.service.impl;
 
 import com.fischer.service.EmailService;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -17,6 +19,7 @@ import java.time.Duration;
  */
 @Service
 @NoArgsConstructor
+@Slf4j
 public class EmailServiceImpl implements EmailService {
     private StringRedisTemplate stringRedisTemplate;
     private JavaMailSenderImpl javaMailSender;
@@ -36,13 +39,14 @@ public class EmailServiceImpl implements EmailService {
     @Transactional(rollbackFor = {Exception.class})
     @Override
     public void send(String email) {
-
+        // 生成验证码 K为邮箱 V为验证码，存入redis
         double random = Math.random();
         int code = (int) (999+random*9000);
         Duration duration = Duration.ofMinutes(5);
         stringRedisTemplate.opsForValue().set(email,code+"");
         stringRedisTemplate.expire(email,duration);
 
+        // 发送邮件
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         javaMailSender.setUsername(username);
         javaMailSender.setPassword(password);
@@ -54,6 +58,7 @@ public class EmailServiceImpl implements EmailService {
         javaMailSender.send(simpleMailMessage);
 
     }
+
 
 
 
