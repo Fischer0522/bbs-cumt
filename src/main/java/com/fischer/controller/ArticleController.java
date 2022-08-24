@@ -28,6 +28,7 @@ import java.util.Stack;
 @RestController
 @RequestMapping("articles")
 @Validated
+@ResponseResult
 public class ArticleController {
     private JwtService jwtService;
     private ArticleService articleService;
@@ -38,7 +39,7 @@ public class ArticleController {
         this.jwtService = jwtService;
     }
 
-    @ResponseResult
+
     @PostMapping
     ResponseEntity<ArticleDO> createArticle(@Valid @RequestBody NewArticleParam articleParam,
                                             @RequestHeader("Authorization") String token) {

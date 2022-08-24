@@ -37,9 +37,9 @@ public class ResultHandler implements ResponseBodyAdvice<Object> {
         ResponseResult annotation = method.getAnnotation(ResponseResult.class);
         if (Objects.isNull(annotation)) {
             if (body instanceof ErrorResult) {
-                if (((ErrorResult) body).getCode() == 500) {
+                /*if (((ErrorResult) body).getCode() == 500) {
                     return new ResponseEntity<ErrorResult>((ErrorResult) body, HttpStatus.INTERNAL_SERVER_ERROR);
-                }
+                }*/
                 return body;
             }
            return CommonResult.success(body);

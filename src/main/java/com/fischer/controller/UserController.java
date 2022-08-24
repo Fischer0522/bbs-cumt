@@ -113,11 +113,11 @@ public class UserController {
         return ResponseEntity.ok(userDO);
 
     }
-
+    //@ResponseResult
     @GetMapping("email")
     ResponseEntity<Object> getVerifyCode(@RequestParam("email") String email) {
         emailService.send(email);
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(email);
     }
 
     @ResponseResult
