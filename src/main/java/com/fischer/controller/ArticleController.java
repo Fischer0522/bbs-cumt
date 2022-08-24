@@ -41,7 +41,7 @@ public class ArticleController {
 
 
     @PostMapping
-    ResponseEntity<ArticleDO> createArticle(@Valid @RequestBody NewArticleParam articleParam,
+    ResponseEntity<ArticleDO> createArticle( @Valid @RequestBody NewArticleParam articleParam,
                                             @RequestHeader("Authorization") String token) {
 
 

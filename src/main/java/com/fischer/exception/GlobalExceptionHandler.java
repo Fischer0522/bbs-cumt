@@ -51,6 +51,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorResult validExceptionHandler(MethodArgumentNotValidException e) {
+        e.printStackTrace();
 
         List<ObjectError> allErrors = e.getBindingResult().getAllErrors();
         String totalMessage = "";

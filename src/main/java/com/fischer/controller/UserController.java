@@ -29,9 +29,9 @@ import java.util.Optional;
  * @author fisher
  */
 @RestController
+@Validated
 @RequestMapping("users")
 @ResponseResult
-@Validated
 @Slf4j
 public class UserController {
     private UserService userService;
@@ -51,8 +51,8 @@ public class UserController {
     }
 
     @Transactional(rollbackFor = {SQLException.class, LoginException.class},noRollbackFor = BizException.class)
-    @PostMapping(path = "login")
-    ResponseEntity<UserVO> loginUser(@Valid @RequestBody LoginParam loginParam){
+    @PostMapping( "login")
+    ResponseEntity<UserVO> loginUser( @Valid @RequestBody LoginParam loginParam){
         /*需要回滚的异常需要在核对*/
 
         String email = loginParam.getEmail();
@@ -117,7 +117,7 @@ public class UserController {
     @GetMapping("email")
     ResponseEntity<Object> getVerifyCode(@RequestParam("email") String email) {
         emailService.send(email);
-        return ResponseEntity.ok(email);
+        return ResponseEntity.ok(1);
     }
 
     @ResponseResult

@@ -36,10 +36,6 @@ public class InterceptorConfig implements WebMvcConfigurer {
     }
 
 
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(0, new MappingJackson2HttpMessageConverter());
-    }
 
     @Bean
     public ResultInterceptor resultInterceptor() {
