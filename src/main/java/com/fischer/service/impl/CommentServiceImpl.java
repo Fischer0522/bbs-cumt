@@ -39,6 +39,11 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Optional<CommentBO> createComment(Integer articleId, String body, Integer userId) {
+        ArticleDO articleDO = articleMapper.selectById(articleId);
+        if(Objects.isNull(articleDO)) {
+            log.warn("用户:"+userId.toString()+"添加评论失败");
+            throw new BizException(404,"当前要评论的文章已不存在");
+        }
         CommentDO commentDO = new CommentDO(body,articleId,userId);
         int insert = commentMapper.insert(commentDO);
         if(insert > 0) {
