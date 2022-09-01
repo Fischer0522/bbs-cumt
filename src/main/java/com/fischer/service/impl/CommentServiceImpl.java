@@ -44,6 +44,12 @@ public class CommentServiceImpl implements CommentService {
             log.warn("用户:"+userId.toString()+"添加评论失败");
             throw new BizException(404,"当前要评论的文章已不存在");
         }
+
+        // 添加评论后更新文章的热度
+        Integer currentHeat = articleDO.getHeat();
+        Integer newHeat = currentHeat + 1;
+        articleDO.setHeat(newHeat);
+        articleMapper.updateById(articleDO);
         CommentDO commentDO = new CommentDO(body,articleId,userId);
         int insert = commentMapper.insert(commentDO);
         if(insert > 0) {
@@ -62,6 +68,7 @@ public class CommentServiceImpl implements CommentService {
     public Optional<CommentBO> deleteComment(Integer commentId, Integer userId) {
         CommentDO commentDO = commentMapper.selectById(commentId);
         ArticleDO articleDO = articleMapper.selectById(commentDO.getArticleId());
+
         if (Objects.isNull(articleDO)) {
             log.error("当前评论无对应的文章,评论id:"+commentId);
             throw new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR);
@@ -69,10 +76,10 @@ public class CommentServiceImpl implements CommentService {
         if (userId.equals(commentDO.getUserId())||userId.equals(articleDO.getUserId())) {
             commentMapper.deleteById(commentId);
             CommentBO commentBO = fillExtraInfo(commentDO);
-            log.info("删除评论成功,用户id:"+userId.toString(),"评论id:"+commentId.toString());
+            log.info("删除评论成功,用户id:"+ userId,"评论id:"+commentId.toString());
             return Optional.of(commentBO);
         } else {
-            log.warn("无权限删除评论,用户id"+userId.toString()+"评论id"+commentId.toString());
+            log.warn("无权限删除评论,用户id"+ userId +"评论id"+commentId.toString());
             throw new BizException(ExceptionStatus.FORBIDDEN);
 
         }

@@ -57,12 +57,28 @@ public class ArticleController {
     }
     @DeleteMapping("{articleId}")
     ResponseEntity<ArticleBO> deleteArticle(@PathVariable(value = "articleId") Integer articleId,
-                                            @Nullable @RequestHeader(value = "Authorization") String token) {
+                                            @RequestHeader(value = "Authorization") String token) {
         UserDO user = jwtService.getUser(token);
         Integer userId = user.getId();
         ArticleBO articleBO = articleService.deleteArticle(articleId, userId)
                 .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
         return ResponseEntity.ok(articleBO);
+    }
+
+    @GetMapping("{articleId}")
+    ResponseEntity<ArticleBO> getArticle(@PathVariable(value = "articleId") Integer articleId,
+                                         @Nullable @RequestHeader(value = "Authorization") String token) {
+        Integer userId = null;
+        if (Strings.isNotEmpty(token)) {
+            UserDO user = jwtService.getUser(token);
+            userId = user.getId();
+        } else {
+            log.info("用户匿名访问"+getClass().getName()+":"+"getArticle");
+        }
+        ArticleBO articleBO = articleService.getArticleById(articleId, userId)
+                .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
+        return ResponseEntity.ok(articleBO);
+
     }
 
     @GetMapping("exact")

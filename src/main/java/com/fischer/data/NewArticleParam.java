@@ -1,6 +1,7 @@
 package com.fischer.data;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fischer.constraintValidator.DuplicatedArticleConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ import javax.validation.constraints.NotNull;
 @Validated
 public class NewArticleParam {
     @NotBlank(message = "文章标题不能为空")
+    @DuplicatedArticleConstraint
     private String title;
     @Length(max = 200,message = "描述最多200字")
     private String description;

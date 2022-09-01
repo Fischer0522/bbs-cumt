@@ -44,6 +44,8 @@ public interface ArticleService {
                            Integer orderType,
                            Integer userId);
 
+     Optional<ArticleBO> getArticleById(Integer articleId,Integer userId);
+
      /** 删除文章，鉴权
       * @param articleId 要删除的文章Id
       * @param userId 当前操作的用户

@@ -62,6 +62,22 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public Optional<ArticleBO> getArticleById(Integer articleId, Integer userId) {
+
+        // 查询出文章和文章作者的详情
+        ArticleDO articleDO = articleMapper.selectById(articleId);
+
+        if(Objects.isNull(articleDO)) {
+            log.error("获取文章详情时未获取到对应的文章id");
+            throw new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR);
+        }
+        // 补充匿名访问和点赞的相关信息
+        ArticleBO articleBO = fillExtraInfo(articleDO, userId);
+        return Optional.of(articleBO);
+
+    }
+
+    @Override
     public synchronized ArticleVO getArticles(Integer favoriteBy, Integer author, Integer type, Integer offset, Integer limit, Integer orderBy, Integer orderType, Integer userId) {
         MyPage myPage = new MyPage(offset,limit);
         List<ArticleDO> articleDOList = articleMapper.getArticles(favoriteBy, author, type, myPage, orderBy, orderType);
@@ -136,6 +152,7 @@ public class ArticleServiceImpl implements ArticleService {
             throw new BizException(403,"已经为点赞状态");
         } else{
             // 保证favorite和article的原子性
+            // 点赞后更新热度
             FavoriteDO newFavorite = new FavoriteDO(articleId,userId);
             favoriteMapper.insert(newFavorite);
             ArticleDO articleDO = articleMapper.selectById(articleId);
@@ -182,11 +199,15 @@ public class ArticleServiceImpl implements ArticleService {
         }
     }
 
-
+    /**
+     * @param articleDO 查询出的文章;
+     * @param userId 当前正在操作的用户，可能为空，代表匿名访问
+    * */
     ArticleBO fillExtraInfo(ArticleDO articleDO, Integer userId) {
 
         UserDO userDO = userMapper.selectById(articleDO.getUserId());
         Boolean isFavorited = false;
+        // 判断是否为匿名访问
         if(!Objects.isNull(userId)){
             isFavorited = isFavorite(articleDO.getId(),userId);
         }

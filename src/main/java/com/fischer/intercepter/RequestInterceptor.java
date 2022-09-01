@@ -35,15 +35,16 @@ public class RequestInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        System.out.println(request.getRequestURI());
         String token = request.getHeader("Authorization");
         if (Strings.isEmpty(token)) {
-            throw new BizException(ExceptionStatus.UNAUTHORIZED);
+            throw new BizException(401,"未经授权的操作，请登录后重新进行操作");
         }
         UserDO user = jwtService.getUser(token);
         log.info("获取到当前的用户，用户名为："+user.getUsername()+"用户id为"+user.getId());
         Integer userId = user.getId();
-        redisService.getKey(userId).orElseThrow(()->new BizException(ExceptionStatus.UNAUTHORIZED));
+        redisService.getKey(userId).orElseThrow(()->new BizException(401,"当前用户已经退出，请重新登录"));
         return true;
     }
 }
