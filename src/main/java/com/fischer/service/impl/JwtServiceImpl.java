@@ -48,7 +48,7 @@ public class JwtServiceImpl implements JwtService {
                 log.error("token解析失败");
                 return Optional.empty();
         } else {
-                log.info("从token中解析出用户id");
+                log.info("从token中解析出用户id"+sub);
                 return Optional.of(Integer.parseInt(sub));
             }
 

@@ -22,7 +22,7 @@ public class TestJwtService {
 
     @Test
     void testGetUser(){
-        String token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjQyIiwiZXhwIjoxNjU3ODk4NjA5fQ.IEWqhKXPpJphFaUDytAaBdbdZE4tqMUXLLP02SPKzX0";
+        String token = null;
         UserDO user = jwtService.getUser(token);
         System.out.println(user);
 

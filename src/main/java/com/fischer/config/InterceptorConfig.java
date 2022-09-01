@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
-    @Override
+    /*@Override
     public void addCorsMappings(CorsRegistry registry) {
         //添加映射路径
         registry.addMapping("/**")
@@ -27,13 +27,14 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 //设置放行哪些原始域   SpringBoot2.4.4下低版本使用.allowedOrigins("*")
                 .allowedOrigins("*")
                 //放行哪些请求方式
-                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedMethods("GET", "POST", "PUT", "DELETE","OPTIONS")
                 //.allowedMethods("*") //或者放行全部
                 //放行哪些原始请求头部信息
                 .allowedHeaders("*")
                 //暴露哪些原始请求头部信息
-                .exposedHeaders("*");
-    }
+                .exposedHeaders("*")
+                .maxAge(3600);
+    }*/
 
 
 
@@ -71,8 +72,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/users/{id}")
                 .excludePathPatterns("/articles/exact")
                 .excludePathPatterns("/articles/fuzzy")
-                .excludePathPatterns("/comments/{articleId}")
-                .excludePathPatterns("/error");
+                .excludePathPatterns("/comments/{articleId}");
 
         registry.addInterceptor(resultInterceptor())
                 .addPathPatterns("/**");

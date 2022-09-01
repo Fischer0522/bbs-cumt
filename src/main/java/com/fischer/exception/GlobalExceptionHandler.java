@@ -45,7 +45,7 @@ public class GlobalExceptionHandler {
     public ErrorResult unKnowExceptionHandler(Exception e) {
         log.error("发生未知异常，详情："+e.getMessage());
         e.printStackTrace();
-        return new ErrorResult(500,"发生未知异常，请联系管理员");
+        return new ErrorResult(500,"发生未知异常，请联系管理员,具体原因为:"+e.getMessage());
     }
 
 

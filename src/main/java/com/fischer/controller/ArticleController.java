@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import reactor.util.annotation.Nullable;
 
 import javax.validation.Valid;
 import java.util.Stack;
@@ -56,7 +57,7 @@ public class ArticleController {
     }
     @DeleteMapping("{articleId}")
     ResponseEntity<ArticleBO> deleteArticle(@PathVariable(value = "articleId") Integer articleId,
-                                            @RequestHeader(value = "Authorization") String token) {
+                                            @Nullable @RequestHeader(value = "Authorization") String token) {
         UserDO user = jwtService.getUser(token);
         Integer userId = user.getId();
         ArticleBO articleBO = articleService.deleteArticle(articleId, userId)
@@ -72,7 +73,7 @@ public class ArticleController {
                                           @RequestParam(value = "limit",defaultValue = "20")Integer limit,
                                           @RequestParam(value = "orderBy",defaultValue = "0") Integer orderBy,
                                           @RequestParam (value = "orderType",defaultValue = "1")Integer orderType,
-                                          @RequestHeader("Authorization") String token) {
+                                          @Nullable @RequestHeader("Authorization") String token) {
 
         Integer userId = null;
         if(Strings.isNotEmpty(token)) {
