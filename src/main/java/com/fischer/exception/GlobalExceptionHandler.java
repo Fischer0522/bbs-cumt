@@ -7,11 +7,15 @@ import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 import static io.lettuce.core.pubsub.PubSubOutput.Type.message;
@@ -62,6 +66,21 @@ public class GlobalExceptionHandler {
         log.error("表单校验未通过，原因为："+message);
         return new ErrorResult(400,totalMessage);
 
+    }
+
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ErrorResult updateViolation(HttpServletRequest req, ConstraintViolationException e){
+        String temp=e.getMessage();
+        String sub=null;
+        for(int i=0;i<temp.length()-1;i++){
+
+            String su=temp.substring(i,i+1);
+            if(su.equals(":")){
+                sub=temp.substring(i+2);
+            }
+        }
+        return new ErrorResult(400,sub);
     }
 
     @ExceptionHandler(LoginException.class)

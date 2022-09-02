@@ -2,11 +2,14 @@ package com.fischer.service;
 
 import com.fischer.data.UpdateUserCommand;
 import com.fischer.pojo.UserDO;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 /**@author fischer
  */
+@Validated
 public interface UserService {
     /** 按邮箱创建用户
      * @param email 提交邮箱，无密码登录
@@ -35,6 +38,6 @@ public interface UserService {
     /** 更新用户基本信息
      * @param updateUserCommand 要更新的目标用户和更新表单，用于进行校验
      * @return 返回更新后的用户信息*/
-    Optional<UserDO> updateUser(UpdateUserCommand updateUserCommand);
+    Optional<UserDO> updateUser(@Valid UpdateUserCommand updateUserCommand);
 
 }

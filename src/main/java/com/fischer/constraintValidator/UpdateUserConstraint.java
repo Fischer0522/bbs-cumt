@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 @Constraint(validatedBy = UpdateUserValidator.class)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UpdateUserConstraint {
-    String message() default "该用户名已被人使用";
+    String message() default "该用户名已被人使用,换一个吧~";
 
     Class[] groups() default {};
 

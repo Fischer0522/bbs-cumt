@@ -24,12 +24,8 @@ public class UpdateUserValidator implements ConstraintValidator<UpdateUserConstr
         if (Objects.isNull(userDO)||targetUser.equals(userDO)) {
             isUsernameValid = true;
         }
-
-        if (isUsernameValid) {
-            return true;
-        } else {
-            return false;
-        }
+        
+        return isUsernameValid;
 
 
     }

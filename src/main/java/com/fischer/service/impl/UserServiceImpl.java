@@ -20,7 +20,9 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +33,7 @@ import java.util.Optional;
  */
 @Slf4j
 @Service
-
+@Validated
 public class UserServiceImpl implements UserService {
 
     private  String CACHE_KEY = "com.fischer.userInfo";
@@ -106,7 +108,7 @@ public class UserServiceImpl implements UserService {
 
     @CachePut(cacheNames = "user",key = "'com.fischer.userInfo:'+ #updateUserCommand.targetUser.id")
     @Override
-    public Optional<UserDO> updateUser(UpdateUserCommand updateUserCommand) {
+    public Optional<UserDO> updateUser(@Valid UpdateUserCommand updateUserCommand) {
         UserDO userDO = updateUserCommand.getTargetUser();
         String username = updateUserCommand.getUpdateUserParam().getUsername();
         String image = updateUserCommand.getUpdateUserParam().getImage();
