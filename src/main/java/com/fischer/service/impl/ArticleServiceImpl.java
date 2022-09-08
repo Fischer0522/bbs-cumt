@@ -69,7 +69,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         if(Objects.isNull(articleDO)) {
             log.error("获取文章详情时未获取到对应的文章id");
-            throw new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR);
+            throw new BizException(404,"当前要获取的文章不存在或已被删除");
         }
         // 补充匿名访问和点赞的相关信息
         ArticleBO articleBO = fillExtraInfo(articleDO, userId);
@@ -105,9 +105,13 @@ public class ArticleServiceImpl implements ArticleService {
         int i = articleMapper.deleteById(articleId);
         if(i > 0){
             ArticleBO articleBO = fillExtraInfo(articleDO, userId);
-            LambdaQueryWrapper<CommentDO> lqw = new LambdaQueryWrapper<>();
-            lqw.eq(CommentDO::getArticleId,articleId);
-            commentMapper.delete(lqw);
+            LambdaQueryWrapper<CommentDO> lqwComment = new LambdaQueryWrapper<>();
+            lqwComment.eq(CommentDO::getArticleId,articleId);
+            commentMapper.delete(lqwComment);
+            // 清除 该文章的点赞信息
+            LambdaQueryWrapper<FavoriteDO> lqwFavorite = new LambdaQueryWrapper<>();
+            lqwFavorite.eq(FavoriteDO::getArticleId,articleId);
+            favoriteMapper.delete(lqwFavorite);
             return Optional.of(articleBO);
         } else {
             // 手动回滚 保证文章删除和相关评论删除的原子性
@@ -211,7 +215,11 @@ public class ArticleServiceImpl implements ArticleService {
         if(!Objects.isNull(userId)){
             isFavorited = isFavorite(articleDO.getId(),userId);
         }
-        ArticleBO articleBO = new ArticleBO(articleDO,userDO,isFavorited);
+
+        LambdaQueryWrapper<FavoriteDO> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(FavoriteDO::getArticleId,articleDO.getId());
+        Integer favoriteCount = favoriteMapper.selectCount(lqw);
+        ArticleBO articleBO = new ArticleBO(articleDO,userDO,isFavorited,favoriteCount);
         return articleBO;
     }
 
