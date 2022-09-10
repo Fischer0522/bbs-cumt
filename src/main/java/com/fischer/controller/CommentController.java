@@ -61,4 +61,29 @@ public class CommentController {
 
 
     }
+
+
+    @PostMapping("{commentId}/favorite")
+    ResponseEntity<CommentBO> favoriteComment(@PathVariable(value = "commentId") Integer commentId,
+                                              @RequestHeader("Authorization") String token) {
+
+        UserDO user = jwtService.getUser(token);
+        Integer userId = user.getId();
+        CommentBO commentBO = commentService.favoriteComment(commentId, userId)
+                .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
+        return ResponseEntity.ok(commentBO);
+
+    }
+
+    @DeleteMapping("{commentId}/favorite")
+    ResponseEntity<CommentBO> unfavoriteCount(@PathVariable(value = "commentId") Integer commentId,
+                                              @RequestHeader("Authorization") String token){
+        UserDO user = jwtService.getUser(token);
+        Integer userId = user.getId();
+        CommentBO commentBO = commentService.unfavoriteComment(commentId, userId)
+                .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
+        return ResponseEntity.ok(commentBO);
+    }
+
+
 }

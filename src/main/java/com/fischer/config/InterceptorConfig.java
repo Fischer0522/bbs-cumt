@@ -57,13 +57,6 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
 
 
-        registry.addInterceptor(restrainInterceptor())
-                    .addPathPatterns("/articles/**")
-                    .addPathPatterns("/comments/**")
-                    .excludePathPatterns("/articles/exact")
-                    .excludePathPatterns("/articles/fuzzy")
-                    .excludePathPatterns("/comments/{articleId}")
-                    .excludePathPatterns("/articles/{articleId}");
 
 
         registry.addInterceptor(requestInterceptor())
@@ -74,7 +67,18 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/articles/exact")
                 .excludePathPatterns("/articles/fuzzy")
                 .excludePathPatterns("/comments/{articleId}")
+                .excludePathPatterns("/articles/{articleId}")
+                .excludePathPatterns("/error");
+
+
+        registry.addInterceptor(restrainInterceptor())
+                .addPathPatterns("/articles/**")
+                .addPathPatterns("/comments/**")
+                .excludePathPatterns("/articles/exact")
+                .excludePathPatterns("/articles/fuzzy")
+                .excludePathPatterns("/comments/{articleId}")
                 .excludePathPatterns("/articles/{articleId}");
+
 
         registry.addInterceptor(resultInterceptor())
                 .addPathPatterns("/**");

@@ -182,6 +182,7 @@ public class ArticleServiceImpl implements ArticleService {
             throw new BizException(403,"已经为取消点赞状态");
         } else{
             favoriteMapper.delete(lqw);
+            // 降低热度
             ArticleDO articleDO = articleMapper.selectById(articleId);
             ArticleBO articleBO = fillExtraInfo(articleDO, userId);
             articleDO.setHeat(articleDO.getHeat()-1);

@@ -2,6 +2,7 @@ package com.fischer.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.fischer.mapper.ArticleMapper;
+import com.fischer.mapper.CommentFavoriteMapper;
 import com.fischer.mapper.CommentMapper;
 import com.fischer.mapper.UserMapper;
 import com.fischer.pojo.*;
@@ -27,14 +28,17 @@ public class CommentServiceImpl implements CommentService {
     private CommentMapper commentMapper;
     private UserMapper userMapper;
     private ArticleMapper articleMapper;
+    private CommentFavoriteMapper commentFavoriteMapper;
 
     @Autowired
     public CommentServiceImpl(CommentMapper commentMapper,
                               UserMapper userMapper,
-                              ArticleMapper articleMapper){
+                              ArticleMapper articleMapper,
+                              CommentFavoriteMapper commentFavoriteMapper){
         this.articleMapper = articleMapper;
         this.userMapper = userMapper;
         this.commentMapper = commentMapper;
+        this.commentFavoriteMapper = commentFavoriteMapper;
     }
 
     @Override
@@ -87,6 +91,45 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public Optional<CommentBO> favoriteComment(Integer commentId, Integer userId) {
+
+        LambdaQueryWrapper<CommentFavoriteDO> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(CommentFavoriteDO::getCommentId,commentId);
+        lqw.eq(CommentFavoriteDO::getUserId,userId);
+        CommentFavoriteDO commentFavoriteDO = commentFavoriteMapper.selectOne(lqw);
+        if (!Objects.isNull(commentFavoriteDO)) {
+            throw new BizException(403,"已经为点赞状态");
+        } else {
+            CommentFavoriteDO newFavorite = new CommentFavoriteDO(commentId,userId);
+            int insert = commentFavoriteMapper.insert(newFavorite);
+            if (insert <=0) {
+                throw new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR);
+            }
+            CommentDO commentDO = commentMapper.selectById(commentId);
+            CommentBO commentBO = fillExtraInfo(commentDO);
+            return Optional.of(commentBO);
+
+        }
+    }
+
+    @Override
+    public Optional<CommentBO> unfavoriteComment(Integer commentId, Integer userId) {
+        LambdaQueryWrapper<CommentFavoriteDO> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(CommentFavoriteDO::getCommentId,commentId);
+        lqw.eq(CommentFavoriteDO::getUserId,userId);
+        CommentFavoriteDO commentFavoriteDO = commentFavoriteMapper.selectOne(lqw);
+        if (Objects.isNull(commentFavoriteDO)) {
+            throw new BizException(403,"已经为取消点赞的状态");
+        } else {
+            commentFavoriteMapper.delete(lqw);
+        }
+
+        CommentDO commentDO = commentMapper.selectById(commentId);
+        CommentBO commentBO = fillExtraInfo(commentDO);
+        return Optional.of(commentBO);
+    }
+
+    @Override
     public synchronized CommentVO getComments(Integer articleId, Integer offset, Integer limit, Integer orderType) {
         MyPage myPage = new MyPage(offset,limit);
         List<CommentDO> comments = commentMapper.getComments(orderType, articleId, myPage);
@@ -106,8 +149,10 @@ public class CommentServiceImpl implements CommentService {
     CommentBO fillExtraInfo(CommentDO commentDO) {
         Integer userId = commentDO.getUserId();
         UserDO userDO = userMapper.selectById(userId);
-        CommentBO commentBO = new CommentBO(commentDO,userDO);
-        return commentBO;
+        LambdaQueryWrapper<CommentFavoriteDO> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(CommentFavoriteDO::getCommentId,commentDO.getId());
+        Integer favoriteCount = commentFavoriteMapper.selectCount(lqw);
+        return new CommentBO(commentDO,userDO,favoriteCount);
     }
 
 }

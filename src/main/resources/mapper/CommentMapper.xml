@@ -31,7 +31,7 @@
     </select>
     <resultMap id="commentResultMap" type="com.fischer.pojo.CommentDO">
         <result property="id" column="id"/>
-        <result property="body" column="id"/>
+        <result property="body" column="body"/>
         <result property="createdAt" column="created_at"/>
         <result property="userId" column="user_id"/>
         <result property="articleId" column="article_id"/>

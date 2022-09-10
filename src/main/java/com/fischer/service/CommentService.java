@@ -23,6 +23,11 @@ public interface CommentService {
      * @param userId 当前用户
      * @return Optional+BO*/
     Optional<CommentBO> deleteComment(Integer commentId, Integer userId);
+
+
+    Optional<CommentBO> favoriteComment(Integer commentId,Integer userId);
+
+    Optional<CommentBO> unfavoriteComment(Integer commentId,Integer userId);
     /** 分页查询当前文章的评论
      * @param articleId 要查询的文章
      * @param offset 分页偏移量
@@ -30,6 +35,9 @@ public interface CommentService {
      * @param orderType 排序方式 0为升序 1为降序 按发布时间进行排序
      * @return 返回List+数量*/
     CommentVO getComments(Integer articleId, Integer offset, Integer limit, Integer orderType);
+
+
+
 
 
 
