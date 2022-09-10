@@ -33,6 +33,7 @@ import java.util.Stack;
 public class ArticleController {
     private JwtService jwtService;
     private ArticleService articleService;
+    private final String AUTHORIZATION = "Authorization";
     @Autowired
     ArticleController (JwtService jwtService,
                        ArticleService articleService) {
@@ -43,7 +44,7 @@ public class ArticleController {
 
     @PostMapping
     ResponseEntity<ArticleDO> createArticle( @Valid @RequestBody NewArticleParam articleParam,
-                                            @RequestHeader("Authorization") String token) {
+                                            @RequestHeader(AUTHORIZATION) String token) {
 
 
         UserDO user = jwtService.getUser(token);
@@ -57,7 +58,7 @@ public class ArticleController {
     }
     @DeleteMapping("{articleId}")
     ResponseEntity<ArticleBO> deleteArticle(@PathVariable(value = "articleId") Integer articleId,
-                                            @RequestHeader(value = "Authorization") String token) {
+                                            @RequestHeader(value = AUTHORIZATION) String token) {
         UserDO user = jwtService.getUser(token);
         Integer userId = user.getId();
         ArticleBO articleBO = articleService.deleteArticle(articleId, userId)
@@ -67,7 +68,7 @@ public class ArticleController {
 
     @GetMapping("{articleId}")
     ResponseEntity<ArticleBO> getArticle(@PathVariable(value = "articleId") Integer articleId,
-                                         @Nullable @RequestHeader(value = "Authorization") String token) {
+                                         @Nullable @RequestHeader(value = AUTHORIZATION) String token) {
         Integer userId = null;
         if (Strings.isNotEmpty(token)) {
             UserDO user = jwtService.getUser(token);
@@ -89,7 +90,7 @@ public class ArticleController {
                                           @RequestParam(value = "limit",defaultValue = "20")Integer limit,
                                           @RequestParam(value = "orderBy",defaultValue = "0") Integer orderBy,
                                           @RequestParam (value = "orderType",defaultValue = "1")Integer orderType,
-                                          @Nullable @RequestHeader("Authorization") String token) {
+                                          @Nullable @RequestHeader(AUTHORIZATION) String token) {
 
         Integer userId = null;
         if(Strings.isNotEmpty(token)) {
@@ -105,7 +106,7 @@ public class ArticleController {
 
     @GetMapping("fuzzy")
     ResponseEntity<ArticleVO> getArticlesFuzzy(@RequestParam(value = "keyword" ) String keyword,
-                                               @RequestHeader("Authorization") String token,
+                                               @RequestHeader(AUTHORIZATION) String token,
                                                @RequestParam(value = "offset",defaultValue = "0") Integer offset,
                                                @RequestParam(value = "limit",defaultValue = "20") Integer limit) {
         Integer userId = null;
@@ -124,7 +125,7 @@ public class ArticleController {
 
     @PostMapping("{articleId}/favorite")
     ResponseEntity<ArticleBO> favoriteArticle(@PathVariable("articleId") Integer articleId,
-                                              @RequestHeader("Authorization") String token) {
+                                              @RequestHeader(AUTHORIZATION) String token) {
         UserDO user = jwtService.getUser(token);
         Integer userId = user.getId();
         ArticleBO articleBO = articleService.favoriteArticle(articleId, userId)
@@ -135,7 +136,7 @@ public class ArticleController {
 
     @DeleteMapping("{articleId}/unfavorite")
     ResponseEntity<ArticleBO> unfavoriteArticle(@PathVariable("articleId") Integer articleId,
-                                                @RequestHeader("Authorization") String token) {
+                                                @RequestHeader(AUTHORIZATION) String token) {
         UserDO user = jwtService.getUser(token);
         Integer userId = user.getId();
         ArticleBO articleBO = articleService.unfavoriteArticle(articleId, userId)

@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**@author fisher
  */
 @RestController
@@ -20,6 +22,7 @@ public class CommentController {
 
     private CommentService commentService;
     private JwtService jwtService;
+    private final String AUTHORIZATION = "Authorization";
     @Autowired
     public CommentController(CommentService commentService,
                              JwtService jwtService) {
@@ -39,8 +42,8 @@ public class CommentController {
     }
 
     @PostMapping
-    ResponseEntity<CommentBO> createComment(@RequestBody CommentParam commentParam,
-                                            @RequestHeader(value = "Authorization") String token) {
+    ResponseEntity<CommentBO> createComment( @Valid @RequestBody CommentParam commentParam,
+                                            @RequestHeader(value = AUTHORIZATION) String token) {
         UserDO user = jwtService.getUser(token);
         Integer userId = user.getId();
         CommentBO commentBO = commentService
@@ -52,7 +55,7 @@ public class CommentController {
 
     @DeleteMapping({"{commentId}"})
     ResponseEntity<CommentBO> deleteComment(@PathVariable(value = "commentId") Integer commentId,
-                                            @RequestHeader(value = "Authorization") String token) {
+                                            @RequestHeader(value = AUTHORIZATION) String token) {
         UserDO user = jwtService.getUser(token);
         Integer userId = user.getId();
         CommentBO commentBO = commentService.deleteComment(commentId, userId)
@@ -65,7 +68,7 @@ public class CommentController {
 
     @PostMapping("{commentId}/favorite")
     ResponseEntity<CommentBO> favoriteComment(@PathVariable(value = "commentId") Integer commentId,
-                                              @RequestHeader("Authorization") String token) {
+                                              @RequestHeader(AUTHORIZATION) String token) {
 
         UserDO user = jwtService.getUser(token);
         Integer userId = user.getId();
@@ -77,7 +80,7 @@ public class CommentController {
 
     @DeleteMapping("{commentId}/favorite")
     ResponseEntity<CommentBO> unfavoriteCount(@PathVariable(value = "commentId") Integer commentId,
-                                              @RequestHeader("Authorization") String token){
+                                              @RequestHeader(AUTHORIZATION) String token){
         UserDO user = jwtService.getUser(token);
         Integer userId = user.getId();
         CommentBO commentBO = commentService.unfavoriteComment(commentId, userId)
