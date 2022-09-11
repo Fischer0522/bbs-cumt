@@ -106,7 +106,7 @@ public class ArticleController {
 
     @GetMapping("fuzzy")
     ResponseEntity<ArticleVO> getArticlesFuzzy(@RequestParam(value = "keyword" ) String keyword,
-                                               @RequestHeader(AUTHORIZATION) String token,
+                                               @Nullable @RequestHeader(AUTHORIZATION) String token,
                                                @RequestParam(value = "offset",defaultValue = "0") Integer offset,
                                                @RequestParam(value = "limit",defaultValue = "20") Integer limit) {
         Integer userId = null;

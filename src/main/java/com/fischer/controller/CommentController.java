@@ -7,14 +7,18 @@ import com.fischer.pojo.*;
 import com.fischer.result.ResponseResult;
 import com.fischer.service.CommentService;
 import com.fischer.service.JwtService;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.util.annotation.Nullable;
 
 import javax.validation.Valid;
 
 /**@author fisher
  */
+@Slf4j
 @RestController
 @RequestMapping("comments")
 @ResponseResult
@@ -34,9 +38,17 @@ public class CommentController {
     ResponseEntity<CommentVO> getComments(@PathVariable(value = "articleId") Integer articleId,
                                           @RequestParam(value = "offset",defaultValue = "0") Integer offset,
                                           @RequestParam(value = "limit",defaultValue = "20") Integer limit,
-                                          @RequestParam(value = "orderType",defaultValue = "1")Integer orderType) {
+                                          @RequestParam(value = "orderType",defaultValue = "1")Integer orderType,
+                                          @Nullable @RequestHeader(value =  AUTHORIZATION) String token) {
 
-        CommentVO comments = commentService.getComments(articleId, offset, limit, orderType);
+        Integer userId = null;
+        if(Strings.isNotEmpty(token)) {
+            UserDO user = jwtService.getUser(token);
+            userId = user.getId();
+        } else {
+            log.info("用户匿名访问"+getClass().getName()+":"+"getComments");
+        }
+        CommentVO comments = commentService.getComments(articleId, offset, limit, orderType,userId);
         return ResponseEntity.ok(comments);
 
     }
@@ -55,7 +67,7 @@ public class CommentController {
 
     @DeleteMapping({"{commentId}"})
     ResponseEntity<CommentBO> deleteComment(@PathVariable(value = "commentId") Integer commentId,
-                                            @RequestHeader(value = AUTHORIZATION) String token) {
+                                             @RequestHeader(value = AUTHORIZATION) String token) {
         UserDO user = jwtService.getUser(token);
         Integer userId = user.getId();
         CommentBO commentBO = commentService.deleteComment(commentId, userId)

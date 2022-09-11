@@ -57,7 +57,7 @@ public class CommentServiceImpl implements CommentService {
         CommentDO commentDO = new CommentDO(body,articleId,userId);
         int insert = commentMapper.insert(commentDO);
         if(insert > 0) {
-            CommentBO commentBO = fillExtraInfo(commentDO);
+            CommentBO commentBO = fillExtraInfo(commentDO,userId);
             log.info("用户:"+userId.toString()+"添加了评论");
             return Optional.of(commentBO);
 
@@ -79,7 +79,7 @@ public class CommentServiceImpl implements CommentService {
         }
         if (userId.equals(commentDO.getUserId())||userId.equals(articleDO.getUserId())) {
             commentMapper.deleteById(commentId);
-            CommentBO commentBO = fillExtraInfo(commentDO);
+            CommentBO commentBO = fillExtraInfo(commentDO,userId);
             log.info("删除评论成功,用户id:"+ userId,"评论id:"+commentId.toString());
             return Optional.of(commentBO);
         } else {
@@ -106,7 +106,7 @@ public class CommentServiceImpl implements CommentService {
                 throw new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR);
             }
             CommentDO commentDO = commentMapper.selectById(commentId);
-            CommentBO commentBO = fillExtraInfo(commentDO);
+            CommentBO commentBO = fillExtraInfo(commentDO,userId);
             return Optional.of(commentBO);
 
         }
@@ -125,16 +125,16 @@ public class CommentServiceImpl implements CommentService {
         }
 
         CommentDO commentDO = commentMapper.selectById(commentId);
-        CommentBO commentBO = fillExtraInfo(commentDO);
+        CommentBO commentBO = fillExtraInfo(commentDO,userId);
         return Optional.of(commentBO);
     }
 
     @Override
-    public synchronized CommentVO getComments(Integer articleId, Integer offset, Integer limit, Integer orderType) {
+    public synchronized CommentVO getComments(Integer articleId, Integer offset, Integer limit, Integer orderType,Integer userId) {
         MyPage myPage = new MyPage(offset,limit);
         List<CommentDO> comments = commentMapper.getComments(orderType, articleId, myPage);
         List<CommentBO> commentBOList = comments.stream()
-                .map(this::fillExtraInfo)
+                .map(s->fillExtraInfo(s,userId))
                 .collect(Collectors.toList());
         LambdaQueryWrapper<CommentDO> lqw = new LambdaQueryWrapper<>();
         lqw.eq(CommentDO::getArticleId,articleId);
@@ -146,13 +146,30 @@ public class CommentServiceImpl implements CommentService {
     }
 
 
-    CommentBO fillExtraInfo(CommentDO commentDO) {
-        Integer userId = commentDO.getUserId();
+    CommentBO fillExtraInfo(CommentDO commentDO,Integer userId) {
+        Integer commentId = commentDO.getId();
         UserDO userDO = userMapper.selectById(userId);
+        // 查询点赞数
         LambdaQueryWrapper<CommentFavoriteDO> lqw = new LambdaQueryWrapper<>();
         lqw.eq(CommentFavoriteDO::getCommentId,commentDO.getId());
         Integer favoriteCount = commentFavoriteMapper.selectCount(lqw);
-        return new CommentBO(commentDO,userDO,favoriteCount);
+
+        // 确认点赞关系
+        Boolean favorite = true;
+        if (Objects.isNull(userId)) {
+            favorite = false;
+        } else {
+            LambdaQueryWrapper<CommentFavoriteDO> favoriteLQW = new LambdaQueryWrapper<>();
+            favoriteLQW.eq(CommentFavoriteDO::getCommentId,commentId);
+            favoriteLQW.eq(CommentFavoriteDO::getUserId,userId);
+            CommentFavoriteDO commentFavoriteDO = commentFavoriteMapper.selectOne(favoriteLQW);
+            if (Objects.isNull(commentFavoriteDO)) {
+                favorite = false;
+            }
+
+        }
+
+        return new CommentBO(commentDO,userDO,favoriteCount,favorite);
     }
 
 }

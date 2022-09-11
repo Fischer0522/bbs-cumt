@@ -34,7 +34,7 @@ public interface CommentService {
      * @param limit 查询条数
      * @param orderType 排序方式 0为升序 1为降序 按发布时间进行排序
      * @return 返回List+数量*/
-    CommentVO getComments(Integer articleId, Integer offset, Integer limit, Integer orderType);
+    CommentVO getComments(Integer articleId, Integer offset, Integer limit, Integer orderType,Integer userId);
 
 
 
