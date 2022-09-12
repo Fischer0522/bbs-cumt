@@ -1,6 +1,7 @@
 package com.fischer.controller;
 
 
+import com.fischer.result.CommonResult;
 import com.fischer.result.ResponseResult;
 import com.fischer.exception.BizException;
 import com.fischer.exception.ExceptionStatus;
@@ -65,7 +66,6 @@ public class ArticleController {
                 .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
         return ResponseEntity.ok(articleBO);
     }
-
     @GetMapping("{articleId}")
     ResponseEntity<ArticleBO> getArticle(@PathVariable(value = "articleId") Integer articleId,
                                          @Nullable @RequestHeader(value = AUTHORIZATION) String token) {

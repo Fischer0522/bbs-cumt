@@ -27,12 +27,15 @@ public class ArticleDO implements Serializable {
     private Integer status;
     private Integer heat;
     private Integer userId;
+    private String image;
 
-    public ArticleDO(String title, String body, String description, Integer type, Integer userId) {
+
+    public ArticleDO(String title, String body, String description, Integer type, Integer userId,String image) {
         this.title = title;
         this.body = body;
         this.description = description;
         this.type = type;
         this.userId = userId;
+        this.image =image;
     }
 }

@@ -3,10 +3,7 @@ package com.fischer.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.fischer.mapper.ArticleMapper;
-import com.fischer.mapper.CommentMapper;
-import com.fischer.mapper.FavoriteMapper;
-import com.fischer.mapper.UserMapper;
+import com.fischer.mapper.*;
 import com.fischer.pojo.*;
 import com.fischer.service.ArticleService;
 import com.fischer.exception.BizException;
@@ -35,21 +32,25 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleMapper articleMapper;
     private FavoriteMapper favoriteMapper;
     private CommentMapper commentMapper;
+    private BackgroundImageMapper backgroundImageMapper;
     private final Integer LIMIT_LEVEL = 2;
     @Autowired
     ArticleServiceImpl (UserMapper userMapper,
                         ArticleMapper articleMapper,
                         FavoriteMapper favoriteMapper,
-                        CommentMapper commentMapper){
+                        CommentMapper commentMapper,
+                        BackgroundImageMapper backgroundImageMapper){
         this.articleMapper = articleMapper;
         this.userMapper = userMapper;
         this.favoriteMapper = favoriteMapper;
         this.commentMapper = commentMapper;
+        this.backgroundImageMapper = backgroundImageMapper;
     }
 
     @Override
     public Optional<ArticleDO> createArticle(String title, String description, String body, Integer type, Integer userId) {
-        ArticleDO articleDO = new ArticleDO(title,body,description,type,userId);
+        String image = getRandomImage();
+        ArticleDO articleDO = new ArticleDO(title,body,description,type,userId,image);
         int insert = articleMapper.insert(articleDO);
         if(insert > 0) {
             log.info("创建文章成功，用户id为："+userId.toString());
@@ -222,6 +223,18 @@ public class ArticleServiceImpl implements ArticleService {
         Integer favoriteCount = favoriteMapper.selectCount(lqw);
         ArticleBO articleBO = new ArticleBO(articleDO,userDO,isFavorited,favoriteCount);
         return articleBO;
+    }
+
+    String getRandomImage() {
+
+        double random = Math.random();
+        Integer size = backgroundImageMapper.selectCount(null);
+        int rand = (int) (1+random*size);
+        LambdaQueryWrapper<BackgroundImageDo> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(BackgroundImageDo::getId,rand);
+        BackgroundImageDo backgroundImageDo = backgroundImageMapper.selectOne(lqw);
+        return backgroundImageDo.getLocation();
+
     }
 
 }

@@ -22,6 +22,7 @@ import javax.validation.constraints.NotNull;
 public class NewArticleParam {
     @NotBlank(message = "文章标题不能为空")
     @DuplicatedArticleConstraint
+    @Length(max = 20, message = "文章标题最多20字")
     private String title;
     @Length(max = 200,message = "描述最多200字")
     private String description;

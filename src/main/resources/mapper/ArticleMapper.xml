@@ -3,7 +3,7 @@
 <mapper namespace="com.fischer.mapper.ArticleMapper">
     <sql id="selectResult">
         select
-               A.id,A.title,A.body,A.description,A.user_id,A.created_at,A.heat,A.type,A.status
+               A.id,A.title,A.body,A.description,A.user_id,A.created_at,A.heat,A.type,A.status,A.image
         from articles A
             left join favorite f on A.id = f.article_id
             left join users u on A.user_id = u.id
@@ -82,6 +82,7 @@
         <result property="userId" column="user_id"/>
         <result property="type" column="type"/>
         <result property="heat" column="heat"/>
+        <result property="image" column="image"/>
     </resultMap>
 
 
