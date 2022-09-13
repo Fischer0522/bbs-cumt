@@ -86,6 +86,7 @@ public class ArticleServiceImpl implements ArticleService {
                 .map(articleDO -> fillExtraInfo(articleDO, userId))
                 .collect(Collectors.toList());
         Integer integer = articleMapper.selectArticleCount(favoriteBy,author,type);
+
         ArticleVO articleVO = new ArticleVO(articleBOList,integer);
         // 保证 list和总共数量的原子性 添加synchronized关键字
         return articleVO;
@@ -206,12 +207,16 @@ public class ArticleServiceImpl implements ArticleService {
     ArticleBO fillExtraInfo(ArticleDO articleDO, Integer userId) {
 
         UserDO userDO = userMapper.selectById(articleDO.getUserId());
+        //获取文章总点赞数量
+        LambdaQueryWrapper<FavoriteDO> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(FavoriteDO::getArticleId,articleDO.getId());
+        Integer favoriteCount = favoriteMapper.selectCount(lqw);
         Boolean isFavorited = false;
         // 判断是否为匿名访问
         if(!Objects.isNull(userId)){
             isFavorited = isFavorite(articleDO.getId(),userId);
         }
-        ArticleBO articleBO = new ArticleBO(articleDO,userDO,isFavorited);
+        ArticleBO articleBO = new ArticleBO(articleDO,userDO,isFavorited,favoriteCount);
         return articleBO;
     }
 
