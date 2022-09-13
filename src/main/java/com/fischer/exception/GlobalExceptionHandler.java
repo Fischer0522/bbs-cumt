@@ -14,6 +14,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
@@ -100,5 +101,13 @@ public class GlobalExceptionHandler {
         log.warn("当前身份验证已经过期，请重新登录");
         e.printStackTrace();
         return new ErrorResult(500,"当前身份验证已经过期，请重新登录");
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ErrorResult sizeLimit(HttpServletRequest req,MaxUploadSizeExceededException e){
+        log.error(e.getMessage());
+        ErrorResult resultType=new ErrorResult(HttpStatus.BAD_REQUEST.value(), "上传的文件超出限制，请上传3m以下的文件");
+        e.printStackTrace();
+        return resultType;
     }
 }
