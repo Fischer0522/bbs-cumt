@@ -148,7 +148,7 @@ public class CommentServiceImpl implements CommentService {
 
     CommentBO fillExtraInfo(CommentDO commentDO,Integer userId) {
         Integer commentId = commentDO.getId();
-        UserDO userDO = userMapper.selectById(userId);
+        UserDO userDO = userMapper.selectById(commentDO.getUserId());
         // 查询点赞数
         LambdaQueryWrapper<CommentFavoriteDO> lqw = new LambdaQueryWrapper<>();
         lqw.eq(CommentFavoriteDO::getCommentId,commentDO.getId());
