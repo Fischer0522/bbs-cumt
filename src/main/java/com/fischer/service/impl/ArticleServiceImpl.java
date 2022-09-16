@@ -107,6 +107,7 @@ public class ArticleServiceImpl implements ArticleService {
         int i = articleMapper.deleteById(articleId);
         if(i > 0){
             ArticleBO articleBO = fillExtraInfo(articleDO, userId);
+            // 清除该文章的相关评论
             LambdaQueryWrapper<CommentDO> lqwComment = new LambdaQueryWrapper<>();
             lqwComment.eq(CommentDO::getArticleId,articleId);
             commentMapper.delete(lqwComment);

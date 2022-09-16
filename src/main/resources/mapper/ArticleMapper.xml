@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.fischer.mapper.ArticleMapper">
     <sql id="selectResult">
-        select
-               A.id,A.title,A.body,A.description,A.user_id,A.created_at,A.heat,A.type,A.status,A.image
+        select distinct
+             A.id,A.title,A.body,A.description,A.user_id,A.created_at,A.heat,A.type,A.status,A.image
         from articles A
             left join favorite f on A.id = f.article_id
             left join users u on A.user_id = u.id
@@ -85,5 +85,6 @@
         <result property="image" column="image"/>
     </resultMap>
 
+    
 
 </mapper>

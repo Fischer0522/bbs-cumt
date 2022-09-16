@@ -13,7 +13,9 @@ import com.fischer.exception.ExceptionStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -70,6 +72,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @Transactional(rollbackFor = {SQLException.class})
     public Optional<CommentBO> deleteComment(Integer commentId, Integer userId) {
         CommentDO commentDO = commentMapper.selectById(commentId);
         ArticleDO articleDO = articleMapper.selectById(commentDO.getArticleId());
@@ -79,10 +82,20 @@ public class CommentServiceImpl implements CommentService {
             throw new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR);
         }
         if (userId.equals(commentDO.getUserId())||userId.equals(articleDO.getUserId())) {
-            commentMapper.deleteById(commentId);
-            CommentBO commentBO = fillExtraInfo(commentDO,userId);
-            log.info("删除评论成功,用户id:"+ userId,"评论id:"+commentId.toString());
-            return Optional.of(commentBO);
+            int i = commentMapper.deleteById(commentId);
+            if (i > 0) {
+                CommentBO commentBO = fillExtraInfo(commentDO,userId);
+                log.info("删除评论成功,用户id:"+ userId,"评论id:"+commentId.toString());
+                // 清除 被删除评论的favorite信息
+                LambdaQueryWrapper<CommentFavoriteDO> favoriteDOLambdaQueryWrapper = new LambdaQueryWrapper<>();
+                favoriteDOLambdaQueryWrapper.eq(CommentFavoriteDO::getCommentId,commentId);
+                commentFavoriteMapper.delete(favoriteDOLambdaQueryWrapper);
+
+                return Optional.of(commentBO);
+            } else {
+                throw new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR);
+            }
+
         } else {
             log.warn("无权限删除评论,用户id"+ userId +"评论id"+commentId.toString());
             throw new BizException(ExceptionStatus.FORBIDDEN);
