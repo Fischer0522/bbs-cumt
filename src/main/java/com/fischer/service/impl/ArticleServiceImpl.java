@@ -3,6 +3,7 @@ package com.fischer.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.fischer.data.MyPage;
 import com.fischer.mapper.*;
 import com.fischer.pojo.*;
 import com.fischer.service.ArticleService;

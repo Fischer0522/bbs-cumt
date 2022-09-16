@@ -2,7 +2,7 @@ package com.fischer.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.fischer.pojo.CommentDO;
-import com.fischer.pojo.MyPage;
+import com.fischer.data.MyPage;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
