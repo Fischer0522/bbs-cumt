@@ -1,6 +1,7 @@
 package com.fischer.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.dev33.satoken.annotation.SaCheckRole;
 import cn.dev33.satoken.stp.StpUtil;
 import com.fischer.data.CommentParam;
 import com.fischer.exception.BizException;
@@ -24,16 +25,15 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("api/comments")
 @ResponseResult
+@SaCheckRole("common-user")
 public class CommentController {
 
     private CommentService commentService;
-    private JwtService jwtService;
-    private final String AUTHORIZATION = "Authorization";
+
     @Autowired
-    public CommentController(CommentService commentService,
-                             JwtService jwtService) {
+    public CommentController(CommentService commentService) {
         this.commentService = commentService;
-        this.jwtService = jwtService;
+
     }
 
     @GetMapping("{articleId}")

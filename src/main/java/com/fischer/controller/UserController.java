@@ -1,20 +1,20 @@
 package com.fischer.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.dev33.satoken.annotation.SaCheckRole;
 import cn.dev33.satoken.stp.StpUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.fischer.data.UpdateUserCommand;
 import com.fischer.data.UpdateUserParam;
 import com.fischer.exception.BizException;
 import com.fischer.exception.ExceptionStatus;
 import com.fischer.data.LoginParam;
 import com.fischer.exception.LoginException;
+import com.fischer.pojo.RoleDO;
 import com.fischer.pojo.UserDO;
 import com.fischer.pojo.UserVO;
 import com.fischer.result.ResponseResult;
-import com.fischer.service.EmailService;
-import com.fischer.service.JwtService;
-import com.fischer.service.RedisService;
-import com.fischer.service.UserService;
+import com.fischer.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.jdbc.SQL;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author fisher
@@ -35,22 +37,22 @@ import java.util.Optional;
 @RequestMapping("api/users")
 @ResponseResult
 @Slf4j
+@SaCheckRole("common-user")
 public class UserController {
     private UserService userService;
     private RedisService redisService;
-    private JwtService jwtService;
     private EmailService emailService;
-    private final String authorization = "Authorization";
+    private RoleService roleService;
 
     @Autowired
     UserController (UserService userService,
                     RedisService redisService,
-                    JwtService jwtService,
-                    EmailService emailService){
+                    EmailService emailService,
+                    RoleService roleService){
         this.userService = userService;
         this.redisService = redisService;
         this.emailService = emailService;
-        this.jwtService = jwtService;
+        this.roleService = roleService;
     }
 
     @Transactional(rollbackFor = {SQLException.class, LoginException.class},noRollbackFor = BizException.class)
@@ -81,7 +83,12 @@ public class UserController {
                 // 使用Sa Token进行登录
                 StpUtil.login(id);
                 String tokenValue = StpUtil.getTokenValue();
-                UserVO userVO = new UserVO(userDO,tokenValue);
+                // 封装权限
+                LambdaQueryWrapper<RoleDO> lqw = new LambdaQueryWrapper<>();
+                lqw.eq(RoleDO::getUserId,id);
+                List<String> roles = roleService.list(lqw).stream()
+                        .map(s -> s.getRole()).collect(Collectors.toList());
+                UserVO userVO = new UserVO(userDO,roles);
                 return ResponseEntity.ok(userVO);
             } catch (Exception e) {
                 // 事务回滚只能回滚掉数据库中信创建的内容，但是redis签发的token无法处理，需重新定义异常进行处理
@@ -116,10 +123,15 @@ public class UserController {
     }
 
     @GetMapping("{id}")
-    ResponseEntity<UserDO>getCurrentUser(@PathVariable("id") Long id) {
+    ResponseEntity<UserVO>getCurrentUser(@PathVariable("id") Long id) {
         UserDO userDO = userService.getUserById(id)
                 .orElseThrow(() -> new BizException(ExceptionStatus.NOT_FOUND));
-        return ResponseEntity.ok(userDO);
+        LambdaQueryWrapper<RoleDO> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(RoleDO::getUserId,userDO.getId());
+        List<String> roles = roleService.list(lqw).stream()
+                .map(s -> s.getRole()).collect(Collectors.toList());
+        UserVO userVO = new UserVO(userDO,roles);
+        return ResponseEntity.ok(userVO);
 
     }
     //@ResponseResult

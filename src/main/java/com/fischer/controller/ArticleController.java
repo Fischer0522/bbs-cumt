@@ -2,6 +2,7 @@ package com.fischer.controller;
 
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.dev33.satoken.annotation.SaCheckRole;
 import cn.dev33.satoken.stp.StpUtil;
 import com.fischer.result.CommonResult;
 import com.fischer.result.ResponseResult;
@@ -34,22 +35,18 @@ import java.util.Stack;
 @RequestMapping("api/articles")
 @Validated
 @ResponseResult
+@SaCheckRole("common-user")
 public class ArticleController {
-    private JwtService jwtService;
     private ArticleService articleService;
-    private final String AUTHORIZATION = "Authorization";
     @Autowired
-    ArticleController (JwtService jwtService,
-                       ArticleService articleService) {
+    ArticleController (ArticleService articleService) {
         this.articleService = articleService;
-        this.jwtService = jwtService;
+
     }
 
     @SaCheckLogin
     @PostMapping
     ResponseEntity<ArticleDO> createArticle( @Valid @RequestBody NewArticleParam articleParam) {
-
-
 
         Long userId = StpUtil.getLoginIdAsLong();
         ArticleDO articleDO = articleService.createArticle(articleParam.getTitle(),
@@ -95,7 +92,6 @@ public class ArticleController {
                                           @RequestParam (value = "orderType",defaultValue = "1")Integer orderType) {
 
         Long userId = null;
-
         if (StpUtil.isLogin()) {
             userId = StpUtil.getLoginIdAsLong();
 

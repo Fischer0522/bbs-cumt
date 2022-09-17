@@ -1,6 +1,8 @@
 package com.fischer.exception;
 
 
+import cn.dev33.satoken.exception.NotLoginException;
+import cn.dev33.satoken.exception.NotRoleException;
 import com.fischer.result.ErrorResult;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
@@ -109,5 +111,26 @@ public class GlobalExceptionHandler {
         ErrorResult resultType=new ErrorResult(HttpStatus.BAD_REQUEST.value(), "上传的文件超出限制，请上传3m以下的文件");
         e.printStackTrace();
         return resultType;
+    }
+
+    @ExceptionHandler(NotRoleException.class)
+    public ErrorResult notRoleHandler(NotRoleException e) {
+
+        String loginType = e.getLoginType();
+        log.warn("当前角色无此权限,loginType为"+loginType);
+        ErrorResult result = new ErrorResult(401,"您无权限这么做");
+        e.printStackTrace();
+        return result;
+    }
+
+
+    @ExceptionHandler(NotLoginException.class)
+    public ErrorResult notLoginHandler(NotLoginException e) {
+        String loginType = e.getLoginType();
+        log.warn("当前操作无此权限,loginType为"+loginType);
+        ErrorResult errorResult = new ErrorResult(403,"未登录，请先登录");
+        e.printStackTrace();
+        return errorResult;
+
     }
 }

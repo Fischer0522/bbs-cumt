@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 
 /**
  * @author fischer
@@ -18,13 +20,13 @@ public class UserVO {
     private String username;
     private String email;
     private String image;
-    private String token;
+    private List<String> roles;
 
-    public UserVO(UserDO userDO,String token) {
+    public UserVO(UserDO userDO, List<String> roles) {
         this.id = userDO.getId().toString();
         this.email = userDO.getEmail();
         this.image = userDO.getImage();
         this.username = userDO.getUsername();
-        this.token = token;
+        this.roles = roles;
     }
 }

@@ -2,14 +2,13 @@ package com.fischer.controller;
 
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.dev33.satoken.annotation.SaCheckRole;
 import com.fischer.exception.BizException;
 import com.fischer.pojo.FileBO;
-import com.fischer.result.CommonResult;
 import com.fischer.result.ResponseResult;
 import com.fischer.service.COSFileService;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
-import java.util.HashSet;
+
 import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -28,6 +27,7 @@ import java.util.stream.Collectors;
 @RestController
 @ConfigurationProperties(prefix = "spring.tengxun")
 @Setter
+@SaCheckRole("common-user")
 public class COSFileController {
 
     @Autowired
