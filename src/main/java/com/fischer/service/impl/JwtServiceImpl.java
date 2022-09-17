@@ -39,7 +39,7 @@ public class JwtServiceImpl implements JwtService {
         this.sessionTime = sessionTime;
     }
     @Override
-    public Optional<Integer> getSubFromToken(String token) {
+    public Optional<Long> getSubFromToken(String token) {
 
             Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
             String sub = claimsJws.getBody().getSubject();
@@ -49,7 +49,7 @@ public class JwtServiceImpl implements JwtService {
                 return Optional.empty();
         } else {
                 log.info("从token中解析出用户id"+sub);
-                return Optional.of(Integer.parseInt(sub));
+                return Optional.of(Long.parseLong(sub));
             }
 
     }
@@ -57,7 +57,7 @@ public class JwtServiceImpl implements JwtService {
     @Override
     public UserDO getUser(String token) {
 
-        Integer id = getSubFromToken(token)
+        Long id = getSubFromToken(token)
                 .orElseThrow(() -> new BizException(ExceptionStatus.UNAUTHORIZED));
         UserDO userDO = userMapper.selectById(id);
         if(Objects.isNull(userDO)) {

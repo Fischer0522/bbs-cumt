@@ -1,6 +1,8 @@
 package com.fischer.controller;
 
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.dev33.satoken.stp.StpUtil;
 import com.fischer.result.CommonResult;
 import com.fischer.result.ResponseResult;
 import com.fischer.exception.BizException;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.util.annotation.Nullable;
 
 import javax.validation.Valid;
+import java.util.Objects;
 import java.util.Stack;
 
 /**
@@ -42,14 +45,13 @@ public class ArticleController {
         this.jwtService = jwtService;
     }
 
-
+    @SaCheckLogin
     @PostMapping
-    ResponseEntity<ArticleDO> createArticle( @Valid @RequestBody NewArticleParam articleParam,
-                                            @RequestHeader(AUTHORIZATION) String token) {
+    ResponseEntity<ArticleDO> createArticle( @Valid @RequestBody NewArticleParam articleParam) {
 
 
-        UserDO user = jwtService.getUser(token);
-        Long userId = user.getId();
+
+        Long userId = StpUtil.getLoginIdAsLong();
         ArticleDO articleDO = articleService.createArticle(articleParam.getTitle(),
                 articleParam.getDescription(),
                 articleParam.getContent(),
@@ -57,22 +59,23 @@ public class ArticleController {
                 userId).orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
         return ResponseEntity.ok(articleDO);
     }
+    @SaCheckLogin
     @DeleteMapping("{articleId}")
-    ResponseEntity<ArticleBO> deleteArticle(@PathVariable(value = "articleId") Long articleId,
-                                            @RequestHeader(value = AUTHORIZATION) String token) {
-        UserDO user = jwtService.getUser(token);
-        Long userId = user.getId();
+    ResponseEntity<ArticleBO> deleteArticle(@PathVariable(value = "articleId") Long articleId) {
+
+        Long userId = StpUtil.getLoginIdAsLong();
         ArticleBO articleBO = articleService.deleteArticle(articleId, userId)
                 .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
         return ResponseEntity.ok(articleBO);
     }
+
     @GetMapping("{articleId}")
-    ResponseEntity<ArticleBO> getArticle(@PathVariable(value = "articleId") Long articleId,
-                                         @Nullable @RequestHeader(value = AUTHORIZATION) String token) {
+    ResponseEntity<ArticleBO> getArticle(@PathVariable(value = "articleId") Long articleId) {
         Long userId = null;
-        if (Strings.isNotEmpty(token)) {
-            UserDO user = jwtService.getUser(token);
-            userId = user.getId();
+
+        if (StpUtil.isLogin()) {
+            userId = StpUtil.getLoginIdAsLong();
+
         } else {
             log.info("用户匿名访问"+getClass().getName()+":"+"getArticle");
         }
@@ -89,15 +92,15 @@ public class ArticleController {
                                           @RequestParam(value = "offset",defaultValue = "0") Integer offset,
                                           @RequestParam(value = "limit",defaultValue = "20")Integer limit,
                                           @RequestParam(value = "orderBy",defaultValue = "0") Integer orderBy,
-                                          @RequestParam (value = "orderType",defaultValue = "1")Integer orderType,
-                                          @Nullable @RequestHeader(AUTHORIZATION) String token) {
+                                          @RequestParam (value = "orderType",defaultValue = "1")Integer orderType) {
 
         Long userId = null;
-        if(Strings.isNotEmpty(token)) {
-            UserDO user = jwtService.getUser(token);
-             userId = user.getId();
+
+        if (StpUtil.isLogin()) {
+            userId = StpUtil.getLoginIdAsLong();
+
         } else {
-            log.info("用户匿名访问"+getClass().getName()+":"+"getArticles");
+            log.info("用户匿名访问"+getClass().getName()+":"+"getArticle");
         }
         ArticleVO articles = articleService.getArticles(favoriteBy, author, type, offset, limit, orderBy, orderType, userId);
         return ResponseEntity.ok(articles);
@@ -106,15 +109,15 @@ public class ArticleController {
 
     @GetMapping("fuzzy")
     ResponseEntity<ArticleVO> getArticlesFuzzy(@RequestParam(value = "keyword" ) String keyword,
-                                               @Nullable @RequestHeader(AUTHORIZATION) String token,
                                                @RequestParam(value = "offset",defaultValue = "0") Integer offset,
                                                @RequestParam(value = "limit",defaultValue = "20") Integer limit) {
         Long userId = null;
-        if(Strings.isNotEmpty(token)) {
-            UserDO user = jwtService.getUser(token);
-            userId = user.getId();
+
+        if (StpUtil.isLogin()) {
+            userId = StpUtil.getLoginIdAsLong();
+
         } else {
-            log.info("用户匿名访问"+getClass().getName()+":"+"getArticleFuzzy");
+            log.info("用户匿名访问"+getClass().getName()+":"+"getArticle");
         }
         ArticleVO articleFuzzy = articleService.getArticleFuzzy(keyword,userId,offset,limit);
         return ResponseEntity.ok(articleFuzzy);
@@ -122,23 +125,20 @@ public class ArticleController {
 
     }
 
-
+    @SaCheckLogin
     @PostMapping("{articleId}/favorite")
-    ResponseEntity<ArticleBO> favoriteArticle(@PathVariable("articleId") Long articleId,
-                                              @RequestHeader(AUTHORIZATION) String token) {
-        UserDO user = jwtService.getUser(token);
-        Long userId = user.getId();
+    ResponseEntity<ArticleBO> favoriteArticle(@PathVariable("articleId") Long articleId) {
+
+        Long userId = StpUtil.getLoginIdAsLong();
         ArticleBO articleBO = articleService.favoriteArticle(articleId, userId)
                 .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
         return ResponseEntity.ok(articleBO);
 
     }
-
+    @SaCheckLogin
     @DeleteMapping("{articleId}/unfavorite")
-    ResponseEntity<ArticleBO> unfavoriteArticle(@PathVariable("articleId") Long articleId,
-                                                @RequestHeader(AUTHORIZATION) String token) {
-        UserDO user = jwtService.getUser(token);
-        Long userId = user.getId();
+    ResponseEntity<ArticleBO> unfavoriteArticle(@PathVariable("articleId") Long articleId) {
+        Long userId = StpUtil.getLoginIdAsLong();
         ArticleBO articleBO = articleService.unfavoriteArticle(articleId, userId)
                 .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
         return ResponseEntity.ok(articleBO);

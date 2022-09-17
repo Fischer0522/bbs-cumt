@@ -59,16 +59,16 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
 
 
-        registry.addInterceptor(requestInterceptor())
-                .addPathPatterns("/**")
-                .excludePathPatterns("/api/users/email")
-                .excludePathPatterns("/api/users/login")
-                .excludePathPatterns("/api/users/{id}")
-                .excludePathPatterns("/api/articles/exact")
-                .excludePathPatterns("/api/articles/fuzzy")
-                .excludePathPatterns("/api/comments/{articleId}")
-                .excludePathPatterns("/api/articles/{articleId}")
-                .excludePathPatterns("/error");
+//        registry.addInterceptor(requestInterceptor())
+//                .addPathPatterns("/**")
+//                .excludePathPatterns("/api/users/email")
+//                .excludePathPatterns("/api/users/login")
+//                .excludePathPatterns("/api/users/{id}")
+//                .excludePathPatterns("/api/articles/exact")
+//                .excludePathPatterns("/api/articles/fuzzy")
+//                .excludePathPatterns("/api/comments/{articleId}")
+//                .excludePathPatterns("/api/articles/{articleId}")
+//                .excludePathPatterns("/error");
 
 
         registry.addInterceptor(restrainInterceptor())

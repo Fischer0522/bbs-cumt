@@ -1,5 +1,7 @@
 package com.fischer.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.dev33.satoken.stp.StpUtil;
 import com.fischer.data.UpdateUserCommand;
 import com.fischer.data.UpdateUserParam;
 import com.fischer.exception.BizException;
@@ -72,9 +74,14 @@ public class UserController {
                 UserDO userDO = userByEmail.orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
 
                 Long id = userDO.getId();
-                String token = jwtService.getToken(userDO);
-                redisService.saveKey(id);
-                UserVO userVO = new UserVO(userDO,token);
+//                String token = jwtService.getToken(userDO);
+//                redisService.saveKey(id);
+                String username = userDO.getUsername();
+                System.out.println("用户"+username+"正在登录");
+                // 使用Sa Token进行登录
+                StpUtil.login(id);
+                String tokenValue = StpUtil.getTokenValue();
+                UserVO userVO = new UserVO(userDO,tokenValue);
                 return ResponseEntity.ok(userVO);
             } catch (Exception e) {
                 // 事务回滚只能回滚掉数据库中信创建的内容，但是redis签发的token无法处理，需重新定义异常进行处理
@@ -95,15 +102,16 @@ public class UserController {
 
 
     }
-
+    @SaCheckLogin
     @DeleteMapping("logout")
-    ResponseEntity<UserVO> logoutUser(@RequestHeader(value = authorization) String token) {
-        UserDO user = jwtService.getUser(token);
+    ResponseEntity<Object> logoutUser() {
+        /*UserDO user = jwtService.getUser(token);
         UserDO userDO = userService.getUserById(user.getId())
                 .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
-        redisService.deleteKey(user.getId());
-        UserVO userVO = new UserVO(userDO,token);
-        return ResponseEntity.ok(userVO);
+        redisService.deleteKey(user.getId());*/
+        StpUtil.logout();
+       // UserVO userVO = new UserVO(userDO,token);
+        return ResponseEntity.ok(1);
 
     }
 
@@ -120,13 +128,14 @@ public class UserController {
         emailService.send(email);
         return ResponseEntity.ok(1);
     }
-
+    @SaCheckLogin
     @ResponseResult
     @PutMapping
-    ResponseEntity<UserDO> updateUser(@Valid @RequestBody UpdateUserParam updateUserParam,
-                                      @RequestHeader(authorization) String token) {
+    ResponseEntity<UserDO> updateUser(@Valid @RequestBody UpdateUserParam updateUserParam) {
 
-        UserDO user = jwtService.getUser(token);
+        Long userId = StpUtil.getLoginIdAsLong();
+        UserDO user = userService.getUserById(userId)
+                .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
         UpdateUserCommand updateUserCommand = new UpdateUserCommand(user,updateUserParam);
         UserDO userDO = userService.updateUser(updateUserCommand)
                 .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));

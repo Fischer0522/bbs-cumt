@@ -168,6 +168,9 @@ public class ArticleServiceImpl implements ArticleService {
             FavoriteDO newFavorite = new FavoriteDO(articleId,userId);
             favoriteMapper.insert(newFavorite);
             ArticleDO articleDO = articleMapper.selectById(articleId);
+            if (Objects.isNull(articleDO)) {
+                throw new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR);
+            }
             articleDO.setHeat(articleDO.getHeat()+1);
 
             articleMapper.updateById(articleDO);
@@ -193,6 +196,9 @@ public class ArticleServiceImpl implements ArticleService {
             // 降低热度
             ArticleDO articleDO = articleMapper.selectById(articleId);
             ArticleBO articleBO = fillExtraInfo(articleDO, userId);
+            if (Objects.isNull(articleDO)) {
+                throw new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR);
+            }
             articleDO.setHeat(articleDO.getHeat()-1);
             articleMapper.updateById(articleDO);
             return Optional.of(articleBO);

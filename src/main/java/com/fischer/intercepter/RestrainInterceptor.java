@@ -1,6 +1,8 @@
 package com.fischer.intercepter;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.fischer.exception.BizException;
+import com.fischer.mapper.UserMapper;
 import com.fischer.pojo.UserDO;
 import com.fischer.service.JwtService;
 import com.fischer.service.RedisService;
@@ -22,19 +24,20 @@ import java.time.Duration;
 @NoArgsConstructor
 public class RestrainInterceptor implements HandlerInterceptor {
 
-    @Autowired
-    private JwtService jwtService;
+
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private UserMapper userMapper;
     private String KEY_HEAD = "queryFrequency:";
     private int MAX_FREQUENCY = 10;
 
 
     @Autowired
-    public RestrainInterceptor(JwtService jwtService,
-                               StringRedisTemplate StringRedisTemplate){
-        this.jwtService = jwtService;
+    public RestrainInterceptor(StringRedisTemplate StringRedisTemplate){
+
         this.stringRedisTemplate = StringRedisTemplate;
+
     }
 
 
@@ -42,8 +45,9 @@ public class RestrainInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        String token = request.getHeader("Authorization");
-        UserDO user = jwtService.getUser(token);
+
+        long loginIdAsLong = StpUtil.getLoginIdAsLong();
+        UserDO user = userMapper.selectById(loginIdAsLong);
         String username = user.getUsername();
         String key = KEY_HEAD+username;
         String frequency = stringRedisTemplate.opsForValue().get(key);

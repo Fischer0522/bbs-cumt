@@ -38,7 +38,7 @@ public class TestJwtService {
     @Test
     void testGetSub(){
         String token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjQyIiwiZXhwIjoxNjU3ODk4NjA5fQ.IEWqhKXPpJphFaUDytAaBdbdZE4tqMUXLLP02SPKzX0";
-        Optional<Integer> subFromToken = jwtService.getSubFromToken(token);
+        Optional<Long> subFromToken = jwtService.getSubFromToken(token);
         System.out.println(subFromToken.get());
     }
 }
