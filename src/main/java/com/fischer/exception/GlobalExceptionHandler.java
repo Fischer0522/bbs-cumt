@@ -1,6 +1,7 @@
 package com.fischer.exception;
 
 
+import cn.dev33.satoken.exception.DisableServiceException;
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.exception.NotRoleException;
 import com.fischer.result.ErrorResult;
@@ -132,5 +133,12 @@ public class GlobalExceptionHandler {
         e.printStackTrace();
         return errorResult;
 
+    }
+    @ExceptionHandler(DisableServiceException.class)
+    public ErrorResult disableHandler(DisableServiceException e) {
+        log.warn("被封禁的id"+e.getLoginId());
+        ErrorResult errorResult = new ErrorResult(401,e.getMessage());
+        e.printStackTrace();
+        return errorResult;
     }
 }

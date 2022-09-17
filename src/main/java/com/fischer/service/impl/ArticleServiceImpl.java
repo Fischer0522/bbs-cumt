@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fischer.data.MyPage;
 import com.fischer.mapper.*;
 import com.fischer.pojo.*;
@@ -29,7 +31,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @Slf4j
-public class ArticleServiceImpl implements ArticleService {
+public class ArticleServiceImpl extends ServiceImpl<ArticleMapper,ArticleDO> implements ArticleService {
     private UserMapper userMapper;
     private ArticleMapper articleMapper;
     private FavoriteMapper favoriteMapper;
@@ -79,6 +81,11 @@ public class ArticleServiceImpl implements ArticleService {
         ArticleBO articleBO = fillExtraInfo(articleDO, userId);
         return Optional.of(articleBO);
 
+    }
+
+    @Override
+    public Optional<ArticleDO> getArticleDOById(Long articleId) {
+        return Optional.of(articleMapper.selectById(articleId));
     }
 
     @Override

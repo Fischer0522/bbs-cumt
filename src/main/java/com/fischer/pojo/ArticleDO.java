@@ -38,4 +38,6 @@ public class ArticleDO implements Serializable {
         this.userId = userId;
         this.image =image;
     }
+
+
 }

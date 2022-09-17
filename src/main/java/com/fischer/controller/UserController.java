@@ -1,7 +1,9 @@
 package com.fischer.controller;
 
+import cn.dev33.satoken.annotation.SaCheckDisable;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckRole;
+import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.fischer.data.UpdateUserCommand;
@@ -57,6 +59,7 @@ public class UserController {
 
     @Transactional(rollbackFor = {SQLException.class, LoginException.class},noRollbackFor = BizException.class)
     @PostMapping( "login")
+    @SaIgnore
     ResponseEntity<UserVO> loginUser( @Valid @RequestBody LoginParam loginParam){
         /*需要回滚的异常需要在核对*/
 
@@ -105,9 +108,6 @@ public class UserController {
         }
 
 
-
-
-
     }
     @SaCheckLogin
     @DeleteMapping("logout")
@@ -121,8 +121,9 @@ public class UserController {
         return ResponseEntity.ok(1);
 
     }
-
+    @SaCheckDisable("read-user")
     @GetMapping("{id}")
+
     ResponseEntity<UserVO>getCurrentUser(@PathVariable("id") Long id) {
         UserDO userDO = userService.getUserById(id)
                 .orElseThrow(() -> new BizException(ExceptionStatus.NOT_FOUND));
@@ -135,7 +136,9 @@ public class UserController {
 
     }
     //@ResponseResult
+    @SaCheckDisable("login")
     @GetMapping("email")
+    @SaIgnore
     ResponseEntity<Object> getVerifyCode(@RequestParam("email") String email) {
         emailService.send(email);
         return ResponseEntity.ok(1);
@@ -143,6 +146,7 @@ public class UserController {
     @SaCheckLogin
     @ResponseResult
     @PutMapping
+    @SaCheckDisable("read-user")
     ResponseEntity<UserDO> updateUser(@Valid @RequestBody UpdateUserParam updateUserParam) {
 
         Long userId = StpUtil.getLoginIdAsLong();

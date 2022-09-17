@@ -1,6 +1,7 @@
 package com.fischer.controller;
 
 
+import cn.dev33.satoken.annotation.SaCheckDisable;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckRole;
 import cn.dev33.satoken.stp.StpUtil;
@@ -46,8 +47,10 @@ public class ArticleController {
 
     @SaCheckLogin
     @PostMapping
+    @SaCheckDisable("article")
     ResponseEntity<ArticleDO> createArticle( @Valid @RequestBody NewArticleParam articleParam) {
-
+        long loginIdAsLong = StpUtil.getLoginIdAsLong();
+        StpUtil.checkDisable(loginIdAsLong, "article");
         Long userId = StpUtil.getLoginIdAsLong();
         ArticleDO articleDO = articleService.createArticle(articleParam.getTitle(),
                 articleParam.getDescription(),
@@ -65,7 +68,7 @@ public class ArticleController {
                 .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
         return ResponseEntity.ok(articleBO);
     }
-
+    @SaCheckDisable("read-article")
     @GetMapping("{articleId}")
     ResponseEntity<ArticleBO> getArticle(@PathVariable(value = "articleId") Long articleId) {
         Long userId = null;
@@ -81,7 +84,7 @@ public class ArticleController {
         return ResponseEntity.ok(articleBO);
 
     }
-
+    @SaCheckDisable("read-article")
     @GetMapping("exact")
     ResponseEntity<ArticleVO> getArticles(@RequestParam(value = "favoriteBy",required = false) Long favoriteBy,
                                           @RequestParam(value = "author",required = false) Long author,
@@ -102,7 +105,7 @@ public class ArticleController {
         return ResponseEntity.ok(articles);
 
     }
-
+    @SaCheckDisable("read-article")
     @GetMapping("fuzzy")
     ResponseEntity<ArticleVO> getArticlesFuzzy(@RequestParam(value = "keyword" ) String keyword,
                                                @RequestParam(value = "offset",defaultValue = "0") Integer offset,

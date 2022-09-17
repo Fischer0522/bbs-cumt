@@ -1,5 +1,6 @@
 package com.fischer.controller;
 
+import cn.dev33.satoken.annotation.SaCheckDisable;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckRole;
 import cn.dev33.satoken.stp.StpUtil;
@@ -35,7 +36,7 @@ public class CommentController {
         this.commentService = commentService;
 
     }
-
+    @SaCheckDisable("read-comment")
     @GetMapping("{articleId}")
     ResponseEntity<CommentVO> getComments(@PathVariable(value = "articleId") Long articleId,
                                           @RequestParam(value = "offset",defaultValue = "0") Integer offset,
@@ -54,6 +55,7 @@ public class CommentController {
 
     }
     @SaCheckLogin
+    @SaCheckDisable("comment")
     @PostMapping
     ResponseEntity<CommentBO> createComment( @Valid @RequestBody CommentParam commentParam) {
         Long userId = StpUtil.getLoginIdAsLong();

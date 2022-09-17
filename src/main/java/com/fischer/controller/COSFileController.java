@@ -1,6 +1,7 @@
 package com.fischer.controller;
 
 
+import cn.dev33.satoken.annotation.SaCheckDisable;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckRole;
 import com.fischer.exception.BizException;
@@ -36,6 +37,7 @@ public class COSFileController {
     private String[] fileType;
     private Set<String> allowType;
     @SaCheckLogin
+    @SaCheckDisable("file")
     @PostMapping
     public ResponseEntity<FileBO> uploadFile(MultipartFile file) {
         allowType = Arrays.stream(fileType).collect(Collectors.toSet());

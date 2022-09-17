@@ -1,5 +1,8 @@
 package com.fischer.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.fischer.mapper.ArticleMapper;
 import com.fischer.pojo.ArticleDO;
 import com.fischer.pojo.ArticleBO;
 import com.fischer.pojo.ArticleVO;
@@ -11,7 +14,7 @@ import java.util.Optional;
  * @author fischer
  */
 @Service
-public interface ArticleService {
+public interface ArticleService extends IService<ArticleDO> {
      /**填写文章基本信息，创建文章
       * @param title 文章标题
       * @param description 文章描述
@@ -45,6 +48,9 @@ public interface ArticleService {
                            Long userId);
 
      Optional<ArticleBO> getArticleById(Long articleId,Long userId);
+
+
+     Optional<ArticleDO> getArticleDOById(Long articleId);
 
      /** 删除文章，鉴权
       * @param articleId 要删除的文章Id
