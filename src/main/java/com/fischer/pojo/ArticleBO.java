@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class ArticleBO {
-    private Long id;
+    private String id;
     private String title;
     private String body;
     private String description;
@@ -27,7 +27,7 @@ public class ArticleBO {
     private UserDO userDO;
 
     public ArticleBO(ArticleDO articleDO, UserDO userDO, Boolean favorited,Integer favoriteCount){
-        this.id = articleDO.getId();
+        this.id = articleDO.getId().toString();
         this.title = articleDO.getTitle();
         this.body = articleDO.getBody();
         this.description = articleDO.getDescription();

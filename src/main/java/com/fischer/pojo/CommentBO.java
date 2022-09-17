@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class CommentBO {
-    private Long id;
+    private String id;
     private String body;
     private String createAt;
     private Long articleId;
@@ -21,7 +21,7 @@ public class CommentBO {
 
 
     public CommentBO(CommentDO commentDO, UserDO userDO){
-        this.id = commentDO.getId();
+        this.id = commentDO.getId().toString();
         this.body = commentDO.getBody();
         this.createAt =commentDO.getCreatedAt();
         this.articleId =commentDO.getArticleId();
@@ -29,7 +29,7 @@ public class CommentBO {
     }
 
     public CommentBO(CommentDO commentDO, UserDO userDO,Integer favoriteCount,Boolean favorite){
-        this.id = commentDO.getId();
+        this.id = commentDO.getId().toString();
         this.body = commentDO.getBody();
         this.createAt =commentDO.getCreatedAt();
         this.articleId =commentDO.getArticleId();

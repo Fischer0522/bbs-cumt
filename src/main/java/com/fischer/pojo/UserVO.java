@@ -14,14 +14,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonRootName("user")
 public class UserVO {
-    private Long id;
+    private String id;
     private String username;
     private String email;
     private String image;
     private String token;
 
     public UserVO(UserDO userDO,String token) {
-        this.id = userDO.getId();
+        this.id = userDO.getId().toString();
         this.email = userDO.getEmail();
         this.image = userDO.getImage();
         this.username = userDO.getUsername();
