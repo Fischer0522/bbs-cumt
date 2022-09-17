@@ -17,8 +17,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @TableName("articles")
 public class ArticleDO implements Serializable {
-    @TableId(type = IdType.AUTO)
-    private Integer id;
+    @TableId(type = IdType.ASSIGN_ID)
+    private Long id;
     private String title;
     private String body;
     private String description;
@@ -26,11 +26,11 @@ public class ArticleDO implements Serializable {
     private Integer type;
     private Integer status;
     private Integer heat;
-    private Integer userId;
+    private Long userId;
     private String image;
 
 
-    public ArticleDO(String title, String body, String description, Integer type, Integer userId,String image) {
+    public ArticleDO(String title, String body, String description, Integer type, Long userId,String image) {
         this.title = title;
         this.body = body;
         this.description = description;

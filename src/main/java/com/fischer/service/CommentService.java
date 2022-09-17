@@ -17,24 +17,24 @@ public interface CommentService {
      * @param userId 当前用户
      * @return Optional+BO
      * */
-    Optional<CommentBO> createComment(Integer articleId, String body, Integer userId);
+    Optional<CommentBO> createComment(Long articleId, String body, Long userId);
     /** 删除评论
      * @param commentId 评论Id
      * @param userId 当前用户
      * @return Optional+BO*/
-    Optional<CommentBO> deleteComment(Integer commentId, Integer userId);
+    Optional<CommentBO> deleteComment(Long commentId, Long userId);
 
 
-    Optional<CommentBO> favoriteComment(Integer commentId,Integer userId);
+    Optional<CommentBO> favoriteComment(Long commentId,Long userId);
 
-    Optional<CommentBO> unfavoriteComment(Integer commentId,Integer userId);
+    Optional<CommentBO> unfavoriteComment(Long commentId,Long userId);
     /** 分页查询当前文章的评论
      * @param articleId 要查询的文章
      * @param offset 分页偏移量
      * @param limit 查询条数
      * @param orderType 排序方式 0为升序 1为降序 按发布时间进行排序
      * @return 返回List+数量*/
-    CommentVO getComments(Integer articleId, Integer offset, Integer limit, Integer orderType,Integer userId);
+    CommentVO getComments(Long articleId, Integer offset, Integer limit, Integer orderType,Long userId);
 
 
 

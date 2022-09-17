@@ -26,8 +26,8 @@ public interface ArticleMapper extends BaseMapper<ArticleDO> {
      */
 
     List<ArticleDO> getArticles(
-            @Param("favoriteBy") Integer favoriteBy,
-            @Param("author") Integer author,
+            @Param("favoriteBy") Long favoriteBy,
+            @Param("author") Long author,
             @Param("type") Integer type,
             @Param("page")MyPage myPage,
             @Param("orderBy") Integer orderBy,
@@ -42,7 +42,7 @@ public interface ArticleMapper extends BaseMapper<ArticleDO> {
      * @return 返回查询总数
      */
 
-    Integer selectArticleCount(@Param("favoriteBy") Integer favoriteBy,
-                               @Param("author") Integer author,
+    Integer selectArticleCount(@Param("favoriteBy") Long favoriteBy,
+                               @Param("author") Long author,
                                @Param("type") Integer type);
 }

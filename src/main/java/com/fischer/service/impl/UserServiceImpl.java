@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
 
     @Cacheable(cacheNames = "user",key = "'com.fischer.userInfo:'+ #id")
     @Override
-    public Optional<UserDO> getUserById(Integer id) {
+    public Optional<UserDO> getUserById(Long id) {
         UserDO userDO = userMapper.selectById(id);
         return Optional.ofNullable(userDO);
     }

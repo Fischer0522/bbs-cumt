@@ -61,23 +61,23 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
         registry.addInterceptor(requestInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/users/email")
-                .excludePathPatterns("/users/login")
-                .excludePathPatterns("/users/{id}")
-                .excludePathPatterns("/articles/exact")
-                .excludePathPatterns("/articles/fuzzy")
-                .excludePathPatterns("/comments/{articleId}")
-                .excludePathPatterns("/articles/{articleId}")
+                .excludePathPatterns("/api/users/email")
+                .excludePathPatterns("/api/users/login")
+                .excludePathPatterns("/api/users/{id}")
+                .excludePathPatterns("/api/articles/exact")
+                .excludePathPatterns("/api/articles/fuzzy")
+                .excludePathPatterns("/api/comments/{articleId}")
+                .excludePathPatterns("/api/articles/{articleId}")
                 .excludePathPatterns("/error");
 
 
         registry.addInterceptor(restrainInterceptor())
-                .addPathPatterns("/articles/**")
-                .addPathPatterns("/comments/**")
-                .excludePathPatterns("/articles/exact")
-                .excludePathPatterns("/articles/fuzzy")
-                .excludePathPatterns("/comments/{articleId}")
-                .excludePathPatterns("/articles/{articleId}");
+                .addPathPatterns("/api/articles/**")
+                .addPathPatterns("/api/comments/**")
+                .excludePathPatterns("/api/articles/exact")
+                .excludePathPatterns("/api/articles/fuzzy")
+                .excludePathPatterns("/api/comments/{articleId}")
+                .excludePathPatterns("/api/articles/{articleId}");
 
 
         registry.addInterceptor(resultInterceptor())

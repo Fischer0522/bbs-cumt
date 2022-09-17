@@ -22,7 +22,7 @@ public interface ArticleService {
       *
       **/
 
-     Optional<ArticleDO> createArticle(String title, String description, String body, Integer type, Integer userId);
+     Optional<ArticleDO> createArticle(String title, String description, String body, Integer type, Long userId);
 
      /**按照条件查询相应的文章，相比Dao层添加了当前用户是否已经点赞，以及文章总数
       * @return ArticleVO 用于给前端
@@ -35,23 +35,23 @@ public interface ArticleService {
       * @param orderType 排序顺序，0为升序，1为降序
       * @param userId 当前用户
       * */
-     ArticleVO getArticles(Integer favoriteBy,
-                           Integer author,
+     ArticleVO getArticles(Long favoriteBy,
+                           Long author,
                            Integer type,
                            Integer offset,
                            Integer limit,
                            Integer orderBy,
                            Integer orderType,
-                           Integer userId);
+                           Long userId);
 
-     Optional<ArticleBO> getArticleById(Integer articleId,Integer userId);
+     Optional<ArticleBO> getArticleById(Long articleId,Long userId);
 
      /** 删除文章，鉴权
       * @param articleId 要删除的文章Id
       * @param userId 当前操作的用户
       * @return Optional类型BO
       */
-     Optional<ArticleBO> deleteArticle(Integer articleId, Integer userId);
+     Optional<ArticleBO> deleteArticle(Long articleId, Long userId);
 
      /** 模糊查询文章标题
       * @param title 用于模糊查询文章标题
@@ -59,7 +59,7 @@ public interface ArticleService {
       * @return 返回VO
       */
 
-     ArticleVO getArticleFuzzy(String title, Integer userId,Integer offset,Integer limit);
+     ArticleVO getArticleFuzzy(String title, Long userId,Integer offset,Integer limit);
 
      /** 点赞文章，不可重复点赞
       * @param articleId 要点赞的文章Id
@@ -67,14 +67,14 @@ public interface ArticleService {
       * @return Optional+BO
       * */
 
-     Optional<ArticleBO> favoriteArticle(Integer articleId, Integer userId);
+     Optional<ArticleBO> favoriteArticle(Long articleId, Long userId);
 
      /** 取消点赞
       * @param articleId 取消点赞的文章
       * @param userId 当前用户
       * @return Optional+BO
       */
-     Optional<ArticleBO> unfavoriteArticle(Integer articleId, Integer userId);
+     Optional<ArticleBO> unfavoriteArticle(Long articleId, Long userId);
 
 
 

@@ -23,7 +23,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @ResponseResult
-@RequestMapping("file")
+@RequestMapping("api/file")
 @RestController
 @ConfigurationProperties(prefix = "spring.tengxun")
 @Setter

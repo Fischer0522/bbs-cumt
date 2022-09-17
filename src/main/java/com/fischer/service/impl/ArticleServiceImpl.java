@@ -2,6 +2,7 @@ package com.fischer.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fischer.data.MyPage;
 import com.fischer.mapper.*;
@@ -49,8 +50,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Optional<ArticleDO> createArticle(String title, String description, String body, Integer type, Integer userId) {
+    public Optional<ArticleDO> createArticle(String title, String description, String body, Integer type, Long userId) {
         String image = getRandomImage();
+
         ArticleDO articleDO = new ArticleDO(title,body,description,type,userId,image);
         int insert = articleMapper.insert(articleDO);
         if(insert > 0) {
@@ -64,7 +66,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Optional<ArticleBO> getArticleById(Integer articleId, Integer userId) {
+    public Optional<ArticleBO> getArticleById(Long articleId, Long userId) {
 
         // 查询出文章和文章作者的详情
         ArticleDO articleDO = articleMapper.selectById(articleId);
@@ -80,7 +82,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public synchronized ArticleVO getArticles(Integer favoriteBy, Integer author, Integer type, Integer offset, Integer limit, Integer orderBy, Integer orderType, Integer userId) {
+    public synchronized ArticleVO getArticles(Long favoriteBy, Long author, Integer type, Integer offset, Integer limit, Integer orderBy, Integer orderType, Long userId) {
         MyPage myPage = new MyPage(offset,limit);
         List<ArticleDO> articleDOList = articleMapper.getArticles(favoriteBy, author, type, myPage, orderBy, orderType);
         // 补全用户相关信息
@@ -94,7 +96,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
     @Transactional(rollbackFor = {SQLException.class})
     @Override
-    public Optional<ArticleBO> deleteArticle(Integer articleId, Integer userId) {
+    public Optional<ArticleBO> deleteArticle(Long articleId, Long userId) {
         ArticleDO articleDO = articleMapper.selectById(articleId);
         if(Objects.isNull(articleDO)) {
             log.error("当前要删除的文章不存在，要删除的文章id:"+articleId.toString()+"当前用户为:"+userId.toString());
@@ -127,7 +129,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public synchronized ArticleVO getArticleFuzzy(String title, Integer userId,Integer offset,Integer limit) {
+    public synchronized ArticleVO getArticleFuzzy(String title, Long userId,Integer offset,Integer limit) {
         MyPage myPage = new MyPage(offset,limit);
         IPage<ArticleDO> page = new Page(myPage.getOffset(),myPage.getLimit());
 
@@ -145,9 +147,12 @@ public class ArticleServiceImpl implements ArticleService {
         ArticleVO articleVO = new ArticleVO(articleBOList,integer);
         return articleVO;
     }
+
+
+
     @Transactional(rollbackFor = {SQLException.class})
     @Override
-    public synchronized Optional<ArticleBO> favoriteArticle(Integer articleId, Integer userId) {
+    public synchronized Optional<ArticleBO> favoriteArticle(Long articleId, Long userId) {
         LambdaQueryWrapper<FavoriteDO> lqw = new LambdaQueryWrapper<>();
         lqw.eq(FavoriteDO::getArticleId,articleId);
         lqw.eq(FavoriteDO::getUserId,userId);
@@ -174,7 +179,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
     @Transactional(rollbackFor = {SQLException.class})
     @Override
-    public synchronized Optional<ArticleBO> unfavoriteArticle(Integer articleId, Integer userId) {
+    public synchronized Optional<ArticleBO> unfavoriteArticle(Long articleId, Long userId) {
         LambdaQueryWrapper<FavoriteDO> lqw = new LambdaQueryWrapper<>();
         lqw.eq(FavoriteDO::getArticleId,articleId);
         lqw.eq(FavoriteDO::getUserId,userId);
@@ -195,7 +200,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     }
 
-    Boolean isFavorite(Integer articleId,Integer userId){
+    Boolean isFavorite(Long articleId,Long userId){
         LambdaQueryWrapper<FavoriteDO> lqw = new LambdaQueryWrapper();
         lqw.eq(FavoriteDO::getArticleId,articleId);
         lqw.eq(FavoriteDO::getUserId,userId);
@@ -211,7 +216,7 @@ public class ArticleServiceImpl implements ArticleService {
      * @param articleDO 查询出的文章;
      * @param userId 当前正在操作的用户，可能为空，代表匿名访问
     * */
-    ArticleBO fillExtraInfo(ArticleDO articleDO, Integer userId) {
+    ArticleBO fillExtraInfo(ArticleDO articleDO, Long userId) {
 
         UserDO userDO = userMapper.selectById(articleDO.getUserId());
         Boolean isFavorited = false;

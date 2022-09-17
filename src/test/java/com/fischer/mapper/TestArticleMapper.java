@@ -23,10 +23,6 @@ public class TestArticleMapper {
 
 
     }
-    @Test
-    void testSelectArticleCount(){
-        Integer integer = articleMapper.selectArticleCount(null, 1242, 0);
-        System.out.println(integer);
-    }
+
 
 }

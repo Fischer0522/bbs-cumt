@@ -20,7 +20,7 @@ import javax.validation.Valid;
  */
 @Slf4j
 @RestController
-@RequestMapping("comments")
+@RequestMapping("api/comments")
 @ResponseResult
 public class CommentController {
 
@@ -35,13 +35,13 @@ public class CommentController {
     }
 
     @GetMapping("{articleId}")
-    ResponseEntity<CommentVO> getComments(@PathVariable(value = "articleId") Integer articleId,
+    ResponseEntity<CommentVO> getComments(@PathVariable(value = "articleId") Long articleId,
                                           @RequestParam(value = "offset",defaultValue = "0") Integer offset,
                                           @RequestParam(value = "limit",defaultValue = "20") Integer limit,
                                           @RequestParam(value = "orderType",defaultValue = "1")Integer orderType,
                                           @Nullable @RequestHeader(value =  AUTHORIZATION) String token) {
 
-        Integer userId = null;
+        Long userId = null;
         if(Strings.isNotEmpty(token)) {
             UserDO user = jwtService.getUser(token);
             userId = user.getId();
@@ -57,7 +57,7 @@ public class CommentController {
     ResponseEntity<CommentBO> createComment( @Valid @RequestBody CommentParam commentParam,
                                             @RequestHeader(value = AUTHORIZATION) String token) {
         UserDO user = jwtService.getUser(token);
-        Integer userId = user.getId();
+        Long userId = user.getId();
         CommentBO commentBO = commentService
                 .createComment(commentParam.getArticleId(), commentParam.getBody(), userId)
                 .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
@@ -66,10 +66,10 @@ public class CommentController {
     }
 
     @DeleteMapping({"{commentId}"})
-    ResponseEntity<CommentBO> deleteComment(@PathVariable(value = "commentId") Integer commentId,
+    ResponseEntity<CommentBO> deleteComment(@PathVariable(value = "commentId") Long commentId,
                                              @RequestHeader(value = AUTHORIZATION) String token) {
         UserDO user = jwtService.getUser(token);
-        Integer userId = user.getId();
+        Long userId = user.getId();
         CommentBO commentBO = commentService.deleteComment(commentId, userId)
                 .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
         return ResponseEntity.ok(commentBO);
@@ -79,11 +79,11 @@ public class CommentController {
 
 
     @PostMapping("{commentId}/favorite")
-    ResponseEntity<CommentBO> favoriteComment(@PathVariable(value = "commentId") Integer commentId,
+    ResponseEntity<CommentBO> favoriteComment(@PathVariable(value = "commentId") Long commentId,
                                               @RequestHeader(AUTHORIZATION) String token) {
 
         UserDO user = jwtService.getUser(token);
-        Integer userId = user.getId();
+        Long userId = user.getId();
         CommentBO commentBO = commentService.favoriteComment(commentId, userId)
                 .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
         return ResponseEntity.ok(commentBO);
@@ -91,10 +91,10 @@ public class CommentController {
     }
 
     @DeleteMapping("{commentId}/favorite")
-    ResponseEntity<CommentBO> unfavoriteCount(@PathVariable(value = "commentId") Integer commentId,
+    ResponseEntity<CommentBO> unfavoriteCount(@PathVariable(value = "commentId") Long commentId,
                                               @RequestHeader(AUTHORIZATION) String token){
         UserDO user = jwtService.getUser(token);
-        Integer userId = user.getId();
+        Long userId = user.getId();
         CommentBO commentBO = commentService.unfavoriteComment(commentId, userId)
                 .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
         return ResponseEntity.ok(commentBO);

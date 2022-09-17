@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CommentFavoriteDO {
 
-    private Integer commentId;
-    private Integer userId;
+    private Long commentId;
+    private Long userId;
 }

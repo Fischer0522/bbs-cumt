@@ -17,14 +17,14 @@ import java.io.Serializable;
 @NoArgsConstructor
 @TableName("comments")
 public class CommentDO implements Serializable {
-    @TableId(type = IdType.AUTO)
-    private Integer id;
+    @TableId(type = IdType.ASSIGN_ID)
+    private Long id;
     private String body;
-    private Integer articleId;
-    private Integer userId;
+    private Long articleId;
+    private Long userId;
     private String createdAt;
 
-    public CommentDO(String body,Integer articleId,Integer userId){
+    public CommentDO(String body,Long articleId,Long userId){
         this.body = body;
         this.articleId = articleId;
         this.userId = userId;

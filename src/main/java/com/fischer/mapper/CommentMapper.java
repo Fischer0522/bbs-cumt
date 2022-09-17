@@ -24,7 +24,7 @@ public interface CommentMapper extends BaseMapper<CommentDO> {
 
     public List<CommentDO> getComments(
             @Param("orderType") Integer orderType,
-            @Param("articleId") Integer articleId,
+            @Param("articleId") Long articleId,
             @Param("page")MyPage myPage
             );
 }

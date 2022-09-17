@@ -15,12 +15,6 @@ public class TestCommentMapper {
     public TestCommentMapper (CommentMapper commentMapper){
         this.commentMapper = commentMapper;
     }
-    @Test
-    void TestGetComments(){
-        MyPage myPage = new MyPage(0,5);
-        List<CommentDO> comments = commentMapper.getComments(1, 2, myPage);
-        System.out.println(comments);
 
-    }
 
 }

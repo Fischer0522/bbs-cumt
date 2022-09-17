@@ -16,6 +16,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @TableName("favorite")
 public class FavoriteDO implements Serializable {
-    private Integer articleId;
-    private Integer userId;
+    private Long articleId;
+    private Long userId;
 }

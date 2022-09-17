@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonRootName("user")
 public class UserVO {
-    private Integer id;
+    private Long id;
     private String username;
     private String email;
     private String image;

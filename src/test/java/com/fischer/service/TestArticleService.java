@@ -18,17 +18,7 @@ public class TestArticleService {
     TestArticleService (ArticleService articleService){
         this.articleService = articleService;
     }
-    @Test
-    void testCreateArticle(){
-        String title = "一样丁真";
-        String body = "鉴定为 好似";
-        String description = null;
-        Integer userId = 1243;
-        Integer type = 0;
-        Optional<ArticleDO> article = articleService.createArticle(title, description, body, type, userId);
-        System.out.println(article.get());
 
-    }
     @Test
     void testgetArticles(){
 
@@ -44,21 +34,13 @@ public class TestArticleService {
 
     }
 
-    @Test
-    void testDeleteArticle(){
-        articleService.deleteArticle(6,1242);
-    }
+
 
     @Test
     void testGetArticleFuzzy(){
        // articleService.getArticleFuzzy("丁真",1242);
     }
-    @Test
-    void testFavoriteArticle(){
-        Optional<ArticleBO> articleVO = articleService.favoriteArticle(6, 1242);
-        System.out.println(articleVO.get());
 
-    }
 
     @Test
     void testUnFavoriteArticle(){

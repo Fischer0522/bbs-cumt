@@ -11,10 +11,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class CommentBO {
-    private Integer id;
+    private Long id;
     private String body;
     private String createAt;
-    private Integer articleId;
+    private Long articleId;
     private Integer favoriteCount;
     private Boolean favorite;
     private UserDO userDO;

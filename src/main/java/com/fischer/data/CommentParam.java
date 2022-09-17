@@ -23,5 +23,5 @@ public class CommentParam {
     @NotBlank(message = "真的不再写几个字吗")
     @Length(max = 300,message = "最大长度为300个字符")
     private String body;
-    private Integer articleId;
+    private Long articleId;
 }

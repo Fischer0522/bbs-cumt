@@ -30,7 +30,7 @@ import java.util.Optional;
  */
 @RestController
 @Validated
-@RequestMapping("users")
+@RequestMapping("api/users")
 @ResponseResult
 @Slf4j
 public class UserController {
@@ -71,7 +71,7 @@ public class UserController {
                 /*查询不到则证明刚才创建用户的过程失败*/
                 UserDO userDO = userByEmail.orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
 
-                Integer id = userDO.getId();
+                Long id = userDO.getId();
                 String token = jwtService.getToken(userDO);
                 redisService.saveKey(id);
                 UserVO userVO = new UserVO(userDO,token);
@@ -108,7 +108,7 @@ public class UserController {
     }
 
     @GetMapping("{id}")
-    ResponseEntity<UserDO>getCurrentUser(@PathVariable("id") Integer id) {
+    ResponseEntity<UserDO>getCurrentUser(@PathVariable("id") Long id) {
         UserDO userDO = userService.getUserById(id)
                 .orElseThrow(() -> new BizException(ExceptionStatus.NOT_FOUND));
         return ResponseEntity.ok(userDO);

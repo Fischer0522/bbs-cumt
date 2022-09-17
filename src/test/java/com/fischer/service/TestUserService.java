@@ -22,12 +22,7 @@ public class TestUserService {
         UserDO userDO = userService.createUser("1809327837@qq.com");
         System.out.println(userDO);
     }
-    @Test
-    void TestGetUserById(){
-        Integer id = 1243;
-        Optional<UserDO> userDO = userService.getUserById(id);
-        System.out.println(userDO.get());
-    }
+
     @Test
     void TestSearchUser(){
         String username = "的";

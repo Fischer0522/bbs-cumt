@@ -45,7 +45,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Optional<CommentBO> createComment(Integer articleId, String body, Integer userId) {
+    public Optional<CommentBO> createComment(Long articleId, String body, Long userId) {
         ArticleDO articleDO = articleMapper.selectById(articleId);
         if(Objects.isNull(articleDO)) {
             log.warn("用户:"+userId.toString()+"添加评论失败");
@@ -73,7 +73,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional(rollbackFor = {SQLException.class})
-    public Optional<CommentBO> deleteComment(Integer commentId, Integer userId) {
+    public Optional<CommentBO> deleteComment(Long commentId, Long userId) {
         CommentDO commentDO = commentMapper.selectById(commentId);
         ArticleDO articleDO = articleMapper.selectById(commentDO.getArticleId());
 
@@ -105,7 +105,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Optional<CommentBO> favoriteComment(Integer commentId, Integer userId) {
+    public Optional<CommentBO> favoriteComment(Long commentId, Long userId) {
 
         LambdaQueryWrapper<CommentFavoriteDO> lqw = new LambdaQueryWrapper<>();
         lqw.eq(CommentFavoriteDO::getCommentId,commentId);
@@ -127,7 +127,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Optional<CommentBO> unfavoriteComment(Integer commentId, Integer userId) {
+    public Optional<CommentBO> unfavoriteComment(Long commentId, Long userId) {
         LambdaQueryWrapper<CommentFavoriteDO> lqw = new LambdaQueryWrapper<>();
         lqw.eq(CommentFavoriteDO::getCommentId,commentId);
         lqw.eq(CommentFavoriteDO::getUserId,userId);
@@ -144,7 +144,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public synchronized CommentVO getComments(Integer articleId, Integer offset, Integer limit, Integer orderType,Integer userId) {
+    public synchronized CommentVO getComments(Long articleId, Integer offset, Integer limit, Integer orderType,Long userId) {
         MyPage myPage = new MyPage(offset,limit);
         List<CommentDO> comments = commentMapper.getComments(orderType, articleId, myPage);
         List<CommentBO> commentBOList = comments.stream()
@@ -160,8 +160,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
 
-    CommentBO fillExtraInfo(CommentDO commentDO,Integer userId) {
-        Integer commentId = commentDO.getId();
+    CommentBO fillExtraInfo(CommentDO commentDO,Long userId) {
+        Long commentId = commentDO.getId();
         UserDO userDO = userMapper.selectById(commentDO.getUserId());
         // 查询点赞数
         LambdaQueryWrapper<CommentFavoriteDO> lqw = new LambdaQueryWrapper<>();
