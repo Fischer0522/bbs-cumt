@@ -10,6 +10,8 @@
 
 ## 启动
 
+### 配置文件
+
 首先，你需要一个application.yml,将其中的内容替换成自己的
 
 ```yaml
@@ -104,5 +106,43 @@ sa-token:
   token-style: uuid
   # 是否输出操作日志
   is-log: false
+```
+
+
+
+### 建表
+
+使用resource/sql目录下的rgzn.sql建表
+
+### 部署
+
+### docker
+
+使用Docker创建对应的MySQL和Redis实例
+
+```bash
+docker run \
+--restart=always \
+--privileged=true \
+-p 3307:3306 --name c_mysql \
+-v /root/app/new_mysql/logs:/var/log/mysql \
+-v /root/app/new_mysql/data:/var/lib/mysql \
+-v /root/app/new_mysql/etc/mysql:/etc/mysql \
+-v /root/app/new_mysql/etc/mysql/my.cnf:/etc/mysql/my.cnf \
+-e MYSQL_ROOT_PASSWORD=123456 \
+-e TZ="Asia/Shanghai" \
+-d mysql:5.7
+```
+
+
+
+```bash
+docker run -p 6379:6379 --name c_redis --privileged=true -v /root/app/redis/redis.conf:/etc/redis/redis.conf -v /root/app/redis/data:/data -d redis:6.0.8 redis-server /etc/redis/redis.conf
+```
+
+把项目本体跑起来康康
+
+```bash
+docker run -d -p 9000:8080 -v /root/blog:/root/blog  --link c_mysql --link c_redis --name rgzn rgzn 
 ```
 
