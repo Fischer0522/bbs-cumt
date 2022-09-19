@@ -4,6 +4,7 @@ import cn.dev33.satoken.annotation.SaCheckDisable;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckRole;
 import cn.dev33.satoken.annotation.SaIgnore;
+import cn.dev33.satoken.stp.SaLoginConfig;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -85,7 +86,7 @@ public class UserController {
                 String username = userDO.getUsername();
                 System.out.println("用户"+username+"正在登录");
                 // 使用Sa Token进行登录
-                StpUtil.login(id);
+                StpUtil.login(id, SaLoginConfig.setExtra("name",userDO.getUsername()));
 
                 // 封装权限
                 LambdaQueryWrapper<RoleDO> lqw = new LambdaQueryWrapper<>();

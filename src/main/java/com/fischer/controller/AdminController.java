@@ -72,7 +72,8 @@ public class AdminController {
         UserDO userDO = userService.getUserById(articleDO.getUserId())
                 .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
         LambdaQueryWrapper<RoleDO> lqw = new LambdaQueryWrapper<>();
-        List<String> roles = roleService.list(lqw).stream().map(s -> s.getRole()).collect(Collectors.toList());
+        lqw.eq(RoleDO::getUserId,articleDO.getUserId());
+        List<String> roles = roleService.list(lqw).stream().map(RoleDO::getRole).collect(Collectors.toList());
         UserVO userVO = new UserVO(userDO,roles);
         return ResponseEntity.ok(new ArticleBO(articleDO,userVO,false,0));
 
