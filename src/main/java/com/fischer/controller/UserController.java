@@ -4,6 +4,7 @@ import cn.dev33.satoken.annotation.SaCheckDisable;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckRole;
 import cn.dev33.satoken.annotation.SaIgnore;
+import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.fischer.data.UpdateUserCommand;
@@ -85,13 +86,15 @@ public class UserController {
                 System.out.println("用户"+username+"正在登录");
                 // 使用Sa Token进行登录
                 StpUtil.login(id);
-                String tokenValue = StpUtil.getTokenValue();
+
                 // 封装权限
                 LambdaQueryWrapper<RoleDO> lqw = new LambdaQueryWrapper<>();
                 lqw.eq(RoleDO::getUserId,id);
                 List<String> roles = roleService.list(lqw).stream()
                         .map(s -> s.getRole()).collect(Collectors.toList());
-                UserVO userVO = new UserVO(userDO,roles);
+
+                String tokenInfo = StpUtil.getTokenInfo().getTokenValue();
+                UserVO userVO = new UserVO(userDO,roles,tokenInfo);
                 return ResponseEntity.ok(userVO);
             } catch (Exception e) {
                 // 事务回滚只能回滚掉数据库中信创建的内容，但是redis签发的token无法处理，需重新定义异常进行处理
@@ -121,12 +124,11 @@ public class UserController {
         return ResponseEntity.ok(1);
 
     }
-    @SaCheckDisable("read-user")
+    @SaIgnore
     @GetMapping("{id}")
-
     ResponseEntity<UserVO>getCurrentUser(@PathVariable("id") Long id) {
         UserDO userDO = userService.getUserById(id)
-                .orElseThrow(() -> new BizException(ExceptionStatus.NOT_FOUND));
+                .orElseThrow(() -> new BizException(ExceptionStatus.ERROR_GET_USER_FAIL));
         LambdaQueryWrapper<RoleDO> lqw = new LambdaQueryWrapper<>();
         lqw.eq(RoleDO::getUserId,userDO.getId());
         List<String> roles = roleService.list(lqw).stream()
@@ -136,7 +138,6 @@ public class UserController {
 
     }
     //@ResponseResult
-    @SaCheckDisable("login")
     @GetMapping("email")
     @SaIgnore
     ResponseEntity<Object> getVerifyCode(@RequestParam("email") String email) {
@@ -144,18 +145,21 @@ public class UserController {
         return ResponseEntity.ok(1);
     }
     @SaCheckLogin
-    @ResponseResult
     @PutMapping
     @SaCheckDisable("read-user")
-    ResponseEntity<UserDO> updateUser(@Valid @RequestBody UpdateUserParam updateUserParam) {
+    ResponseEntity<UserVO> updateUser(@Valid @RequestBody UpdateUserParam updateUserParam) {
 
         Long userId = StpUtil.getLoginIdAsLong();
         UserDO user = userService.getUserById(userId)
-                .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
+                .orElseThrow(() -> new BizException(ExceptionStatus.ERROR_GET_USER_FAIL));
         UpdateUserCommand updateUserCommand = new UpdateUserCommand(user,updateUserParam);
         UserDO userDO = userService.updateUser(updateUserCommand)
-                .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
-        return ResponseEntity.ok(userDO);
+                .orElseThrow(() -> new BizException(ExceptionStatus.ERROR_UPDATE_USER_FAIL));
+        LambdaQueryWrapper<RoleDO> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(RoleDO::getUserId,userDO.getId());
+        List<String> roles = roleService.list(lqw).stream().map(s -> s.getRole()).collect(Collectors.toList());
+        UserVO userVO = new UserVO(userDO,roles);
+        return ResponseEntity.ok(userVO);
 
     }
 }

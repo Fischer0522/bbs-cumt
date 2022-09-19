@@ -37,18 +37,21 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper,ArticleDO> imp
     private FavoriteMapper favoriteMapper;
     private CommentMapper commentMapper;
     private BackgroundImageMapper backgroundImageMapper;
+    private RoleMapper roleMapper;
     private final Integer LIMIT_LEVEL = 2;
     @Autowired
     ArticleServiceImpl (UserMapper userMapper,
                         ArticleMapper articleMapper,
                         FavoriteMapper favoriteMapper,
                         CommentMapper commentMapper,
-                        BackgroundImageMapper backgroundImageMapper){
+                        BackgroundImageMapper backgroundImageMapper,
+                        RoleMapper roleMapper){
         this.articleMapper = articleMapper;
         this.userMapper = userMapper;
         this.favoriteMapper = favoriteMapper;
         this.commentMapper = commentMapper;
         this.backgroundImageMapper = backgroundImageMapper;
+        this.roleMapper = roleMapper;
     }
 
     @Override
@@ -75,7 +78,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper,ArticleDO> imp
 
         if(Objects.isNull(articleDO)) {
             log.error("获取文章详情时未获取到对应的文章id");
-            throw new BizException(404,"当前要获取的文章不存在或已被删除");
+            throw new BizException(ExceptionStatus.ERROR_GET_ARTICLE_FAIL);
         }
         // 补充匿名访问和点赞的相关信息
         ArticleBO articleBO = fillExtraInfo(articleDO, userId);
@@ -107,11 +110,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper,ArticleDO> imp
         ArticleDO articleDO = articleMapper.selectById(articleId);
         if(Objects.isNull(articleDO)) {
             log.error("当前要删除的文章不存在，要删除的文章id:"+articleId.toString()+"当前用户为:"+userId.toString());
-            throw new BizException(ExceptionStatus.NOT_FOUND);
+            throw new BizException(ExceptionStatus.ERROR_GET_ARTICLE_FAIL);
         }
         if(!Objects.equals(articleDO.getUserId(), userId)) {
             log.info("无权限操作，要删除的文章id:"+articleId.toString()+"当前用户为:"+userId.toString());
-            throw new BizException(ExceptionStatus.FORBIDDEN);
+            throw new BizException(ExceptionStatus.ERROR_NOT_AUTH);
         }
         int i = articleMapper.deleteById(articleId);
         if(i > 0){
@@ -197,7 +200,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper,ArticleDO> imp
         if(Objects.isNull(favoriteDO)){
             /*异常处理，后续再商议*/
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            throw new BizException(403,"已经为取消点赞状态");
+            throw new BizException(ExceptionStatus.ERROR_DISLIKE);
         } else{
             favoriteMapper.delete(lqw);
             // 降低热度
@@ -232,16 +235,20 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper,ArticleDO> imp
     ArticleBO fillExtraInfo(ArticleDO articleDO, Long userId) {
 
         UserDO userDO = userMapper.selectById(articleDO.getUserId());
+        LambdaQueryWrapper<RoleDO> lqwRoles = new LambdaQueryWrapper<>();
+        lqwRoles.eq(RoleDO::getUserId,userDO.getId());
+        List<String> roles = roleMapper.selectList(lqwRoles).stream().map(s -> s.getRole()).collect(Collectors.toList());
+
         Boolean isFavorited = false;
         // 判断是否为匿名访问
         if(!Objects.isNull(userId)){
             isFavorited = isFavorite(articleDO.getId(),userId);
         }
-
+        UserVO userVO = new UserVO(userDO,roles);
         LambdaQueryWrapper<FavoriteDO> lqw = new LambdaQueryWrapper<>();
         lqw.eq(FavoriteDO::getArticleId,articleDO.getId());
         Integer favoriteCount = favoriteMapper.selectCount(lqw);
-        ArticleBO articleBO = new ArticleBO(articleDO,userDO,isFavorited,favoriteCount);
+        ArticleBO articleBO = new ArticleBO(articleDO,userVO,isFavorited,favoriteCount);
         return articleBO;
     }
 

@@ -58,7 +58,7 @@ public class JwtServiceImpl implements JwtService {
     public UserDO getUser(String token) {
 
         Long id = getSubFromToken(token)
-                .orElseThrow(() -> new BizException(ExceptionStatus.UNAUTHORIZED));
+                .orElseThrow(() -> new BizException(ExceptionStatus.ERROR_NOT_AUTH));
         UserDO userDO = userMapper.selectById(id);
         if(Objects.isNull(userDO)) {
             log.error("token解析出的id在数据库中没有对应的用户");

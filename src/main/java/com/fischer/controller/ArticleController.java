@@ -4,6 +4,7 @@ package com.fischer.controller;
 import cn.dev33.satoken.annotation.SaCheckDisable;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckRole;
+import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.stp.StpUtil;
 import com.fischer.result.CommonResult;
 import com.fischer.result.ResponseResult;
@@ -65,10 +66,10 @@ public class ArticleController {
 
         Long userId = StpUtil.getLoginIdAsLong();
         ArticleBO articleBO = articleService.deleteArticle(articleId, userId)
-                .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
+                .orElseThrow(() -> new BizException(ExceptionStatus.ERROR_ADD_ARTICLE_FAIL));
         return ResponseEntity.ok(articleBO);
     }
-    @SaCheckDisable("read-article")
+    @SaIgnore
     @GetMapping("{articleId}")
     ResponseEntity<ArticleBO> getArticle(@PathVariable(value = "articleId") Long articleId) {
         Long userId = null;
@@ -80,11 +81,11 @@ public class ArticleController {
             log.info("用户匿名访问"+getClass().getName()+":"+"getArticle");
         }
         ArticleBO articleBO = articleService.getArticleById(articleId, userId)
-                .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
+                .orElseThrow(() -> new BizException(ExceptionStatus.ERROR_GET_ARTICLE_FAIL));
         return ResponseEntity.ok(articleBO);
 
     }
-    @SaCheckDisable("read-article")
+    @SaIgnore
     @GetMapping("exact")
     ResponseEntity<ArticleVO> getArticles(@RequestParam(value = "favoriteBy",required = false) Long favoriteBy,
                                           @RequestParam(value = "author",required = false) Long author,
@@ -105,7 +106,7 @@ public class ArticleController {
         return ResponseEntity.ok(articles);
 
     }
-    @SaCheckDisable("read-article")
+    @SaIgnore
     @GetMapping("fuzzy")
     ResponseEntity<ArticleVO> getArticlesFuzzy(@RequestParam(value = "keyword" ) String keyword,
                                                @RequestParam(value = "offset",defaultValue = "0") Integer offset,
@@ -130,7 +131,7 @@ public class ArticleController {
 
         Long userId = StpUtil.getLoginIdAsLong();
         ArticleBO articleBO = articleService.favoriteArticle(articleId, userId)
-                .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
+                .orElseThrow(() -> new BizException(ExceptionStatus.ERROR_LIKE_FAIL));
         return ResponseEntity.ok(articleBO);
 
     }
@@ -139,7 +140,7 @@ public class ArticleController {
     ResponseEntity<ArticleBO> unfavoriteArticle(@PathVariable("articleId") Long articleId) {
         Long userId = StpUtil.getLoginIdAsLong();
         ArticleBO articleBO = articleService.unfavoriteArticle(articleId, userId)
-                .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
+                .orElseThrow(() -> new BizException(ExceptionStatus.ERROR_DISLIKE_FAIL));
         return ResponseEntity.ok(articleBO);
     }
 

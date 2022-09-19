@@ -1,5 +1,6 @@
 package com.fischer.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckRole;
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -21,7 +22,7 @@ import java.util.stream.Collectors;
 @RequestMapping("api/admin")
 @ResponseResult
 public class AdminController {
-    private final String[] disableAction ={"article","comment","login","read-article","read-comment","read-user","file"};
+    private final String[] disableAction ={"article","comment","file"};
     private UserService userService;
     private RoleService roleService;
     private ArticleService articleService;
@@ -37,31 +38,29 @@ public class AdminController {
      * @param level:
      *             level0为禁止写文章
      *             level1为禁止评论
-     *             level2禁止登录
-     *             level3禁止读文章
-     *             level4禁止读评论
-     *             level5禁止查看用户详情
-     *             level6禁止上传文件
+     *             level2禁止上传文件
      *
      * */
     @SaCheckRole("admin")
     @GetMapping("disable/{userId}")
-    public ResponseEntity<UserVO> disableUser(@PathVariable("userId") Long userId,
+    public ResponseEntity<Integer> disableUser(@PathVariable("userId") Long userId,
                                               @RequestParam("level") Integer level,
                                               @RequestParam("second") Long second) {
         StpUtil.disable(userId,disableAction[level],second);
-        UserDO userDO = userService.getUserById(userId).
-                orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
-        LambdaQueryWrapper<RoleDO> lqw = new LambdaQueryWrapper<>();
-
-        lqw.eq(RoleDO::getUserId,userId);
-        List<String> roles = roleService.list(lqw).stream()
-                .map(s -> s.getRole()).collect(Collectors.toList());
-        UserVO userVO = new UserVO(userDO,roles);
-        return ResponseEntity.ok(userVO);
+        return ResponseEntity.ok(1);
 
     }
-    /**
+
+    @SaCheckRole("admin")
+    @GetMapping("block/{userId}")
+    public ResponseEntity<Integer> blockUser(@PathVariable("userId") Long userId,
+                                            @RequestParam("second") Long second){
+        StpUtil.kickout(userId);
+        StpUtil.disable(userId,second);
+        return ResponseEntity.ok(1);
+
+    }
+    /*
      * @param status 文章的状态0为普通状体，1为置顶 2为屏蔽*/
     @PutMapping("status/{articleId}")
     @SaCheckRole("admin")
@@ -72,7 +71,10 @@ public class AdminController {
         articleService.updateById(articleDO);
         UserDO userDO = userService.getUserById(articleDO.getUserId())
                 .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
-        return ResponseEntity.ok(new ArticleBO(articleDO,userDO,false,0));
+        LambdaQueryWrapper<RoleDO> lqw = new LambdaQueryWrapper<>();
+        List<String> roles = roleService.list(lqw).stream().map(s -> s.getRole()).collect(Collectors.toList());
+        UserVO userVO = new UserVO(userDO,roles);
+        return ResponseEntity.ok(new ArticleBO(articleDO,userVO,false,0));
 
 
     }

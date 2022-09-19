@@ -24,9 +24,10 @@ public class ArticleBO {
     private Integer favoriteCount;
     private String image;
     @JsonProperty(value = "author")
-    private UserDO userDO;
+    private UserVO userVO;
 
-    public ArticleBO(ArticleDO articleDO, UserDO userDO, Boolean favorited,Integer favoriteCount){
+
+    public ArticleBO(ArticleDO articleDO, UserVO userVO, Boolean favorited,Integer favoriteCount){
         this.id = articleDO.getId().toString();
         this.title = articleDO.getTitle();
         this.body = articleDO.getBody();
@@ -37,7 +38,7 @@ public class ArticleBO {
         this.heat = articleDO.getHeat();
         this.favorited =favorited;
         this.favoriteCount = favoriteCount;
-        this.userDO = userDO;
+        this.userVO = userVO;
         this.image = articleDO.getImage();
     }
 }

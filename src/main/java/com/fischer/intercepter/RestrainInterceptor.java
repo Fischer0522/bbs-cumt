@@ -2,6 +2,7 @@ package com.fischer.intercepter;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.fischer.exception.BizException;
+import com.fischer.exception.ExceptionStatus;
 import com.fischer.mapper.UserMapper;
 import com.fischer.pojo.UserDO;
 import com.fischer.service.JwtService;
@@ -67,7 +68,7 @@ public class RestrainInterceptor implements HandlerInterceptor {
             return true;
         } else {
             // 请求频率超出一分钟10次 拒绝继续操作
-            throw new BizException(400,"请求频率过快");
+            throw new BizException(ExceptionStatus.ERROR_FREQUENCY);
         }
 
     }

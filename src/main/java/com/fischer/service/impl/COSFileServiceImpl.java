@@ -3,6 +3,7 @@ package com.fischer.service.impl;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.StrUtil;
 import com.fischer.exception.BizException;
+import com.fischer.exception.ExceptionStatus;
 import com.fischer.pojo.FileBO;
 import com.fischer.service.COSFileService;
 import com.qcloud.cos.COSClient;
@@ -65,7 +66,7 @@ public class COSFileServiceImpl implements COSFileService {
             return new FileBO(originalfileName,url);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new BizException(500,"文件上传失败");
+            throw new BizException(ExceptionStatus.ERROR_FILE);
         } finally {
             cosClient.shutdown();
         }

@@ -3,6 +3,7 @@ package com.fischer.controller;
 import cn.dev33.satoken.annotation.SaCheckDisable;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckRole;
+import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.stp.StpUtil;
 import com.fischer.data.CommentParam;
 import com.fischer.exception.BizException;
@@ -36,7 +37,7 @@ public class CommentController {
         this.commentService = commentService;
 
     }
-    @SaCheckDisable("read-comment")
+    @SaIgnore
     @GetMapping("{articleId}")
     ResponseEntity<CommentVO> getComments(@PathVariable(value = "articleId") Long articleId,
                                           @RequestParam(value = "offset",defaultValue = "0") Integer offset,

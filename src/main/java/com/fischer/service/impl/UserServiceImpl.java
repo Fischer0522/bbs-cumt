@@ -3,6 +3,7 @@ package com.fischer.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.fischer.exception.BizException;
+import com.fischer.exception.ExceptionStatus;
 import com.fischer.mapper.AdjMapper;
 import com.fischer.mapper.InfoMapper;
 import com.fischer.mapper.RoleMapper;
@@ -82,7 +83,7 @@ public class UserServiceImpl implements UserService {
 
         } catch (RuntimeException e){
             // 抛出异常,回滚掉
-            throw new BizException(500,"用户创建失败");
+            throw new BizException(ExceptionStatus.ERROR_CREATE_USER_FAIL);
         }
 
     }

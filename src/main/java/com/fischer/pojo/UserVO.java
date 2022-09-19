@@ -20,6 +20,7 @@ public class UserVO {
     private String username;
     private String email;
     private String image;
+    private String token;
     private List<String> roles;
 
     public UserVO(UserDO userDO, List<String> roles) {
@@ -28,5 +29,14 @@ public class UserVO {
         this.image = userDO.getImage();
         this.username = userDO.getUsername();
         this.roles = roles;
+        this.token = null;
+    }
+    public UserVO(UserDO userDO, List<String> roles,String token) {
+        this.id = userDO.getId().toString();
+        this.email = userDO.getEmail();
+        this.image = userDO.getImage();
+        this.username = userDO.getUsername();
+        this.roles = roles;
+        this.token = token;
     }
 }
