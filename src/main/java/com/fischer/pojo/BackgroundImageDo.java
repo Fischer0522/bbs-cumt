@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @Data
 @TableName("background_image")
 public class BackgroundImageDo {
-    private Integer id;
+    private Long id;
     private String location;
 }

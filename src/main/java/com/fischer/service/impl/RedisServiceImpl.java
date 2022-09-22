@@ -30,9 +30,12 @@ public class RedisServiceImpl implements RedisService {
         this.userMapper = userMapper;
         this.preKey = "loginUser:";
     }
+
+
+
     @Transactional(rollbackFor = {Exception.class})
     @Override
-    public void saveKey(Integer id) {
+    public void saveKey(Long id) {
         String key = preKey+id;
         String username = userMapper.selectById(id).getUsername();
         stringRedisTemplate.opsForValue().set(key,username);
@@ -42,14 +45,14 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public void deleteKey(Integer id) {
+    public void deleteKey(Long id) {
         String key = preKey+id;
         stringRedisTemplate.delete(key);
 
     }
 
     @Override
-    public Optional<String> getKey(Integer id) {
+    public Optional<String> getKey(Long id) {
         String key = preKey+id;
         String s = stringRedisTemplate.opsForValue().get(key);
         return Optional.ofNullable(s);

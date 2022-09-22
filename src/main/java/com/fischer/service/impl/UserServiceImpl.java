@@ -3,12 +3,15 @@ package com.fischer.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.fischer.exception.BizException;
+import com.fischer.exception.ExceptionStatus;
 import com.fischer.mapper.AdjMapper;
 import com.fischer.mapper.InfoMapper;
+import com.fischer.mapper.RoleMapper;
 import com.fischer.mapper.UserMapper;
 import com.fischer.data.UpdateUserCommand;
 import com.fischer.pojo.AdjDO;
 import com.fischer.pojo.InfoDO;
+import com.fischer.pojo.RoleDO;
 import com.fischer.pojo.UserDO;
 import com.fischer.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -37,16 +40,20 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private  String CACHE_KEY = "com.fischer.userInfo";
+    private final String defaultRole = "common-user";
     private UserMapper userMapper;
     private InfoMapper infoMapper;
     private AdjMapper adjMapper;
+    private RoleMapper roleMapper;
     @Autowired
      public UserServiceImpl(UserMapper userMapper,
                             InfoMapper infoMapper,
-                            AdjMapper adjMapper) {
+                            AdjMapper adjMapper,
+                            RoleMapper roleMapper) {
         this.userMapper = userMapper;
         this.infoMapper = infoMapper;
         this.adjMapper = adjMapper;
+        this.roleMapper = roleMapper;
 
     }
 
@@ -54,31 +61,36 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = {SQLException.class,RuntimeException.class})
     public synchronized UserDO createUser(String email) {
         try {
+            //生成随机的初始名称
             InfoDO info = infoMapper.getInfo();
             AdjDO adj = adjMapper.getAdj();
             String randNickname = adj.getWord()+info.getRandName();
+            // 创建用户
             UserDO userDO = new UserDO(randNickname,email,info.getRandImage());
-            // LambdaUpdateWrapper<InfoDO> lqw = new LambdaUpdateWrapper<>();
             info.setUsed(info.getUsed()+1);
             int insert = userMapper.insert(userDO);
+
             infoMapper.updateById(info);
             adj.setUsed(adj.getUsed()+1);
             // 用户名和前缀的使用次数均+1，继续生成下一个用户名
             adjMapper.updateById(adj);
             // 保证获取id和对形容词修改的一致性，防止一个形容词被多人使用
             log.info("创建用户成功，生成的用户名为:"+randNickname);
+            //新用户的默认权限未 普通用户
+            RoleDO roleDO = new RoleDO(userDO.getId(),defaultRole);
+            roleMapper.insert(roleDO);
             return userDO;
 
         } catch (RuntimeException e){
             // 抛出异常,回滚掉
-            throw new BizException(500,"用户创建失败");
+            throw new BizException(ExceptionStatus.ERROR_CREATE_USER_FAIL);
         }
 
     }
 
     @Cacheable(cacheNames = "user",key = "'com.fischer.userInfo:'+ #id")
     @Override
-    public Optional<UserDO> getUserById(Integer id) {
+    public Optional<UserDO> getUserById(Long id) {
         UserDO userDO = userMapper.selectById(id);
         return Optional.ofNullable(userDO);
     }

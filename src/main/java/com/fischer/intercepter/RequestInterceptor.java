@@ -44,7 +44,7 @@ public class RequestInterceptor implements HandlerInterceptor {
         }
         UserDO user = jwtService.getUser(token);
         log.info("获取到当前的用户，用户名为："+user.getUsername()+"用户id为"+user.getId());
-        Integer userId = user.getId();
+        Long userId = user.getId();
         redisService.getKey(userId).orElseThrow(()->new BizException(401,"当前用户已经退出，请重新登录"));
         return true;
     }

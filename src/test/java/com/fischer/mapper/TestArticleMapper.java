@@ -1,7 +1,7 @@
 package com.fischer.mapper;
 
 import com.fischer.pojo.ArticleDO;
-import com.fischer.pojo.MyPage;
+import com.fischer.data.MyPage;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,10 +23,6 @@ public class TestArticleMapper {
 
 
     }
-    @Test
-    void testSelectArticleCount(){
-        Integer integer = articleMapper.selectArticleCount(null, 1242, 0);
-        System.out.println(integer);
-    }
+
 
 }

@@ -2,7 +2,7 @@ package com.fischer.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.fischer.pojo.ArticleDO;
-import com.fischer.pojo.MyPage;
+import com.fischer.data.MyPage;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -26,8 +26,8 @@ public interface ArticleMapper extends BaseMapper<ArticleDO> {
      */
 
     List<ArticleDO> getArticles(
-            @Param("favoriteBy") Integer favoriteBy,
-            @Param("author") Integer author,
+            @Param("favoriteBy") Long favoriteBy,
+            @Param("author") Long author,
             @Param("type") Integer type,
             @Param("page")MyPage myPage,
             @Param("orderBy") Integer orderBy,
@@ -42,7 +42,7 @@ public interface ArticleMapper extends BaseMapper<ArticleDO> {
      * @return 返回查询总数
      */
 
-    Integer selectArticleCount(@Param("favoriteBy") Integer favoriteBy,
-                               @Param("author") Integer author,
+    Integer selectArticleCount(@Param("favoriteBy") Long favoriteBy,
+                               @Param("author") Long author,
                                @Param("type") Integer type);
 }

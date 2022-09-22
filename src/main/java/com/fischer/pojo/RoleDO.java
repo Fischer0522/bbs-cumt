@@ -5,12 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@TableName("comment_favorite")
+@TableName("role")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommentFavoriteDO {
-
-    private Long commentId;
+public class RoleDO {
     private Long userId;
+    private String role;
 }

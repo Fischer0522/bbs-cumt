@@ -2,7 +2,11 @@ package com.fischer.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.fischer.data.MyPage;
 import com.fischer.mapper.*;
 import com.fischer.pojo.*;
 import com.fischer.service.ArticleService;
@@ -27,29 +31,33 @@ import java.util.stream.Collectors;
  */
 @Service
 @Slf4j
-public class ArticleServiceImpl implements ArticleService {
+public class ArticleServiceImpl extends ServiceImpl<ArticleMapper,ArticleDO> implements ArticleService {
     private UserMapper userMapper;
     private ArticleMapper articleMapper;
     private FavoriteMapper favoriteMapper;
     private CommentMapper commentMapper;
     private BackgroundImageMapper backgroundImageMapper;
+    private RoleMapper roleMapper;
     private final Integer LIMIT_LEVEL = 2;
     @Autowired
     ArticleServiceImpl (UserMapper userMapper,
                         ArticleMapper articleMapper,
                         FavoriteMapper favoriteMapper,
                         CommentMapper commentMapper,
-                        BackgroundImageMapper backgroundImageMapper){
+                        BackgroundImageMapper backgroundImageMapper,
+                        RoleMapper roleMapper){
         this.articleMapper = articleMapper;
         this.userMapper = userMapper;
         this.favoriteMapper = favoriteMapper;
         this.commentMapper = commentMapper;
         this.backgroundImageMapper = backgroundImageMapper;
+        this.roleMapper = roleMapper;
     }
 
     @Override
-    public Optional<ArticleDO> createArticle(String title, String description, String body, Integer type, Integer userId) {
+    public Optional<ArticleDO> createArticle(String title, String description, String body, Integer type, Long userId) {
         String image = getRandomImage();
+
         ArticleDO articleDO = new ArticleDO(title,body,description,type,userId,image);
         int insert = articleMapper.insert(articleDO);
         if(insert > 0) {
@@ -63,14 +71,14 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Optional<ArticleBO> getArticleById(Integer articleId, Integer userId) {
+    public Optional<ArticleBO> getArticleById(Long articleId, Long userId) {
 
         // 查询出文章和文章作者的详情
         ArticleDO articleDO = articleMapper.selectById(articleId);
 
         if(Objects.isNull(articleDO)) {
             log.error("获取文章详情时未获取到对应的文章id");
-            throw new BizException(404,"当前要获取的文章不存在或已被删除");
+            throw new BizException(ExceptionStatus.ERROR_GET_ARTICLE_FAIL);
         }
         // 补充匿名访问和点赞的相关信息
         ArticleBO articleBO = fillExtraInfo(articleDO, userId);
@@ -79,7 +87,12 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public synchronized ArticleVO getArticles(Integer favoriteBy, Integer author, Integer type, Integer offset, Integer limit, Integer orderBy, Integer orderType, Integer userId) {
+    public Optional<ArticleDO> getArticleDOById(Long articleId) {
+        return Optional.of(articleMapper.selectById(articleId));
+    }
+
+    @Override
+    public synchronized ArticleVO getArticles(Long favoriteBy, Long author, Integer type, Integer offset, Integer limit, Integer orderBy, Integer orderType, Long userId) {
         MyPage myPage = new MyPage(offset,limit);
         List<ArticleDO> articleDOList = articleMapper.getArticles(favoriteBy, author, type, myPage, orderBy, orderType);
         // 补全用户相关信息
@@ -94,19 +107,20 @@ public class ArticleServiceImpl implements ArticleService {
     }
     @Transactional(rollbackFor = {SQLException.class})
     @Override
-    public Optional<ArticleBO> deleteArticle(Integer articleId, Integer userId) {
+    public Optional<ArticleBO> deleteArticle(Long articleId, Long userId) {
         ArticleDO articleDO = articleMapper.selectById(articleId);
         if(Objects.isNull(articleDO)) {
             log.error("当前要删除的文章不存在，要删除的文章id:"+articleId.toString()+"当前用户为:"+userId.toString());
-            throw new BizException(ExceptionStatus.NOT_FOUND);
+            throw new BizException(ExceptionStatus.ERROR_GET_ARTICLE_FAIL);
         }
         if(!Objects.equals(articleDO.getUserId(), userId)) {
             log.info("无权限操作，要删除的文章id:"+articleId.toString()+"当前用户为:"+userId.toString());
-            throw new BizException(ExceptionStatus.FORBIDDEN);
+            throw new BizException(ExceptionStatus.ERROR_NOT_AUTH);
         }
         int i = articleMapper.deleteById(articleId);
         if(i > 0){
             ArticleBO articleBO = fillExtraInfo(articleDO, userId);
+            // 清除该文章的相关评论
             LambdaQueryWrapper<CommentDO> lqwComment = new LambdaQueryWrapper<>();
             lqwComment.eq(CommentDO::getArticleId,articleId);
             commentMapper.delete(lqwComment);
@@ -126,7 +140,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public synchronized ArticleVO getArticleFuzzy(String title, Integer userId,Integer offset,Integer limit) {
+    public synchronized ArticleVO getArticleFuzzy(String title, Long userId,Integer offset,Integer limit) {
         MyPage myPage = new MyPage(offset,limit);
         IPage<ArticleDO> page = new Page(myPage.getOffset(),myPage.getLimit());
 
@@ -144,9 +158,12 @@ public class ArticleServiceImpl implements ArticleService {
         ArticleVO articleVO = new ArticleVO(articleBOList,integer);
         return articleVO;
     }
+
+
+
     @Transactional(rollbackFor = {SQLException.class})
     @Override
-    public synchronized Optional<ArticleBO> favoriteArticle(Integer articleId, Integer userId) {
+    public synchronized Optional<ArticleBO> favoriteArticle(Long articleId, Long userId) {
         LambdaQueryWrapper<FavoriteDO> lqw = new LambdaQueryWrapper<>();
         lqw.eq(FavoriteDO::getArticleId,articleId);
         lqw.eq(FavoriteDO::getUserId,userId);
@@ -162,6 +179,9 @@ public class ArticleServiceImpl implements ArticleService {
             FavoriteDO newFavorite = new FavoriteDO(articleId,userId);
             favoriteMapper.insert(newFavorite);
             ArticleDO articleDO = articleMapper.selectById(articleId);
+            if (Objects.isNull(articleDO)) {
+                throw new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR);
+            }
             articleDO.setHeat(articleDO.getHeat()+1);
 
             articleMapper.updateById(articleDO);
@@ -173,7 +193,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
     @Transactional(rollbackFor = {SQLException.class})
     @Override
-    public synchronized Optional<ArticleBO> unfavoriteArticle(Integer articleId, Integer userId) {
+    public synchronized Optional<ArticleBO> unfavoriteArticle(Long articleId, Long userId) {
         LambdaQueryWrapper<FavoriteDO> lqw = new LambdaQueryWrapper<>();
         lqw.eq(FavoriteDO::getArticleId,articleId);
         lqw.eq(FavoriteDO::getUserId,userId);
@@ -181,12 +201,15 @@ public class ArticleServiceImpl implements ArticleService {
         if(Objects.isNull(favoriteDO)){
             /*异常处理，后续再商议*/
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            throw new BizException(403,"已经为取消点赞状态");
+            throw new BizException(ExceptionStatus.ERROR_DISLIKE);
         } else{
             favoriteMapper.delete(lqw);
             // 降低热度
             ArticleDO articleDO = articleMapper.selectById(articleId);
             ArticleBO articleBO = fillExtraInfo(articleDO, userId);
+            if (Objects.isNull(articleDO)) {
+                throw new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR);
+            }
             articleDO.setHeat(articleDO.getHeat()-1);
             articleMapper.updateById(articleDO);
             return Optional.of(articleBO);
@@ -194,7 +217,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     }
 
-    Boolean isFavorite(Integer articleId,Integer userId){
+    Boolean isFavorite(Long articleId,Long userId){
         LambdaQueryWrapper<FavoriteDO> lqw = new LambdaQueryWrapper();
         lqw.eq(FavoriteDO::getArticleId,articleId);
         lqw.eq(FavoriteDO::getUserId,userId);
@@ -210,23 +233,23 @@ public class ArticleServiceImpl implements ArticleService {
      * @param articleDO 查询出的文章;
      * @param userId 当前正在操作的用户，可能为空，代表匿名访问
     * */
-    ArticleBO fillExtraInfo(ArticleDO articleDO, Integer userId) {
+    ArticleBO fillExtraInfo(ArticleDO articleDO, Long userId) {
 
         UserDO userDO = userMapper.selectById(articleDO.getUserId());
-        //获取文章总点赞数量
-        LambdaQueryWrapper<FavoriteDO> lqw = new LambdaQueryWrapper<>();
-        lqw.eq(FavoriteDO::getArticleId,articleDO.getId());
-        Integer favoriteCount = favoriteMapper.selectCount(lqw);
+        LambdaQueryWrapper<RoleDO> lqwRoles = new LambdaQueryWrapper<>();
+        lqwRoles.eq(RoleDO::getUserId,userDO.getId());
+        List<String> roles = roleMapper.selectList(lqwRoles).stream().map(s -> s.getRole()).collect(Collectors.toList());
+
         Boolean isFavorited = false;
         // 判断是否为匿名访问
         if(!Objects.isNull(userId)){
             isFavorited = isFavorite(articleDO.getId(),userId);
         }
-
+        UserVO userVO = new UserVO(userDO,roles);
         LambdaQueryWrapper<FavoriteDO> lqw = new LambdaQueryWrapper<>();
         lqw.eq(FavoriteDO::getArticleId,articleDO.getId());
         Integer favoriteCount = favoriteMapper.selectCount(lqw);
-        ArticleBO articleBO = new ArticleBO(articleDO,userDO,isFavorited,favoriteCount);
+        ArticleBO articleBO = new ArticleBO(articleDO,userVO,isFavorited,favoriteCount);
         return articleBO;
     }
 

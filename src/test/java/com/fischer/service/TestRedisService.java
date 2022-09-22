@@ -11,22 +11,12 @@ public class TestRedisService {
     public TestRedisService(RedisService redisService){
         this.redisService = redisService;
     }
-    @Test
-    void testSaveKey(){
-        Integer id = 1242;
-        redisService.saveKey(id);
 
-    }
     @Test
     void testGetKey(){
         Integer id = 1242;
         //System.out.println(key);
     }
 
-    @Test
-    void TestDeleteKey(){
-        Integer id = 1242;
-        redisService.deleteKey(id);
-    }
 
 }

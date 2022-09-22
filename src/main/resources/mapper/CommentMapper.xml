@@ -3,7 +3,7 @@
 <mapper namespace="com.fischer.mapper.CommentMapper">
 
     <sql id="selectResult" >
-        select
+        select distinct
                C.id,C.body,C.article_id,C.user_id,C.created_at
         from comments C
         left join users u on C.user_id = u.id

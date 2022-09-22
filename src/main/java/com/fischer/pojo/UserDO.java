@@ -20,8 +20,8 @@ import java.io.Serializable;
 @ToString
 @TableName("users")
 public class UserDO implements Serializable {
-    @TableId(type = IdType.AUTO)
-    private Integer id;
+    @TableId(type = IdType.ASSIGN_ID)
+    private Long id;
     private String username;
     private String email;
     private String image;

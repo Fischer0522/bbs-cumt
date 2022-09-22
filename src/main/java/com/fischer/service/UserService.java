@@ -20,7 +20,7 @@ public interface UserService {
      * @param id 用户Id
      * @return Optional进行空判断
      */
-    Optional<UserDO> getUserById(Integer id);
+    Optional<UserDO> getUserById(Long id);
     /** 按邮箱进行重复性匹配
      * @param email 用户邮箱
      * @return optional用于处理查询为空的结果*/

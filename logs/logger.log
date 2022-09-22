@@ -1,0 +1,760 @@
+2022-08-24 11:12:06.031 DEBUG 34372 --- [SpringContextShutdownHook] ConfigServletWebServerApplicationContext : Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@4e268090, started on Wed Aug 24 11:01:53 CST 2022
+2022-08-24 11:12:06.032 DEBUG 34372 --- [SpringContextShutdownHook] o.s.c.e.PropertySourcesPropertyResolver  : Found key 'spring.liveBeansView.mbeanDomain' in PropertySource 'systemProperties' with value of type String
+2022-08-24 11:12:06.033 DEBUG 34372 --- [SpringContextShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2022-08-24 11:12:06.033 DEBUG 34372 --- [SpringContextShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Bean 'webServerGracefulShutdown' completed its stop procedure
+2022-08-24 11:12:06.033 DEBUG 34372 --- [SpringContextShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483646
+2022-08-24 11:12:06.152 DEBUG 34372 --- [SpringContextShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Bean 'webServerStartStop' completed its stop procedure
+2022-08-24 11:12:06.152 DEBUG 34372 --- [SpringContextShutdownHook] o.s.d.r.l.RedisMessageListenerContainer  : Stopped RedisMessageListenerContainer
+2022-08-24 11:12:06.152 DEBUG 34372 --- [SpringContextShutdownHook] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2022-08-24 11:12:06.152 DEBUG 34372 --- [SpringContextShutdownHook] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans
+2022-08-24 11:12:06.153  INFO 34372 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 11:12:06.283  INFO 34372 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2022-08-24 11:12:06.287  INFO 34372 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2022-08-24 11:12:10.010  INFO 22352 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 22352 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 11:12:10.011  INFO 22352 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 11:12:10.595  INFO 22352 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 11:12:10.596  INFO 22352 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 11:12:10.610  INFO 22352 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6ms. Found 0 Redis repository interfaces.
+2022-08-24 11:12:10.902  INFO 22352 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 11:12:10.908  INFO 22352 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 11:12:10.908  INFO 22352 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 11:12:11.235  INFO 22352 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 11:12:11.235  INFO 22352 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1199 ms
+2022-08-24 11:12:12.081  INFO 22352 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 11:12:12.223  INFO 22352 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 11:12:12.229  INFO 22352 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 2.452 seconds (JVM running for 3.111)
+2022-08-24 11:12:24.017  INFO 22352 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 11:12:24.017  INFO 22352 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 11:12:24.020  INFO 22352 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2022-08-24 11:12:24.131  INFO 22352 --- [http-nio-8080-exec-1] com.fischer.service.impl.JwtServiceImpl  : 从token中解析出用户id
+2022-08-24 11:12:24.170  INFO 22352 --- [http-nio-8080-exec-1] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2022-08-24 11:14:32.388  INFO 22352 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 11:14:32.412  INFO 22352 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2022-08-24 11:14:32.416  INFO 22352 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2022-08-24 15:05:07.586  INFO 17788 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 17788 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 15:05:07.588  INFO 17788 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 15:05:08.261  INFO 17788 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 15:05:08.263  INFO 17788 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 15:05:08.283  INFO 17788 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 8ms. Found 0 Redis repository interfaces.
+2022-08-24 15:05:08.626  INFO 17788 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 15:05:08.632  INFO 17788 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 15:05:08.632  INFO 17788 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 15:05:08.972  INFO 17788 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 15:05:08.972  INFO 17788 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1355 ms
+2022-08-24 15:05:09.904  INFO 17788 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 15:05:10.070  INFO 17788 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 15:05:10.076  INFO 17788 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 2.759 seconds (JVM running for 3.453)
+2022-08-24 15:05:17.975  INFO 17788 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 15:05:17.975  INFO 17788 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 15:05:17.978  INFO 17788 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2022-08-24 15:05:18.027 ERROR 17788 --- [http-nio-8080-exec-1] c.f.exception.GlobalExceptionHandler     : 发生未知异常，详情：JSON parse error: Root name 'email' does not match expected ('user') for type [simple type, class com.fischer.data.LoginParam]; nested exception is com.fasterxml.jackson.databind.exc.MismatchedInputException: Root name 'email' does not match expected ('user') for type [simple type, class com.fischer.data.LoginParam]
+ at [Source: (PushbackInputStream); line: 3, column: 9] (through reference chain: com.fischer.data.LoginParam["email"])
+2022-08-24 15:06:21.352 ERROR 17788 --- [http-nio-8080-exec-3] c.f.exception.GlobalExceptionHandler     : 发生业务异常，具体情况为：邮箱错误或验证码超时
+2022-08-24 15:07:27.260  INFO 17788 --- [http-nio-8080-exec-5] com.fischer.service.impl.JwtServiceImpl  : 从token中解析出用户id
+2022-08-24 15:07:27.303  INFO 17788 --- [http-nio-8080-exec-5] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2022-08-24 15:07:40.987  INFO 17788 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 15:07:41.105  INFO 17788 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2022-08-24 15:07:41.108  INFO 17788 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2022-08-24 15:07:44.950  INFO 32324 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 32324 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 15:07:44.952  INFO 32324 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 15:07:45.349  INFO 32324 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 15:07:45.350  INFO 32324 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 15:07:45.364  INFO 32324 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6ms. Found 0 Redis repository interfaces.
+2022-08-24 15:07:45.627  INFO 32324 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 15:07:45.632  INFO 32324 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 15:07:45.632  INFO 32324 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 15:07:45.678  INFO 32324 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 15:07:45.678  INFO 32324 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 702 ms
+2022-08-24 15:07:46.508  INFO 32324 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 15:07:46.653  INFO 32324 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 15:07:46.659  INFO 32324 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 1.934 seconds (JVM running for 2.396)
+2022-08-24 15:07:51.397  INFO 32324 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 15:07:51.397  INFO 32324 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 15:07:51.400  INFO 32324 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2022-08-24 15:07:51.479  INFO 32324 --- [http-nio-8080-exec-1] com.fischer.service.impl.JwtServiceImpl  : 从token中解析出用户id
+2022-08-24 15:07:51.511  INFO 32324 --- [http-nio-8080-exec-1] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2022-08-24 15:08:32.417 ERROR 32324 --- [http-nio-8080-exec-2] c.f.exception.GlobalExceptionHandler     : 发生未知异常，详情：JSON parse error: Root name 'email' does not match expected ('user') for type [simple type, class com.fischer.data.LoginParam]; nested exception is com.fasterxml.jackson.databind.exc.MismatchedInputException: Root name 'email' does not match expected ('user') for type [simple type, class com.fischer.data.LoginParam]
+ at [Source: (PushbackInputStream); line: 3, column: 9] (through reference chain: com.fischer.data.LoginParam["email"])
+2022-08-24 15:12:08.437  INFO 32324 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 15:12:08.448  INFO 32324 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2022-08-24 15:12:08.451  INFO 32324 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2022-08-24 15:12:11.835  INFO 11712 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 11712 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 15:12:11.836  INFO 11712 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 15:12:12.231  INFO 11712 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 15:12:12.232  INFO 11712 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 15:12:12.246  INFO 11712 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6ms. Found 0 Redis repository interfaces.
+2022-08-24 15:12:12.513  INFO 11712 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 15:12:12.518  INFO 11712 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 15:12:12.518  INFO 11712 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 15:12:12.568  INFO 11712 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 15:12:12.569  INFO 11712 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 708 ms
+2022-08-24 15:12:13.400  INFO 11712 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 15:12:13.540  INFO 11712 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 15:12:13.546  INFO 11712 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 1.927 seconds (JVM running for 2.419)
+2022-08-24 15:12:16.855  INFO 11712 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 15:12:16.855  INFO 11712 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 15:12:16.859  INFO 11712 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2022-08-24 15:12:16.906 ERROR 11712 --- [http-nio-8080-exec-1] c.f.exception.GlobalExceptionHandler     : 发生未知异常，详情：JSON parse error: Root name 'email' does not match expected ('user') for type [simple type, class com.fischer.data.LoginParam]; nested exception is com.fasterxml.jackson.databind.exc.MismatchedInputException: Root name 'email' does not match expected ('user') for type [simple type, class com.fischer.data.LoginParam]
+ at [Source: (PushbackInputStream); line: 3, column: 9] (through reference chain: com.fischer.data.LoginParam["email"])
+2022-08-24 15:12:34.251  INFO 11712 --- [http-nio-8080-exec-2] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2022-08-24 15:13:35.625  INFO 11712 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 15:13:35.738  INFO 11712 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2022-08-24 15:13:35.742  INFO 11712 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2022-08-24 15:13:39.389  INFO 2948 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 2948 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 15:13:39.390  INFO 2948 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 15:13:39.776  INFO 2948 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 15:13:39.777  INFO 2948 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 15:13:39.792  INFO 2948 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6ms. Found 0 Redis repository interfaces.
+2022-08-24 15:13:40.055  INFO 2948 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 15:13:40.060  INFO 2948 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 15:13:40.060  INFO 2948 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 15:13:40.105  INFO 2948 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 15:13:40.105  INFO 2948 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 691 ms
+2022-08-24 15:13:40.904  INFO 2948 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 15:13:41.048  INFO 2948 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 15:13:41.053  INFO 2948 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 1.889 seconds (JVM running for 2.339)
+2022-08-24 15:13:51.860  INFO 2948 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 15:13:51.860  INFO 2948 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 15:13:51.863  INFO 2948 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2022-08-24 15:13:51.930  INFO 2948 --- [http-nio-8080-exec-1] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2022-08-24 15:14:53.287  INFO 2948 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 15:14:53.425  INFO 2948 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2022-08-24 15:14:53.429  INFO 2948 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2022-08-24 15:14:56.956  INFO 29424 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 29424 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 15:14:56.957  INFO 29424 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 15:14:57.347  INFO 29424 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 15:14:57.348  INFO 29424 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 15:14:57.363  INFO 29424 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6ms. Found 0 Redis repository interfaces.
+2022-08-24 15:14:57.625  INFO 29424 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 15:14:57.630  INFO 29424 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 15:14:57.630  INFO 29424 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 15:14:57.676  INFO 29424 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 15:14:57.676  INFO 29424 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 695 ms
+2022-08-24 15:14:58.490  INFO 29424 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 15:14:58.634  INFO 29424 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 15:14:58.639  INFO 29424 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 1.899 seconds (JVM running for 2.358)
+2022-08-24 15:15:01.994  INFO 29424 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 15:15:01.994  INFO 29424 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 15:15:01.998  INFO 29424 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2022-08-24 15:15:02.057  INFO 29424 --- [http-nio-8080-exec-1] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2022-08-24 15:15:03.712 ERROR 29424 --- [http-nio-8080-exec-1] c.f.exception.GlobalExceptionHandler     : 发生未知异常，详情：com.fischer.result.CommonResult cannot be cast to java.lang.String
+2022-08-24 15:19:27.677  INFO 29424 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 15:19:27.814  INFO 29424 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2022-08-24 15:19:27.818  INFO 29424 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2022-08-24 15:19:31.397  INFO 9296 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 9296 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 15:19:31.398  INFO 9296 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 15:19:31.784  INFO 9296 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 15:19:31.786  INFO 9296 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 15:19:31.800  INFO 9296 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6ms. Found 0 Redis repository interfaces.
+2022-08-24 15:19:32.067  INFO 9296 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 15:19:32.072  INFO 9296 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 15:19:32.072  INFO 9296 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 15:19:32.122  INFO 9296 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 15:19:32.122  INFO 9296 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 700 ms
+2022-08-24 15:19:32.963  INFO 9296 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 15:19:33.103  INFO 9296 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 15:19:33.109  INFO 9296 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 1.933 seconds (JVM running for 2.379)
+2022-08-24 15:19:39.214  INFO 9296 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 15:19:39.214  INFO 9296 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 15:19:39.218  INFO 9296 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2022-08-24 15:19:39.291  INFO 9296 --- [http-nio-8080-exec-1] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2022-08-24 15:19:41.129 ERROR 9296 --- [http-nio-8080-exec-1] c.f.exception.GlobalExceptionHandler     : 发生未知异常，详情：com.fischer.result.CommonResult cannot be cast to java.lang.String
+2022-08-24 15:22:42.045  INFO 9296 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 15:22:42.172  INFO 9296 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2022-08-24 15:22:42.176  INFO 9296 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2022-08-24 15:22:45.347  INFO 17752 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 17752 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 15:22:45.349  INFO 17752 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 15:22:45.763  INFO 17752 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 15:22:45.765  INFO 17752 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 15:22:45.780  INFO 17752 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6ms. Found 0 Redis repository interfaces.
+2022-08-24 15:22:46.101  INFO 17752 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 15:22:46.108  INFO 17752 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 15:22:46.108  INFO 17752 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 15:22:46.166  INFO 17752 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 15:22:46.166  INFO 17752 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 790 ms
+2022-08-24 15:22:47.114  INFO 17752 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 15:22:47.296  INFO 17752 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 15:22:47.303  INFO 17752 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 2.211 seconds (JVM running for 3.217)
+2022-08-24 15:22:49.614  INFO 17752 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 15:22:49.615  INFO 17752 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 15:22:49.619  INFO 17752 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2022-08-24 15:23:02.060  INFO 17752 --- [http-nio-8080-exec-1] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2022-08-24 15:23:03.964 ERROR 17752 --- [http-nio-8080-exec-1] c.f.exception.GlobalExceptionHandler     : 发生未知异常，详情：com.fischer.result.CommonResult cannot be cast to java.lang.String
+2022-08-24 15:23:04.027  INFO 17752 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 15:23:04.155  INFO 17752 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2022-08-24 15:23:04.158  INFO 17752 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2022-08-24 15:23:08.724  INFO 5016 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 5016 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 15:23:08.726  INFO 5016 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 15:23:09.147  INFO 5016 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 15:23:09.148  INFO 5016 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 15:23:09.164  INFO 5016 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6ms. Found 0 Redis repository interfaces.
+2022-08-24 15:23:09.483  INFO 5016 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 15:23:09.492  INFO 5016 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 15:23:09.492  INFO 5016 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 15:23:09.550  INFO 5016 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 15:23:09.550  INFO 5016 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 795 ms
+2022-08-24 15:23:10.567  INFO 5016 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 15:23:10.756  INFO 5016 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 15:23:10.762  INFO 5016 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 2.301 seconds (JVM running for 2.983)
+2022-08-24 15:23:21.348  INFO 5016 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 15:23:21.348  INFO 5016 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 15:23:21.352  INFO 5016 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2022-08-24 15:23:24.413  INFO 5016 --- [http-nio-8080-exec-1] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2022-08-24 15:26:01.564 ERROR 5016 --- [http-nio-8080-exec-1] c.f.exception.GlobalExceptionHandler     : 发生未知异常，详情：com.fischer.result.CommonResult cannot be cast to java.lang.String
+2022-08-24 15:27:57.625  INFO 5016 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 15:27:57.743  INFO 5016 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2022-08-24 15:27:57.746  INFO 5016 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2022-08-24 15:27:59.348  INFO 34488 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 34488 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 15:27:59.350  INFO 34488 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 15:27:59.740  INFO 34488 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 15:27:59.741  INFO 34488 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 15:27:59.755  INFO 34488 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6ms. Found 0 Redis repository interfaces.
+2022-08-24 15:28:00.020  INFO 34488 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 15:28:00.025  INFO 34488 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 15:28:00.025  INFO 34488 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 15:28:00.071  INFO 34488 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 15:28:00.072  INFO 34488 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 697 ms
+2022-08-24 15:28:00.855  INFO 34488 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 15:28:00.994  INFO 34488 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 15:28:01.000  INFO 34488 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 1.925 seconds (JVM running for 2.437)
+2022-08-24 15:28:04.248  INFO 34488 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 15:28:04.248  INFO 34488 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 15:28:04.252  INFO 34488 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2022-08-24 15:28:04.313  INFO 34488 --- [http-nio-8080-exec-1] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2022-08-24 15:28:06.580 ERROR 34488 --- [http-nio-8080-exec-1] c.f.exception.GlobalExceptionHandler     : 发生未知异常，详情：com.fischer.result.CommonResult cannot be cast to java.lang.String
+2022-08-24 15:29:46.775  INFO 34488 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 15:29:46.910  INFO 34488 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2022-08-24 15:29:46.913  INFO 34488 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2022-08-24 15:29:50.272  INFO 35480 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 35480 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 15:29:50.273  INFO 35480 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 15:29:50.656  INFO 35480 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 15:29:50.657  INFO 35480 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 15:29:50.671  INFO 35480 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6ms. Found 0 Redis repository interfaces.
+2022-08-24 15:29:50.926  INFO 35480 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 15:29:50.930  INFO 35480 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 15:29:50.930  INFO 35480 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 15:29:50.977  INFO 35480 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 15:29:50.977  INFO 35480 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 679 ms
+2022-08-24 15:29:51.799  INFO 35480 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 15:29:51.937  INFO 35480 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 15:29:51.943  INFO 35480 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 1.902 seconds (JVM running for 2.356)
+2022-08-24 15:29:54.350  INFO 35480 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 15:29:54.350  INFO 35480 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 15:29:54.353  INFO 35480 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2022-08-24 15:29:54.414  INFO 35480 --- [http-nio-8080-exec-1] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2022-08-24 15:37:49.703  INFO 35480 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 15:37:49.848  INFO 35480 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2022-08-24 15:37:49.856  INFO 35480 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2022-08-24 18:57:09.669  INFO 28916 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 28916 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 18:57:09.672  INFO 28916 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 18:57:10.160  INFO 28916 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 18:57:10.162  INFO 28916 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 18:57:10.179  INFO 28916 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7ms. Found 0 Redis repository interfaces.
+2022-08-24 18:57:10.494  INFO 28916 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 18:57:10.500  INFO 28916 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 18:57:10.500  INFO 28916 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 18:57:10.556  INFO 28916 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 18:57:10.556  INFO 28916 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 855 ms
+2022-08-24 18:57:11.491  INFO 28916 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 18:57:11.648  INFO 28916 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 18:57:11.654  INFO 28916 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 2.284 seconds (JVM running for 2.828)
+2022-08-24 18:57:19.310  INFO 28916 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 18:57:19.310  INFO 28916 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 18:57:19.314  INFO 28916 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2022-08-24 18:57:19.403 ERROR 28916 --- [http-nio-8080-exec-1] c.f.exception.GlobalExceptionHandler     : 表单校验未通过，原因为：message
+2022-08-24 18:58:24.277  INFO 28916 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 18:58:24.291  INFO 28916 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-0} closing ...
+2022-08-24 18:58:27.998  INFO 20196 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 20196 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 18:58:28.000  INFO 20196 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 18:58:28.496  INFO 20196 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 18:58:28.498  INFO 20196 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 18:58:28.520  INFO 20196 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10ms. Found 0 Redis repository interfaces.
+2022-08-24 18:58:28.823  INFO 20196 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 18:58:28.828  INFO 20196 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 18:58:28.828  INFO 20196 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 18:58:28.887  INFO 20196 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 18:58:28.888  INFO 20196 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 857 ms
+2022-08-24 18:58:29.937  INFO 20196 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 18:58:30.099  INFO 20196 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 18:58:30.105  INFO 20196 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 2.373 seconds (JVM running for 2.998)
+2022-08-24 18:58:42.192  INFO 20196 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 18:58:42.192  INFO 20196 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 18:58:42.198  INFO 20196 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2022-08-24 18:58:42.329 ERROR 20196 --- [http-nio-8080-exec-1] c.f.exception.GlobalExceptionHandler     : 表单校验未通过，原因为：message
+2022-08-24 18:59:09.910 ERROR 20196 --- [http-nio-8080-exec-2] c.f.exception.GlobalExceptionHandler     : 表单校验未通过，原因为：message
+2022-08-24 19:00:53.832  INFO 20196 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:00:53.845  INFO 20196 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-0} closing ...
+2022-08-24 19:00:57.640  INFO 22704 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 22704 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 19:00:57.642  INFO 22704 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 19:00:58.096  INFO 22704 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 19:00:58.097  INFO 22704 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 19:00:58.113  INFO 22704 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7ms. Found 0 Redis repository interfaces.
+2022-08-24 19:00:58.409  INFO 22704 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 19:00:58.414  INFO 22704 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 19:00:58.415  INFO 22704 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 19:00:58.466  INFO 22704 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 19:00:58.466  INFO 22704 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 797 ms
+2022-08-24 19:00:59.342  INFO 22704 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:00:59.496  INFO 22704 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 19:00:59.501  INFO 22704 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 2.096 seconds (JVM running for 2.577)
+2022-08-24 19:01:02.715  INFO 22704 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 19:01:02.715  INFO 22704 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 19:01:02.718  INFO 22704 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2022-08-24 19:01:02.806 ERROR 22704 --- [http-nio-8080-exec-1] c.f.exception.GlobalExceptionHandler     : 表单校验未通过，原因为：message
+2022-08-24 19:01:26.492  INFO 22704 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:01:26.502  INFO 22704 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-0} closing ...
+2022-08-24 19:01:29.923  INFO 33556 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 33556 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 19:01:29.924  INFO 33556 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 19:01:30.328  INFO 33556 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 19:01:30.330  INFO 33556 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 19:01:30.345  INFO 33556 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7ms. Found 0 Redis repository interfaces.
+2022-08-24 19:01:30.636  INFO 33556 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 19:01:30.641  INFO 33556 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 19:01:30.642  INFO 33556 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 19:01:30.692  INFO 33556 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 19:01:30.692  INFO 33556 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 743 ms
+2022-08-24 19:01:31.540  INFO 33556 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:01:31.690  INFO 33556 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 19:01:31.696  INFO 33556 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 2.012 seconds (JVM running for 2.484)
+2022-08-24 19:01:33.189  INFO 33556 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 19:01:33.189  INFO 33556 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 19:01:33.193  INFO 33556 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2022-08-24 19:01:33.634 ERROR 33556 --- [http-nio-8080-exec-1] c.f.exception.GlobalExceptionHandler     : 发生未知异常，详情：non null key required
+2022-08-24 19:02:52.866  INFO 33556 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:02:53.000  INFO 33556 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-0} closing ...
+2022-08-24 19:02:56.426  INFO 24672 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 24672 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 19:02:56.427  INFO 24672 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 19:02:56.837  INFO 24672 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 19:02:56.838  INFO 24672 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 19:02:56.856  INFO 24672 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 8ms. Found 0 Redis repository interfaces.
+2022-08-24 19:02:57.142  INFO 24672 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 19:02:57.147  INFO 24672 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 19:02:57.147  INFO 24672 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 19:02:57.197  INFO 24672 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 19:02:57.197  INFO 24672 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 741 ms
+2022-08-24 19:02:58.048  INFO 24672 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:02:58.194  INFO 24672 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 19:02:58.200  INFO 24672 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 2.005 seconds (JVM running for 2.474)
+2022-08-24 19:03:00.540  INFO 24672 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 19:03:00.540  INFO 24672 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 19:03:00.544  INFO 24672 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2022-08-24 19:03:00.979 ERROR 24672 --- [http-nio-8080-exec-1] c.f.exception.GlobalExceptionHandler     : 发生未知异常，详情：non null key required
+2022-08-24 19:04:23.757  INFO 24672 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:04:23.882  INFO 24672 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-0} closing ...
+2022-08-24 19:04:26.215  INFO 33568 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 33568 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 19:04:26.218  INFO 33568 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 19:04:26.668  INFO 33568 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 19:04:26.670  INFO 33568 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 19:04:26.686  INFO 33568 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7ms. Found 0 Redis repository interfaces.
+2022-08-24 19:04:27.002  INFO 33568 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 19:04:27.009  INFO 33568 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 19:04:27.009  INFO 33568 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 19:04:27.065  INFO 33568 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 19:04:27.065  INFO 33568 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 819 ms
+2022-08-24 19:04:28.035  INFO 33568 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:04:28.257  INFO 33568 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 19:04:28.263  INFO 33568 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 2.351 seconds (JVM running for 2.942)
+2022-08-24 19:04:33.123  INFO 33568 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 19:04:33.123  INFO 33568 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 19:04:33.127  INFO 33568 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2022-08-24 19:04:33.591 ERROR 33568 --- [http-nio-8080-exec-1] c.f.exception.GlobalExceptionHandler     : 发生未知异常，详情：non null key required
+2022-08-24 19:06:06.205 ERROR 33568 --- [http-nio-8080-exec-2] c.f.exception.GlobalExceptionHandler     : 发生未知异常，详情：Request method 'GET' not supported
+2022-08-24 19:06:06.372  INFO 33568 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:06:06.501  INFO 33568 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-0} closing ...
+2022-08-24 19:06:08.066  INFO 28908 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 28908 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 19:06:08.068  INFO 28908 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 19:06:08.520  INFO 28908 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 19:06:08.522  INFO 28908 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 19:06:08.539  INFO 28908 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7ms. Found 0 Redis repository interfaces.
+2022-08-24 19:06:08.893  INFO 28908 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 19:06:08.900  INFO 28908 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 19:06:08.901  INFO 28908 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 19:06:08.960  INFO 28908 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 19:06:08.960  INFO 28908 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 859 ms
+2022-08-24 19:06:09.883  INFO 28908 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:06:10.049  INFO 28908 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 19:06:10.055  INFO 28908 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 2.24 seconds (JVM running for 2.773)
+2022-08-24 19:06:18.112  INFO 28908 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 19:06:18.112  INFO 28908 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 19:06:18.116  INFO 28908 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2022-08-24 19:07:12.611  INFO 28908 --- [http-nio-8080-exec-2] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2022-08-24 19:07:30.027  INFO 28908 --- [http-nio-8080-exec-3] com.fischer.service.impl.JwtServiceImpl  : 从token中解析出用户id
+2022-08-24 19:07:30.098  INFO 28908 --- [http-nio-8080-exec-3] com.fischer.service.impl.JwtServiceImpl  : 从token中解析出用户id
+2022-08-24 19:07:55.738  INFO 28908 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:07:55.867  INFO 28908 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2022-08-24 19:07:55.871  INFO 28908 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2022-08-24 19:07:59.875  INFO 19508 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 19508 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 19:07:59.876  INFO 19508 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 19:08:00.378  INFO 19508 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 19:08:00.379  INFO 19508 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 19:08:00.397  INFO 19508 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 8ms. Found 0 Redis repository interfaces.
+2022-08-24 19:08:00.694  INFO 19508 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 19:08:00.699  INFO 19508 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 19:08:00.700  INFO 19508 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 19:08:00.753  INFO 19508 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 19:08:00.753  INFO 19508 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 847 ms
+2022-08-24 19:08:01.679  INFO 19508 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:08:01.852  INFO 19508 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 19:08:01.859  INFO 19508 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 2.233 seconds (JVM running for 2.753)
+2022-08-24 19:08:06.550  INFO 19508 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 19:08:06.550  INFO 19508 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 19:08:06.555  INFO 19508 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2022-08-24 19:08:06.989 ERROR 19508 --- [http-nio-8080-exec-1] c.f.exception.GlobalExceptionHandler     : 发生未知异常，详情：non null key required
+2022-08-24 19:08:10.114  INFO 19508 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:08:10.236  INFO 19508 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-0} closing ...
+2022-08-24 19:08:12.655  INFO 5168 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 5168 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 19:08:12.657  INFO 5168 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 19:08:13.149  INFO 5168 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 19:08:13.151  INFO 5168 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 19:08:13.166  INFO 5168 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7ms. Found 0 Redis repository interfaces.
+2022-08-24 19:08:13.493  INFO 5168 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 19:08:13.501  INFO 5168 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 19:08:13.501  INFO 5168 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 19:08:13.563  INFO 5168 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 19:08:13.564  INFO 5168 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 872 ms
+2022-08-24 19:08:14.540  INFO 5168 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:08:14.743  INFO 5168 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 19:08:14.749  INFO 5168 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 2.389 seconds (JVM running for 2.979)
+2022-08-24 19:08:17.991  INFO 5168 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 19:08:17.991  INFO 5168 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 19:08:17.996  INFO 5168 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2022-08-24 19:08:18.456 ERROR 5168 --- [http-nio-8080-exec-1] c.f.exception.GlobalExceptionHandler     : 发生未知异常，详情：non null key required
+2022-08-24 19:08:47.794  INFO 5168 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:08:47.917  INFO 5168 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-0} closing ...
+2022-08-24 19:08:51.802  INFO 2108 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 2108 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 19:08:51.804  INFO 2108 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 19:08:52.280  INFO 2108 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 19:08:52.282  INFO 2108 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 19:08:52.299  INFO 2108 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7ms. Found 0 Redis repository interfaces.
+2022-08-24 19:08:52.628  INFO 2108 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 19:08:52.635  INFO 2108 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 19:08:52.636  INFO 2108 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 19:08:52.694  INFO 2108 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 19:08:52.694  INFO 2108 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 859 ms
+2022-08-24 19:08:53.659  INFO 2108 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:08:53.865  INFO 2108 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 19:08:53.872  INFO 2108 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 2.356 seconds (JVM running for 2.938)
+2022-08-24 19:08:59.704  INFO 2108 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:08:59.720  INFO 2108 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-0} closing ...
+2022-08-24 19:09:01.574  INFO 24664 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 24664 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 19:09:01.576  INFO 24664 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 19:09:02.040  INFO 24664 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 19:09:02.041  INFO 24664 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 19:09:02.057  INFO 24664 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7ms. Found 0 Redis repository interfaces.
+2022-08-24 19:09:02.376  INFO 24664 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 19:09:02.383  INFO 24664 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 19:09:02.383  INFO 24664 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 19:09:02.440  INFO 24664 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 19:09:02.440  INFO 24664 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 836 ms
+2022-08-24 19:09:03.442  INFO 24664 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:09:03.646  INFO 24664 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 19:09:03.653  INFO 24664 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 2.37 seconds (JVM running for 3.123)
+2022-08-24 19:09:06.572  INFO 24664 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 19:09:06.572  INFO 24664 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 19:09:06.578  INFO 24664 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2022-08-24 19:10:55.613  INFO 24664 --- [http-nio-8080-exec-2] com.fischer.controller.UserController    : MEALInull
+2022-08-24 19:10:55.674  INFO 24664 --- [http-nio-8080-exec-1] com.fischer.service.impl.JwtServiceImpl  : 从token中解析出用户id
+2022-08-24 19:10:55.724  INFO 24664 --- [http-nio-8080-exec-1] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2022-08-24 19:10:56.029 ERROR 24664 --- [http-nio-8080-exec-2] c.f.exception.GlobalExceptionHandler     : 发生未知异常，详情：non null key required
+2022-08-24 19:10:56.049  INFO 24664 --- [http-nio-8080-exec-1] com.fischer.service.impl.JwtServiceImpl  : 从token中解析出用户id
+2022-08-24 19:10:56.102 ERROR 24664 --- [http-nio-8080-exec-1] c.f.exception.GlobalExceptionHandler     : 表单校验未通过，原因为：message
+2022-08-24 19:10:56.116  INFO 24664 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:10:56.254  INFO 24664 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2022-08-24 19:10:56.258  INFO 24664 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2022-08-24 19:10:58.490  INFO 20420 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 20420 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 19:10:58.491  INFO 20420 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 19:10:58.915  INFO 20420 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 19:10:58.917  INFO 20420 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 19:10:58.935  INFO 20420 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9ms. Found 0 Redis repository interfaces.
+2022-08-24 19:10:59.217  INFO 20420 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 19:10:59.223  INFO 20420 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 19:10:59.223  INFO 20420 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 19:10:59.271  INFO 20420 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 19:10:59.272  INFO 20420 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 753 ms
+2022-08-24 19:11:00.138  INFO 20420 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:11:00.292  INFO 20420 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 19:11:00.298  INFO 20420 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 2.042 seconds (JVM running for 2.552)
+2022-08-24 19:11:02.960  INFO 20420 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 19:11:02.960  INFO 20420 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 19:11:02.964  INFO 20420 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2022-08-24 19:11:03.018  INFO 20420 --- [http-nio-8080-exec-1] com.fischer.service.impl.JwtServiceImpl  : 从token中解析出用户id
+2022-08-24 19:11:03.053  INFO 20420 --- [http-nio-8080-exec-1] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2022-08-24 19:11:03.520  INFO 20420 --- [http-nio-8080-exec-1] com.fischer.service.impl.JwtServiceImpl  : 从token中解析出用户id
+2022-08-24 19:11:03.626 ERROR 20420 --- [http-nio-8080-exec-1] c.f.exception.GlobalExceptionHandler     : 表单校验未通过，原因为：message
+2022-08-24 19:15:29.555  INFO 20420 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:15:29.688  INFO 20420 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2022-08-24 19:15:29.693  INFO 20420 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2022-08-24 19:15:31.623  INFO 28456 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 28456 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 19:15:31.626  INFO 28456 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 19:15:32.123  INFO 28456 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 19:15:32.124  INFO 28456 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 19:15:32.140  INFO 28456 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7ms. Found 0 Redis repository interfaces.
+2022-08-24 19:15:32.498  INFO 28456 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 19:15:32.506  INFO 28456 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 19:15:32.506  INFO 28456 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 19:15:32.571  INFO 28456 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 19:15:32.571  INFO 28456 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 910 ms
+2022-08-24 19:15:33.574  INFO 28456 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:15:33.767  INFO 28456 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 19:15:33.773  INFO 28456 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 2.498 seconds (JVM running for 3.234)
+2022-08-24 19:15:59.254  INFO 28456 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 19:15:59.254  INFO 28456 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 19:15:59.259  INFO 28456 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2022-08-24 19:18:45.312  INFO 28456 --- [http-nio-8080-exec-1] com.fischer.controller.UserController    : MEALInull
+2022-08-24 19:18:45.736 ERROR 28456 --- [http-nio-8080-exec-1] c.f.exception.GlobalExceptionHandler     : 发生未知异常，详情：non null key required
+2022-08-24 19:18:45.830  INFO 28456 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:18:45.964  INFO 28456 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-0} closing ...
+2022-08-24 19:18:49.631  INFO 22756 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 22756 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 19:18:49.633  INFO 22756 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 19:18:50.135  INFO 22756 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 19:18:50.137  INFO 22756 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 19:18:50.153  INFO 22756 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7ms. Found 0 Redis repository interfaces.
+2022-08-24 19:18:50.498  INFO 22756 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 19:18:50.505  INFO 22756 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 19:18:50.505  INFO 22756 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 19:18:50.565  INFO 22756 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 19:18:50.565  INFO 22756 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 902 ms
+2022-08-24 19:18:51.538  INFO 22756 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:18:51.719  INFO 22756 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 19:18:51.726  INFO 22756 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 2.381 seconds (JVM running for 3.018)
+2022-08-24 19:18:54.131  INFO 22756 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 19:18:54.132  INFO 22756 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 19:18:54.136  INFO 22756 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2022-08-24 19:24:51.007  INFO 22756 --- [http-nio-8080-exec-1] com.fischer.controller.UserController    : MEALInull
+2022-08-24 19:24:51.577 ERROR 22756 --- [http-nio-8080-exec-1] c.f.exception.GlobalExceptionHandler     : 发生未知异常，详情：non null key required
+2022-08-24 19:24:51.624  WARN 22756 --- [http-nio-8080-exec-1] .m.m.a.ExceptionHandlerExceptionResolver : Failure in @ExceptionHandler com.fischer.exception.GlobalExceptionHandler#unKnowExceptionHandler(Exception)
+
+org.apache.catalina.connector.ClientAbortException: java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+	at org.apache.catalina.connector.OutputBuffer.doFlush(OutputBuffer.java:309) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.connector.OutputBuffer.flush(OutputBuffer.java:272) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.connector.CoyoteOutputStream.flush(CoyoteOutputStream.java:118) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at java.io.FilterOutputStream.flush(FilterOutputStream.java:140) ~[na:1.8.0_322]
+	at com.fasterxml.jackson.core.json.UTF8JsonGenerator.flush(UTF8JsonGenerator.java:1176) ~[jackson-core-2.11.3.jar:2.11.3]
+	at com.fasterxml.jackson.databind.ObjectWriter.writeValue(ObjectWriter.java:1008) ~[jackson-databind-2.11.3.jar:2.11.3]
+	at org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.writeInternal(AbstractJackson2HttpMessageConverter.java:346) ~[spring-web-5.2.12.RELEASE.jar:5.2.12.RELEASE]
+	at org.springframework.http.converter.AbstractGenericHttpMessageConverter.write(AbstractGenericHttpMessageConverter.java:104) ~[spring-web-5.2.12.RELEASE.jar:5.2.12.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:277) ~[spring-webmvc-5.2.12.RELEASE.jar:5.2.12.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.handleReturnValue(RequestResponseBodyMethodProcessor.java:181) ~[spring-webmvc-5.2.12.RELEASE.jar:5.2.12.RELEASE]
+	at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:82) ~[spring-web-5.2.12.RELEASE.jar:5.2.12.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:123) ~[spring-webmvc-5.2.12.RELEASE.jar:5.2.12.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver.doResolveHandlerMethodException(ExceptionHandlerExceptionResolver.java:407) ~[spring-webmvc-5.2.12.RELEASE.jar:5.2.12.RELEASE]
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodExceptionResolver.doResolveException(AbstractHandlerMethodExceptionResolver.java:61) [spring-webmvc-5.2.12.RELEASE.jar:5.2.12.RELEASE]
+	at org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver.resolveException(AbstractHandlerExceptionResolver.java:141) [spring-webmvc-5.2.12.RELEASE.jar:5.2.12.RELEASE]
+	at org.springframework.web.servlet.handler.HandlerExceptionResolverComposite.resolveException(HandlerExceptionResolverComposite.java:80) [spring-webmvc-5.2.12.RELEASE.jar:5.2.12.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.processHandlerException(DispatcherServlet.java:1300) [spring-webmvc-5.2.12.RELEASE.jar:5.2.12.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1111) [spring-webmvc-5.2.12.RELEASE.jar:5.2.12.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1057) [spring-webmvc-5.2.12.RELEASE.jar:5.2.12.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943) [spring-webmvc-5.2.12.RELEASE.jar:5.2.12.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) [spring-webmvc-5.2.12.RELEASE.jar:5.2.12.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) [spring-webmvc-5.2.12.RELEASE.jar:5.2.12.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652) [tomcat-embed-core-9.0.41.jar:4.0.FR]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) [spring-webmvc-5.2.12.RELEASE.jar:5.2.12.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733) [tomcat-embed-core-9.0.41.jar:4.0.FR]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) [tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) [tomcat-embed-websocket-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) [spring-web-5.2.12.RELEASE.jar:5.2.12.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) [spring-web-5.2.12.RELEASE.jar:5.2.12.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) [spring-web-5.2.12.RELEASE.jar:5.2.12.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) [spring-web-5.2.12.RELEASE.jar:5.2.12.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) [spring-web-5.2.12.RELEASE.jar:5.2.12.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) [spring-web-5.2.12.RELEASE.jar:5.2.12.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) [tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) [tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542) [tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143) [tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) [tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374) [tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) [tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:888) [tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1597) [tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.41.jar:9.0.41]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_322]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_322]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.41.jar:9.0.41]
+	at java.lang.Thread.run(Thread.java:750) [na:1.8.0_322]
+Caused by: java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+	at sun.nio.ch.SocketDispatcher.write0(Native Method) ~[na:1.8.0_322]
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:51) ~[na:1.8.0_322]
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93) ~[na:1.8.0_322]
+	at sun.nio.ch.IOUtil.write(IOUtil.java:65) ~[na:1.8.0_322]
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:470) ~[na:1.8.0_322]
+	at org.apache.tomcat.util.net.NioChannel.write(NioChannel.java:138) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.tomcat.util.net.NioBlockingSelector.write(NioBlockingSelector.java:101) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.tomcat.util.net.NioSelectorPool.write(NioSelectorPool.java:152) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper.doWrite(NioEndpoint.java:1253) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.tomcat.util.net.SocketWrapperBase.doWrite(SocketWrapperBase.java:764) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.tomcat.util.net.SocketWrapperBase.flushBlocking(SocketWrapperBase.java:717) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.tomcat.util.net.SocketWrapperBase.flush(SocketWrapperBase.java:707) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.coyote.http11.Http11OutputBuffer$SocketOutputBuffer.flush(Http11OutputBuffer.java:572) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.coyote.http11.filters.ChunkedOutputFilter.flush(ChunkedOutputFilter.java:157) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.coyote.http11.Http11OutputBuffer.flush(Http11OutputBuffer.java:220) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.coyote.http11.Http11Processor.flush(Http11Processor.java:1195) [tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.coyote.AbstractProcessor.action(AbstractProcessor.java:402) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.coyote.Response.action(Response.java:209) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	at org.apache.catalina.connector.OutputBuffer.doFlush(OutputBuffer.java:305) ~[tomcat-embed-core-9.0.41.jar:9.0.41]
+	... 57 common frames omitted
+
+2022-08-24 19:24:51.658  INFO 22756 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:24:51.789  INFO 22756 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-0} closing ...
+2022-08-24 19:24:56.627  INFO 5036 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 5036 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 19:24:56.636  INFO 5036 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 19:24:57.407  INFO 5036 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 19:24:57.411  INFO 5036 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 19:24:57.435  INFO 5036 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9ms. Found 0 Redis repository interfaces.
+2022-08-24 19:24:57.812  INFO 5036 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 19:24:57.820  INFO 5036 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 19:24:57.820  INFO 5036 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 19:24:57.888  INFO 5036 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 19:24:57.888  INFO 5036 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1205 ms
+2022-08-24 19:24:59.037  INFO 5036 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:24:59.267  INFO 5036 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 19:24:59.275  INFO 5036 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 3.069 seconds (JVM running for 3.963)
+2022-08-24 19:24:59.601  INFO 5036 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 19:24:59.601  INFO 5036 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 19:24:59.605  INFO 5036 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2022-08-24 19:27:24.046  INFO 5036 --- [http-nio-8080-exec-1] com.fischer.controller.UserController    : MEALInull
+2022-08-24 19:27:24.502 ERROR 5036 --- [http-nio-8080-exec-1] c.f.exception.GlobalExceptionHandler     : 发生未知异常，详情：non null key required
+2022-08-24 19:27:24.551  INFO 5036 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:27:24.683  INFO 5036 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-0} closing ...
+2022-08-24 19:27:28.682  INFO 32788 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 32788 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 19:27:28.684  INFO 32788 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 19:27:29.162  INFO 32788 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 19:27:29.163  INFO 32788 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 19:27:29.178  INFO 32788 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7ms. Found 0 Redis repository interfaces.
+2022-08-24 19:27:29.521  INFO 32788 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 19:27:29.528  INFO 32788 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 19:27:29.528  INFO 32788 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 19:27:29.588  INFO 32788 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 19:27:29.588  INFO 32788 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 873 ms
+2022-08-24 19:27:30.544  INFO 32788 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:27:30.763  INFO 32788 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 19:27:30.770  INFO 32788 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 2.372 seconds (JVM running for 3.07)
+2022-08-24 19:27:34.345  INFO 32788 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 19:27:34.345  INFO 32788 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 19:27:34.350  INFO 32788 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2022-08-24 19:27:34.413  INFO 32788 --- [http-nio-8080-exec-1] com.fischer.service.impl.JwtServiceImpl  : 从token中解析出用户id
+2022-08-24 19:27:34.459  INFO 32788 --- [http-nio-8080-exec-1] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2022-08-24 19:27:34.971  INFO 32788 --- [http-nio-8080-exec-1] com.fischer.service.impl.JwtServiceImpl  : 从token中解析出用户id
+2022-08-24 19:29:20.643  INFO 32788 --- [http-nio-8080-exec-1] com.fischer.service.impl.JwtServiceImpl  : 从token中解析出用户id
+2022-08-24 19:29:20.645  INFO 32788 --- [http-nio-8080-exec-2] com.fischer.service.impl.JwtServiceImpl  : 从token中解析出用户id
+2022-08-24 19:29:20.661  WARN 32788 --- [http-nio-8080-exec-1] c.a.druid.pool.DruidAbstractDataSource   : discard long time none received connection. , jdbcUrl : jdbc:mysql://localhost:3306/rgzn?serverTimezone=Asia/Shanghai, version : 1.2.8, lastPacketReceivedIdleMillis : 105675
+2022-08-24 19:29:20.667  INFO 32788 --- [http-nio-8080-exec-2] com.fischer.service.impl.JwtServiceImpl  : 从token中解析出用户id
+2022-08-24 19:29:20.670  INFO 32788 --- [http-nio-8080-exec-2] com.fischer.service.impl.JwtServiceImpl  : 从token中解析出用户id
+2022-08-24 19:29:20.726 ERROR 32788 --- [http-nio-8080-exec-1] c.f.exception.GlobalExceptionHandler     : 发生未知异常，详情：
+### Error updating database.  Cause: java.sql.SQLException: Field 'title' doesn't have a default value
+### The error may exist in com/fischer/mapper/ArticleMapper.java (best guess)
+### The error may involve com.fischer.mapper.ArticleMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO articles  ( user_id )  VALUES  ( ? )
+### Cause: java.sql.SQLException: Field 'title' doesn't have a default value
+; Field 'title' doesn't have a default value; nested exception is java.sql.SQLException: Field 'title' doesn't have a default value
+2022-08-24 19:29:20.726 ERROR 32788 --- [http-nio-8080-exec-2] c.f.exception.GlobalExceptionHandler     : 发生未知异常，详情：
+### Error updating database.  Cause: java.sql.SQLException: Field 'title' doesn't have a default value
+### The error may exist in com/fischer/mapper/ArticleMapper.java (best guess)
+### The error may involve com.fischer.mapper.ArticleMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO articles  ( user_id )  VALUES  ( ? )
+### Cause: java.sql.SQLException: Field 'title' doesn't have a default value
+; Field 'title' doesn't have a default value; nested exception is java.sql.SQLException: Field 'title' doesn't have a default value
+2022-08-24 19:29:20.812  INFO 32788 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:29:20.944  INFO 32788 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2022-08-24 19:29:20.946  INFO 32788 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2022-08-24 19:29:24.902  INFO 37432 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 37432 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 19:29:24.904  INFO 37432 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 19:29:25.307  INFO 37432 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 19:29:25.308  INFO 37432 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 19:29:25.324  INFO 37432 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6ms. Found 0 Redis repository interfaces.
+2022-08-24 19:29:25.606  INFO 37432 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 19:29:25.611  INFO 37432 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 19:29:25.611  INFO 37432 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 19:29:25.665  INFO 37432 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 19:29:25.665  INFO 37432 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 735 ms
+2022-08-24 19:29:26.533  INFO 37432 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:29:26.687  INFO 37432 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 19:29:26.693  INFO 37432 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 2.048 seconds (JVM running for 2.55)
+2022-08-24 19:29:29.964  INFO 37432 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 19:29:29.965  INFO 37432 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 19:29:29.970  INFO 37432 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2022-08-24 19:29:30.035  INFO 37432 --- [http-nio-8080-exec-1] com.fischer.service.impl.JwtServiceImpl  : 从token中解析出用户id
+2022-08-24 19:29:30.073  INFO 37432 --- [http-nio-8080-exec-1] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2022-08-24 19:29:30.548  INFO 37432 --- [http-nio-8080-exec-1] com.fischer.service.impl.JwtServiceImpl  : 从token中解析出用户id
+2022-08-24 19:29:30.622  INFO 37432 --- [http-nio-8080-exec-1] com.fischer.service.impl.JwtServiceImpl  : 从token中解析出用户id
+2022-08-24 19:29:30.676 ERROR 37432 --- [http-nio-8080-exec-1] c.f.exception.GlobalExceptionHandler     : 发生未知异常，详情：
+### Error updating database.  Cause: java.sql.SQLException: Field 'title' doesn't have a default value
+### The error may exist in com/fischer/mapper/ArticleMapper.java (best guess)
+### The error may involve com.fischer.mapper.ArticleMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO articles  ( user_id )  VALUES  ( ? )
+### Cause: java.sql.SQLException: Field 'title' doesn't have a default value
+; Field 'title' doesn't have a default value; nested exception is java.sql.SQLException: Field 'title' doesn't have a default value
+2022-08-24 19:29:33.314  INFO 37432 --- [http-nio-8080-exec-2] com.fischer.service.impl.JwtServiceImpl  : 从token中解析出用户id
+2022-08-24 19:29:33.318  INFO 37432 --- [http-nio-8080-exec-2] com.fischer.service.impl.JwtServiceImpl  : 从token中解析出用户id
+2022-08-24 19:29:33.322  INFO 37432 --- [http-nio-8080-exec-2] com.fischer.service.impl.JwtServiceImpl  : 从token中解析出用户id
+2022-08-24 19:29:33.324 ERROR 37432 --- [http-nio-8080-exec-2] c.f.exception.GlobalExceptionHandler     : 发生未知异常，详情：
+### Error updating database.  Cause: java.sql.SQLException: Field 'title' doesn't have a default value
+### The error may exist in com/fischer/mapper/ArticleMapper.java (best guess)
+### The error may involve com.fischer.mapper.ArticleMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO articles  ( user_id )  VALUES  ( ? )
+### Cause: java.sql.SQLException: Field 'title' doesn't have a default value
+; Field 'title' doesn't have a default value; nested exception is java.sql.SQLException: Field 'title' doesn't have a default value
+2022-08-24 19:29:34.400  INFO 37432 --- [http-nio-8080-exec-3] com.fischer.service.impl.JwtServiceImpl  : 从token中解析出用户id
+2022-08-24 19:29:34.406  INFO 37432 --- [http-nio-8080-exec-3] com.fischer.service.impl.JwtServiceImpl  : 从token中解析出用户id
+2022-08-24 19:29:34.409  INFO 37432 --- [http-nio-8080-exec-3] com.fischer.service.impl.JwtServiceImpl  : 从token中解析出用户id
+2022-08-24 19:29:34.411 ERROR 37432 --- [http-nio-8080-exec-3] c.f.exception.GlobalExceptionHandler     : 发生未知异常，详情：
+### Error updating database.  Cause: java.sql.SQLException: Field 'title' doesn't have a default value
+### The error may exist in com/fischer/mapper/ArticleMapper.java (best guess)
+### The error may involve com.fischer.mapper.ArticleMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO articles  ( user_id )  VALUES  ( ? )
+### Cause: java.sql.SQLException: Field 'title' doesn't have a default value
+; Field 'title' doesn't have a default value; nested exception is java.sql.SQLException: Field 'title' doesn't have a default value
+2022-08-24 19:29:37.337  INFO 37432 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:29:37.460  INFO 37432 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2022-08-24 19:29:37.463  INFO 37432 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2022-08-24 19:33:36.668  INFO 24112 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 24112 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 19:33:36.670  INFO 24112 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 19:33:37.215  INFO 24112 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 19:33:37.216  INFO 24112 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 19:33:37.235  INFO 24112 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 8ms. Found 0 Redis repository interfaces.
+2022-08-24 19:33:37.590  INFO 24112 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 19:33:37.596  INFO 24112 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 19:33:37.596  INFO 24112 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 19:33:37.658  INFO 24112 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 19:33:37.658  INFO 24112 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 956 ms
+2022-08-24 19:33:38.659  INFO 24112 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:33:38.826  INFO 24112 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 19:33:38.833  INFO 24112 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 2.451 seconds (JVM running for 3.005)
+2022-08-24 19:39:09.330  INFO 24112 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:39:09.349  INFO 24112 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-0} closing ...
+2022-08-24 19:51:54.156  INFO 23180 --- [main] com.fischer.RgznIcuApplication           : Starting RgznIcuApplication on DESKTOP-CAUV675 with PID 23180 (D:\ProgramResp\IDEAProjects\rgzn-icu\target\classes started by 18093 in D:\ProgramResp\IDEAProjects\rgzn-icu)
+2022-08-24 19:51:54.159  INFO 23180 --- [main] com.fischer.RgznIcuApplication           : The following profiles are active: dev
+2022-08-24 19:51:54.776  INFO 23180 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-24 19:51:54.778  INFO 23180 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-24 19:51:54.797  INFO 23180 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 8ms. Found 0 Redis repository interfaces.
+2022-08-24 19:51:55.166  INFO 23180 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-08-24 19:51:55.173  INFO 23180 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-24 19:51:55.174  INFO 23180 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-24 19:51:55.234  INFO 23180 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-24 19:51:55.234  INFO 23180 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1028 ms
+2022-08-24 19:51:56.290  INFO 23180 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:51:56.506  INFO 23180 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-24 19:51:56.513  INFO 23180 --- [main] com.fischer.RgznIcuApplication           : Started RgznIcuApplication in 2.727 seconds (JVM running for 3.565)
+2022-08-24 19:52:00.588  INFO 23180 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-24 19:52:00.588  INFO 23180 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-24 19:52:00.593  INFO 23180 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2022-08-24 19:53:30.294  INFO 23180 --- [http-nio-8080-exec-1] com.fischer.controller.UserController    : MEALInull
+2022-08-24 19:53:30.712 ERROR 23180 --- [http-nio-8080-exec-1] c.f.exception.GlobalExceptionHandler     : 发生未知异常，详情：non null key required
+2022-08-24 19:53:30.800  INFO 23180 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-08-24 19:53:30.923  INFO 23180 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-0} closing ...

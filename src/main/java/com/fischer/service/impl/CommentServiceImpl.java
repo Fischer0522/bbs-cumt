@@ -1,10 +1,8 @@
 package com.fischer.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.fischer.mapper.ArticleMapper;
-import com.fischer.mapper.CommentFavoriteMapper;
-import com.fischer.mapper.CommentMapper;
-import com.fischer.mapper.UserMapper;
+import com.fischer.data.MyPage;
+import com.fischer.mapper.*;
 import com.fischer.pojo.*;
 import com.fischer.service.CommentService;
 import com.fischer.exception.BizException;
@@ -12,7 +10,9 @@ import com.fischer.exception.ExceptionStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -29,24 +29,27 @@ public class CommentServiceImpl implements CommentService {
     private UserMapper userMapper;
     private ArticleMapper articleMapper;
     private CommentFavoriteMapper commentFavoriteMapper;
+    private RoleMapper roleMapper;
 
     @Autowired
     public CommentServiceImpl(CommentMapper commentMapper,
                               UserMapper userMapper,
                               ArticleMapper articleMapper,
-                              CommentFavoriteMapper commentFavoriteMapper){
+                              CommentFavoriteMapper commentFavoriteMapper,
+                              RoleMapper roleMapper){
         this.articleMapper = articleMapper;
         this.userMapper = userMapper;
         this.commentMapper = commentMapper;
         this.commentFavoriteMapper = commentFavoriteMapper;
+        this.roleMapper = roleMapper;
     }
 
     @Override
-    public Optional<CommentBO> createComment(Integer articleId, String body, Integer userId) {
+    public Optional<CommentBO> createComment(Long articleId, String body, Long userId) {
         ArticleDO articleDO = articleMapper.selectById(articleId);
         if(Objects.isNull(articleDO)) {
             log.warn("用户:"+userId.toString()+"添加评论失败");
-            throw new BizException(404,"当前要评论的文章已不存在");
+            throw new BizException(ExceptionStatus.ERROR_GET_ARTICLE_FAIL);
         }
 
         // 添加评论后更新文章的热度
@@ -69,7 +72,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Optional<CommentBO> deleteComment(Integer commentId, Integer userId) {
+    @Transactional(rollbackFor = {SQLException.class})
+    public Optional<CommentBO> deleteComment(Long commentId, Long userId) {
         CommentDO commentDO = commentMapper.selectById(commentId);
         ArticleDO articleDO = articleMapper.selectById(commentDO.getArticleId());
 
@@ -78,20 +82,30 @@ public class CommentServiceImpl implements CommentService {
             throw new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR);
         }
         if (userId.equals(commentDO.getUserId())||userId.equals(articleDO.getUserId())) {
-            commentMapper.deleteById(commentId);
-            CommentBO commentBO = fillExtraInfo(commentDO,userId);
-            log.info("删除评论成功,用户id:"+ userId,"评论id:"+commentId.toString());
-            return Optional.of(commentBO);
+            int i = commentMapper.deleteById(commentId);
+            if (i > 0) {
+                CommentBO commentBO = fillExtraInfo(commentDO,userId);
+                log.info("删除评论成功,用户id:"+ userId,"评论id:"+commentId.toString());
+                // 清除 被删除评论的favorite信息
+                LambdaQueryWrapper<CommentFavoriteDO> favoriteDOLambdaQueryWrapper = new LambdaQueryWrapper<>();
+                favoriteDOLambdaQueryWrapper.eq(CommentFavoriteDO::getCommentId,commentId);
+                commentFavoriteMapper.delete(favoriteDOLambdaQueryWrapper);
+
+                return Optional.of(commentBO);
+            } else {
+                throw new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR);
+            }
+
         } else {
             log.warn("无权限删除评论,用户id"+ userId +"评论id"+commentId.toString());
-            throw new BizException(ExceptionStatus.FORBIDDEN);
+            throw new BizException(ExceptionStatus.ERROR_NOT_AUTH);
 
         }
 
     }
 
     @Override
-    public Optional<CommentBO> favoriteComment(Integer commentId, Integer userId) {
+    public Optional<CommentBO> favoriteComment(Long commentId, Long userId) {
 
         LambdaQueryWrapper<CommentFavoriteDO> lqw = new LambdaQueryWrapper<>();
         lqw.eq(CommentFavoriteDO::getCommentId,commentId);
@@ -113,7 +127,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Optional<CommentBO> unfavoriteComment(Integer commentId, Integer userId) {
+    public Optional<CommentBO> unfavoriteComment(Long commentId, Long userId) {
         LambdaQueryWrapper<CommentFavoriteDO> lqw = new LambdaQueryWrapper<>();
         lqw.eq(CommentFavoriteDO::getCommentId,commentId);
         lqw.eq(CommentFavoriteDO::getUserId,userId);
@@ -130,7 +144,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public synchronized CommentVO getComments(Integer articleId, Integer offset, Integer limit, Integer orderType,Integer userId) {
+    public synchronized CommentVO getComments(Long articleId, Integer offset, Integer limit, Integer orderType,Long userId) {
         MyPage myPage = new MyPage(offset,limit);
         List<CommentDO> comments = commentMapper.getComments(orderType, articleId, myPage);
         List<CommentBO> commentBOList = comments.stream()
@@ -146,9 +160,12 @@ public class CommentServiceImpl implements CommentService {
     }
 
 
-    CommentBO fillExtraInfo(CommentDO commentDO,Integer userId) {
-        Integer commentId = commentDO.getId();
-        UserDO userDO = userMapper.selectById(userId);
+    CommentBO fillExtraInfo(CommentDO commentDO,Long userId) {
+        Long commentId = commentDO.getId();
+        UserDO userDO = userMapper.selectById(commentDO.getUserId());
+        LambdaQueryWrapper<RoleDO> lqwRoles = new LambdaQueryWrapper<>();
+        List<String> roles = roleMapper.selectList(lqwRoles).stream().map(s -> s.getRole()).collect(Collectors.toList());
+        UserVO userVO = new UserVO(userDO,roles);
         // 查询点赞数
         LambdaQueryWrapper<CommentFavoriteDO> lqw = new LambdaQueryWrapper<>();
         lqw.eq(CommentFavoriteDO::getCommentId,commentDO.getId());
@@ -169,7 +186,7 @@ public class CommentServiceImpl implements CommentService {
 
         }
 
-        return new CommentBO(commentDO,userDO,favoriteCount,favorite);
+        return new CommentBO(commentDO,userVO,favoriteCount,favorite);
     }
 
 }

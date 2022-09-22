@@ -25,5 +25,5 @@ public interface JwtService {
     /** 从token中获取相关用户Id
      * @param token 请求携带的token
      * @return 返回用户的id*/
-    Optional<Integer> getSubFromToken(String token);
+    Optional<Long> getSubFromToken(String token);
 }

@@ -21,8 +21,8 @@ import java.io.Serializable;
 @ToString
 @TableName("info")
 public class InfoDO implements Serializable {
-    @TableId(type = IdType.AUTO)
-    private Integer id;
+    @TableId(type = IdType.ASSIGN_ID)
+    private Long id;
     private String randName;
     private String randImage;
     private Integer used;

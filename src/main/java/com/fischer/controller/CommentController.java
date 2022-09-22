@@ -1,5 +1,10 @@
 package com.fischer.controller;
 
+import cn.dev33.satoken.annotation.SaCheckDisable;
+import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.dev33.satoken.annotation.SaCheckRole;
+import cn.dev33.satoken.annotation.SaIgnore;
+import cn.dev33.satoken.stp.StpUtil;
 import com.fischer.data.CommentParam;
 import com.fischer.exception.BizException;
 import com.fischer.exception.ExceptionStatus;
@@ -20,56 +25,51 @@ import javax.validation.Valid;
  */
 @Slf4j
 @RestController
-@RequestMapping("comments")
+@RequestMapping("api/comments")
 @ResponseResult
+@SaCheckRole("common-user")
 public class CommentController {
 
     private CommentService commentService;
-    private JwtService jwtService;
-    private final String AUTHORIZATION = "Authorization";
-    @Autowired
-    public CommentController(CommentService commentService,
-                             JwtService jwtService) {
-        this.commentService = commentService;
-        this.jwtService = jwtService;
-    }
 
+    @Autowired
+    public CommentController(CommentService commentService) {
+        this.commentService = commentService;
+
+    }
+    @SaIgnore
     @GetMapping("{articleId}")
-    ResponseEntity<CommentVO> getComments(@PathVariable(value = "articleId") Integer articleId,
+    ResponseEntity<CommentVO> getComments(@PathVariable(value = "articleId") Long articleId,
                                           @RequestParam(value = "offset",defaultValue = "0") Integer offset,
                                           @RequestParam(value = "limit",defaultValue = "20") Integer limit,
-                                          @RequestParam(value = "orderType",defaultValue = "1")Integer orderType,
-                                          @Nullable @RequestHeader(value =  AUTHORIZATION) String token) {
+                                          @RequestParam(value = "orderType",defaultValue = "1")Integer orderType) {
 
-        Integer userId = null;
-        if(Strings.isNotEmpty(token)) {
-            UserDO user = jwtService.getUser(token);
-            userId = user.getId();
+        Long userId = null;
+        if (StpUtil.isLogin()) {
+            userId = StpUtil.getLoginIdAsLong();
+
         } else {
-            log.info("用户匿名访问"+getClass().getName()+":"+"getComments");
+            log.info("用户匿名访问"+getClass().getName()+":"+"getArticle");
         }
         CommentVO comments = commentService.getComments(articleId, offset, limit, orderType,userId);
         return ResponseEntity.ok(comments);
 
     }
-
+    @SaCheckLogin
+    @SaCheckDisable("comment")
     @PostMapping
-    ResponseEntity<CommentBO> createComment( @Valid @RequestBody CommentParam commentParam,
-                                            @RequestHeader(value = AUTHORIZATION) String token) {
-        UserDO user = jwtService.getUser(token);
-        Integer userId = user.getId();
+    ResponseEntity<CommentBO> createComment( @Valid @RequestBody CommentParam commentParam) {
+        Long userId = StpUtil.getLoginIdAsLong();
         CommentBO commentBO = commentService
                 .createComment(commentParam.getArticleId(), commentParam.getBody(), userId)
                 .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
         return ResponseEntity.ok(commentBO);
 
     }
-
+    @SaCheckLogin
     @DeleteMapping({"{commentId}"})
-    ResponseEntity<CommentBO> deleteComment(@PathVariable(value = "commentId") Integer commentId,
-                                             @RequestHeader(value = AUTHORIZATION) String token) {
-        UserDO user = jwtService.getUser(token);
-        Integer userId = user.getId();
+    ResponseEntity<CommentBO> deleteComment(@PathVariable(value = "commentId") Long commentId) {
+        Long userId = StpUtil.getLoginIdAsLong();
         CommentBO commentBO = commentService.deleteComment(commentId, userId)
                 .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
         return ResponseEntity.ok(commentBO);
@@ -77,24 +77,21 @@ public class CommentController {
 
     }
 
-
+    @SaCheckLogin
     @PostMapping("{commentId}/favorite")
-    ResponseEntity<CommentBO> favoriteComment(@PathVariable(value = "commentId") Integer commentId,
-                                              @RequestHeader(AUTHORIZATION) String token) {
+    ResponseEntity<CommentBO> favoriteComment(@PathVariable(value = "commentId") Long commentId) {
 
-        UserDO user = jwtService.getUser(token);
-        Integer userId = user.getId();
+        Long userId = StpUtil.getLoginIdAsLong();
         CommentBO commentBO = commentService.favoriteComment(commentId, userId)
                 .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
         return ResponseEntity.ok(commentBO);
 
     }
 
+    @SaCheckLogin
     @DeleteMapping("{commentId}/favorite")
-    ResponseEntity<CommentBO> unfavoriteCount(@PathVariable(value = "commentId") Integer commentId,
-                                              @RequestHeader(AUTHORIZATION) String token){
-        UserDO user = jwtService.getUser(token);
-        Integer userId = user.getId();
+    ResponseEntity<CommentBO> unfavoriteCount(@PathVariable(value = "commentId") Long commentId){
+        Long userId = StpUtil.getLoginIdAsLong();
         CommentBO commentBO = commentService.unfavoriteComment(commentId, userId)
                 .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
         return ResponseEntity.ok(commentBO);
