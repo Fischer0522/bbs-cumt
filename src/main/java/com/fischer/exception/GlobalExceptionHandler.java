@@ -2,6 +2,7 @@ package com.fischer.exception;
 
 
 import com.fischer.result.ErrorResult;
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,5 +93,12 @@ public class GlobalExceptionHandler {
         }
         return new ErrorResult(500,"登录异常");
 
+    }
+
+    @ExceptionHandler(ExpiredJwtException.class)
+    public ErrorResult JwtExpiredHandler(ExpiredJwtException e) {
+        log.warn("当前身份验证已经过期，请重新登录");
+        e.printStackTrace();
+        return new ErrorResult(500,"当前身份验证已经过期，请重新登录");
     }
 }

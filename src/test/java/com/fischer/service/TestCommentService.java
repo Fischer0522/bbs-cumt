@@ -34,22 +34,7 @@ public class TestCommentService {
         System.out.println(commentBO.get());
     }
 
-    @Test
-    void testGetComments(){
-        Runnable create =() -> {
-          commentService.createComment(8,"说藏话了",1242);
-        };
 
-        Runnable get = () -> {
-            System.out.println(commentService.getComments(8, 0, 1000, 1));
-            System.out.println(commentService.getComments(8, 0, 1000, 1).getCommentBOList().size());
-        };
-
-        for (int i = 0; i<10 ;i++) {
-            create.run();
-            get.run();
-        }
-    }
 
 
 }

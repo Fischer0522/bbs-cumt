@@ -38,6 +38,7 @@ public class UserController {
     private RedisService redisService;
     private JwtService jwtService;
     private EmailService emailService;
+    private final String authorization = "Authorization";
 
     @Autowired
     UserController (UserService userService,
@@ -96,7 +97,7 @@ public class UserController {
     }
 
     @DeleteMapping("logout")
-    ResponseEntity<UserVO> logoutUser(@RequestHeader(value = "Authorization") String token) {
+    ResponseEntity<UserVO> logoutUser(@RequestHeader(value = authorization) String token) {
         UserDO user = jwtService.getUser(token);
         UserDO userDO = userService.getUserById(user.getId())
                 .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
@@ -123,7 +124,7 @@ public class UserController {
     @ResponseResult
     @PutMapping
     ResponseEntity<UserDO> updateUser(@Valid @RequestBody UpdateUserParam updateUserParam,
-                                      @RequestHeader("Authorization") String token) {
+                                      @RequestHeader(authorization) String token) {
 
         UserDO user = jwtService.getUser(token);
         UpdateUserCommand updateUserCommand = new UpdateUserCommand(user,updateUserParam);

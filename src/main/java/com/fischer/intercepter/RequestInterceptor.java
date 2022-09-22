@@ -28,6 +28,7 @@ public class RequestInterceptor implements HandlerInterceptor {
     @Autowired
     private RedisService redisService;
     private final String PREKEY= "loginUser:";
+    private final String AUTHORIZATION = "Authorization";
     @Autowired
     public RequestInterceptor (JwtService jwtService,RedisService redisService) {
         this.redisService = redisService;
@@ -37,7 +38,7 @@ public class RequestInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         System.out.println(request.getRequestURI());
-        String token = request.getHeader("Authorization");
+        String token = request.getHeader(AUTHORIZATION);
         if (Strings.isEmpty(token)) {
             throw new BizException(401,"未经授权的操作，请登录后重新进行操作");
         }
