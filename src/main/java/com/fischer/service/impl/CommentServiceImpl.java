@@ -30,18 +30,25 @@ public class CommentServiceImpl implements CommentService {
     private ArticleMapper articleMapper;
     private CommentFavoriteMapper commentFavoriteMapper;
     private RoleMapper roleMapper;
+    private CommentReplyMapper commentReplyMapper;
+    private CommentReplyFavoriteMapper commentReplyFavoriteMapper;
+    private CommentService commentService;
 
     @Autowired
     public CommentServiceImpl(CommentMapper commentMapper,
                               UserMapper userMapper,
                               ArticleMapper articleMapper,
                               CommentFavoriteMapper commentFavoriteMapper,
-                              RoleMapper roleMapper){
+                              RoleMapper roleMapper,
+                              CommentReplyMapper commentReplyMapper,
+                              CommentReplyFavoriteMapper commentReplyFavoriteMapper){
         this.articleMapper = articleMapper;
         this.userMapper = userMapper;
         this.commentMapper = commentMapper;
         this.commentFavoriteMapper = commentFavoriteMapper;
         this.roleMapper = roleMapper;
+        this.commentReplyMapper = commentReplyMapper;
+        this.commentReplyFavoriteMapper = commentReplyFavoriteMapper;
     }
 
     @Override
@@ -81,6 +88,12 @@ public class CommentServiceImpl implements CommentService {
             log.error("当前评论无对应的文章,评论id:"+commentId);
             throw new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR);
         }
+        // 清除comment的favorite关系，在此之中会一并清除子评论的favorite
+        deleteCommentFavorite(commentId);
+        // 清除子评论
+        LambdaQueryWrapper<CommentReplyDO> lqwDelete = new LambdaQueryWrapper<>();
+        lqwDelete.eq(CommentReplyDO::getCommentId,commentId);
+        commentReplyMapper.delete(lqwDelete);
         if (userId.equals(commentDO.getUserId())||userId.equals(articleDO.getUserId())) {
             int i = commentMapper.deleteById(commentId);
             if (i > 0) {
@@ -102,6 +115,75 @@ public class CommentServiceImpl implements CommentService {
 
         }
 
+
+    }
+
+    @Override
+    public Optional<CommentReplyBO> createCommentReply(Long commentId, Long toId,  String content,Long userId) {
+        CommentReplyDO commentReplyDO = new CommentReplyDO(commentId,userId,toId,content);
+        int insert = commentReplyMapper.insert(commentReplyDO);
+        if (insert > 0) {
+            return Optional.of(fillExtraInfo(commentReplyDO,userId));
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<CommentReplyBO> deleteCommentReply(Long id,Long userId) {
+        CommentReplyDO commentReplyDO = commentReplyMapper.selectById(id);
+        if (Objects.isNull(commentReplyDO)) {
+            throw new BizException(ExceptionStatus.ERROR_NO_COMMENT_REPLY);
+        }
+        if (!userId.equals(commentReplyDO.getFromId())) {
+            throw new BizException(ExceptionStatus.ERROR_NOT_AUTH);
+        }
+
+        int i = commentReplyMapper.deleteById(id);
+        if (i > 0) {
+            return Optional.of(fillExtraInfo(commentReplyDO,userId));
+        }
+        deleteReplyFavorite(id);
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<CommentReplyBO> favoriteCommentReply(Long id, Long userId) {
+        LambdaQueryWrapper<CommentReplyFavoriteDO> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(CommentReplyFavoriteDO::getCommentReplyId,id);
+        lqw.eq(CommentReplyFavoriteDO::getUserId,userId);
+        CommentReplyFavoriteDO commentReplyFavoriteDO = commentReplyFavoriteMapper.selectOne(lqw);
+        if (!Objects.isNull(commentReplyFavoriteDO)) {
+            throw new BizException(ExceptionStatus.ERROR_LIKE);
+        }
+        CommentReplyFavoriteDO newFavorite = new CommentReplyFavoriteDO(id,userId);
+        int insert = commentReplyFavoriteMapper.insert(newFavorite);
+        if (insert <= 0) {
+            throw  new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        CommentReplyDO commentReplyDO = commentReplyMapper.selectById(id);
+
+        return Optional.ofNullable(fillExtraInfo(commentReplyDO,userId));
+    }
+
+    @Override
+    public Optional<CommentReplyBO> unfavoriteCommentReply(Long id, Long userId) {
+        LambdaQueryWrapper<CommentReplyFavoriteDO> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(CommentReplyFavoriteDO::getCommentReplyId,id);
+        lqw.eq(CommentReplyFavoriteDO::getUserId,userId);
+
+        CommentReplyFavoriteDO commentReplyFavoriteDO = commentReplyFavoriteMapper.selectOne(lqw);
+        if (Objects.isNull(commentReplyFavoriteDO)) {
+            throw new BizException(ExceptionStatus.ERROR_DISLIKE);
+        }
+        LambdaQueryWrapper<CommentReplyFavoriteDO> lqwDelete = new LambdaQueryWrapper<>();
+        lqwDelete.eq(CommentReplyFavoriteDO::getCommentReplyId,id);
+        lqwDelete.eq(CommentReplyFavoriteDO::getUserId,userId);
+        int i = commentReplyFavoriteMapper.delete(lqwDelete);
+
+        CommentReplyDO commentReplyDO = commentReplyMapper.selectById(id);
+
+        return Optional.ofNullable(fillExtraInfo(commentReplyDO,userId));
     }
 
     @Override
@@ -112,18 +194,17 @@ public class CommentServiceImpl implements CommentService {
         lqw.eq(CommentFavoriteDO::getUserId,userId);
         CommentFavoriteDO commentFavoriteDO = commentFavoriteMapper.selectOne(lqw);
         if (!Objects.isNull(commentFavoriteDO)) {
-            throw new BizException(403,"已经为点赞状态");
-        } else {
-            CommentFavoriteDO newFavorite = new CommentFavoriteDO(commentId,userId);
-            int insert = commentFavoriteMapper.insert(newFavorite);
-            if (insert <=0) {
-                throw new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR);
-            }
-            CommentDO commentDO = commentMapper.selectById(commentId);
-            CommentBO commentBO = fillExtraInfo(commentDO,userId);
-            return Optional.of(commentBO);
-
+            throw new BizException(ExceptionStatus.ERROR_LIKE);
         }
+        CommentFavoriteDO newFavorite = new CommentFavoriteDO(commentId,userId);
+        int insert = commentFavoriteMapper.insert(newFavorite);
+        if (insert <=0) {
+            throw new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR);
+        }
+        CommentDO commentDO = commentMapper.selectById(commentId);
+        CommentBO commentBO = fillExtraInfo(commentDO,userId);
+        return Optional.of(commentBO);
+
     }
 
     @Override
@@ -133,7 +214,7 @@ public class CommentServiceImpl implements CommentService {
         lqw.eq(CommentFavoriteDO::getUserId,userId);
         CommentFavoriteDO commentFavoriteDO = commentFavoriteMapper.selectOne(lqw);
         if (Objects.isNull(commentFavoriteDO)) {
-            throw new BizException(403,"已经为取消点赞的状态");
+            throw new BizException(ExceptionStatus.ERROR_DISLIKE);
         } else {
             commentFavoriteMapper.delete(lqw);
         }
@@ -142,9 +223,9 @@ public class CommentServiceImpl implements CommentService {
         CommentBO commentBO = fillExtraInfo(commentDO,userId);
         return Optional.of(commentBO);
     }
-
+    @Transactional(rollbackFor = SQLException.class)
     @Override
-    public synchronized CommentVO getComments(Long articleId, Integer offset, Integer limit, Integer orderType,Long userId) {
+    public  CommentVO getComments(Long articleId, Integer offset, Integer limit, Integer orderType,Long userId) {
         MyPage myPage = new MyPage(offset,limit);
         List<CommentDO> comments = commentMapper.getComments(orderType, articleId, myPage);
         List<CommentBO> commentBOList = comments.stream()
@@ -164,6 +245,7 @@ public class CommentServiceImpl implements CommentService {
         Long commentId = commentDO.getId();
         UserDO userDO = userMapper.selectById(commentDO.getUserId());
         LambdaQueryWrapper<RoleDO> lqwRoles = new LambdaQueryWrapper<>();
+        lqwRoles.eq(RoleDO::getUserId,userId);
         List<String> roles = roleMapper.selectList(lqwRoles).stream().map(s -> s.getRole()).collect(Collectors.toList());
         UserVO userVO = new UserVO(userDO,roles);
         // 查询点赞数
@@ -185,8 +267,75 @@ public class CommentServiceImpl implements CommentService {
             }
 
         }
+        /*查询对应的子评论*/
+        LambdaQueryWrapper<CommentReplyDO> lqwCommentReply = new LambdaQueryWrapper<>();
+        lqwCommentReply.eq(CommentReplyDO::getCommentId,commentDO.getId());
+        List<CommentReplyBO> commentReplyList = commentReplyMapper.selectList(lqwCommentReply).stream().map(s -> fillExtraInfo(s, userId)).collect(Collectors.toList());
 
-        return new CommentBO(commentDO,userVO,favoriteCount,favorite);
+        return new CommentBO(commentDO,userVO,favoriteCount,favorite,commentReplyList);
+
     }
+
+    CommentReplyBO fillExtraInfo(CommentReplyDO commentReplyDO,Long userId) {
+        // 获取当前子评论的id和回复的人以及被回复的人
+        Long commentReplyId = commentReplyDO.getId();
+        UserDO fromUser = userMapper.selectById(commentReplyDO.getFromId());
+        UserDO toUser = userMapper.selectById(commentReplyDO.getToId());
+        // 补充用户信息
+        LambdaQueryWrapper<RoleDO> lambdaQueryWrapperRolesTo = new LambdaQueryWrapper<>();
+        lambdaQueryWrapperRolesTo.eq(RoleDO::getUserId,toUser.getId());
+        List<String> toRoles = roleMapper.selectList(lambdaQueryWrapperRolesTo).stream().map(s -> s.getRole()).collect(Collectors.toList());
+        LambdaQueryWrapper<RoleDO> lambdaQueryWrapperRolesFrom = new LambdaQueryWrapper<>();
+        lambdaQueryWrapperRolesFrom.eq(RoleDO::getUserId,fromUser.getId());
+        List<String> fromRoles = roleMapper.selectList(lambdaQueryWrapperRolesFrom).stream().map(s -> s.getRole()).collect(Collectors.toList());
+        UserVO fromUserVO = new UserVO(fromUser,fromRoles);
+        UserVO toUserVO = new UserVO(toUser,toRoles);
+
+        // 补充favorite信息
+        Boolean favorite = true;
+        if (Objects.isNull(userId)) {
+            favorite = false;
+        } else {
+            LambdaQueryWrapper<CommentReplyFavoriteDO> lqwFavorite = new LambdaQueryWrapper<>();
+            lqwFavorite.eq(CommentReplyFavoriteDO::getCommentReplyId,commentReplyId);
+            lqwFavorite.eq(CommentReplyFavoriteDO::getUserId,userId);
+            CommentReplyFavoriteDO commentReplyFavoriteDO = commentReplyFavoriteMapper.selectOne(lqwFavorite);
+            if (Objects.isNull(commentReplyFavoriteDO)) {
+                favorite = false;
+            }
+
+
+        }
+        LambdaQueryWrapper<CommentReplyFavoriteDO> lqwFavoriteCount = new LambdaQueryWrapper<>();
+        lqwFavoriteCount.eq(CommentReplyFavoriteDO::getCommentReplyId,commentReplyId);
+        Integer favoriteCount = commentReplyFavoriteMapper.selectCount(lqwFavoriteCount);
+
+        return new CommentReplyBO(commentReplyDO,fromUserVO,toUserVO,favorite,favoriteCount);
+
+    }
+    @Transactional(rollbackFor = SQLException.class)
+    public void deleteCommentFavorite(Long commentId) {
+        LambdaQueryWrapper<CommentFavoriteDO> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(CommentFavoriteDO::getCommentId,commentId);
+        int delete = commentFavoriteMapper.delete(lqw);
+
+        LambdaQueryWrapper<CommentReplyDO> lqwSelect = new LambdaQueryWrapper<>();
+        lqwSelect.eq(CommentReplyDO::getCommentId,commentId);
+        List<CommentReplyDO> commentReplyDOS = commentReplyMapper.selectList(lqwSelect);
+        for (CommentReplyDO com: commentReplyDOS
+             ) {
+            deleteReplyFavorite(com.getId());
+        }
+
+    }
+
+    private void deleteReplyFavorite(Long commentReplyId) {
+        LambdaQueryWrapper<CommentReplyFavoriteDO> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(CommentReplyFavoriteDO::getCommentReplyId,commentReplyId);
+        int delete = commentReplyFavoriteMapper.delete(lqw);
+
+    }
+
+
 
 }

@@ -12,6 +12,7 @@ import com.fischer.pojo.*;
 import com.fischer.service.ArticleService;
 import com.fischer.exception.BizException;
 import com.fischer.exception.ExceptionStatus;
+import com.fischer.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper,ArticleDO> imp
     private CommentMapper commentMapper;
     private BackgroundImageMapper backgroundImageMapper;
     private RoleMapper roleMapper;
+    private CommentService commentService;
     private final Integer LIMIT_LEVEL = 2;
     @Autowired
     ArticleServiceImpl (UserMapper userMapper,
@@ -45,13 +47,15 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper,ArticleDO> imp
                         FavoriteMapper favoriteMapper,
                         CommentMapper commentMapper,
                         BackgroundImageMapper backgroundImageMapper,
-                        RoleMapper roleMapper){
+                        RoleMapper roleMapper,
+                        CommentService commentService){
         this.articleMapper = articleMapper;
         this.userMapper = userMapper;
         this.favoriteMapper = favoriteMapper;
         this.commentMapper = commentMapper;
         this.backgroundImageMapper = backgroundImageMapper;
         this.roleMapper = roleMapper;
+        this.commentService = commentService;
     }
 
     @Override
@@ -90,7 +94,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper,ArticleDO> imp
     public Optional<ArticleDO> getArticleDOById(Long articleId) {
         return Optional.of(articleMapper.selectById(articleId));
     }
-
+    @Transactional(rollbackFor = SQLException.class)
     @Override
     public synchronized ArticleVO getArticles(Long favoriteBy, Long author, Integer type, Integer offset, Integer limit, Integer orderBy, Integer orderType, Long userId) {
         MyPage myPage = new MyPage(offset,limit);
@@ -120,9 +124,16 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper,ArticleDO> imp
         if(i > 0){
             ArticleBO articleBO = fillExtraInfo(articleDO, userId);
             // 清除该文章的相关评论
+
             LambdaQueryWrapper<CommentDO> lqwComment = new LambdaQueryWrapper<>();
             lqwComment.eq(CommentDO::getArticleId,articleId);
-            commentMapper.delete(lqwComment);
+            List<CommentDO> commentDOS = commentMapper.selectList(lqwComment);
+            for (CommentDO c :
+                    commentDOS) {
+                Long commentId = c.getId();
+                commentService.deleteComment(commentId,userId);
+
+            }
             // 清除 该文章的点赞信息
             LambdaQueryWrapper<FavoriteDO> lqwFavorite = new LambdaQueryWrapper<>();
             lqwFavorite.eq(FavoriteDO::getArticleId,articleId);
