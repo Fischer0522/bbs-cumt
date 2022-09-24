@@ -2,18 +2,22 @@ package com.fischer.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.fischer.data.UpdateArticleCommand;
 import com.fischer.mapper.ArticleMapper;
 import com.fischer.pojo.ArticleDO;
 import com.fischer.pojo.ArticleBO;
 import com.fischer.pojo.ArticleVO;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 /**进一步问封装，对文章进行CRUD，返回的形式直接为最终交给前端的诗数据形式
  * @author fischer
  */
 @Service
+@Validated
 public interface ArticleService extends IService<ArticleDO> {
      /**填写文章基本信息，创建文章
       * @param title 文章标题
@@ -26,6 +30,14 @@ public interface ArticleService extends IService<ArticleDO> {
       **/
 
      Optional<ArticleDO> createArticle(String title, String description, String body, Integer type, Long userId);
+
+     /**填写文章基本信息，修改文章
+      * @param updateArticleCommand 更新信息
+
+      * @return 返回Optional类型
+      *
+      **/
+     Optional<ArticleDO> updateArticle(@Valid UpdateArticleCommand updateArticleCommand,Long userId);
 
      /**按照条件查询相应的文章，相比Dao层添加了当前用户是否已经点赞，以及文章总数
       * @return ArticleVO 用于给前端

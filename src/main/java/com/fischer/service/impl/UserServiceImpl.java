@@ -121,6 +121,7 @@ public class UserServiceImpl implements UserService {
     @CachePut(cacheNames = "user",key = "'com.fischer.userInfo:'+ #updateUserCommand.targetUser.id")
     @Override
     public Optional<UserDO> updateUser(@Valid UpdateUserCommand updateUserCommand) {
+
         UserDO userDO = updateUserCommand.getTargetUser();
         String username = updateUserCommand.getUpdateUserParam().getUsername();
         String image = updateUserCommand.getUpdateUserParam().getImage();

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fischer.data.MyPage;
+import com.fischer.data.UpdateArticleCommand;
 import com.fischer.mapper.*;
 import com.fischer.pojo.*;
 import com.fischer.service.ArticleService;
@@ -19,7 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
@@ -32,6 +35,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @Slf4j
+@Validated
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper,ArticleDO> implements ArticleService {
     private UserMapper userMapper;
     private ArticleMapper articleMapper;
@@ -71,6 +75,38 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper,ArticleDO> imp
             log.warn("文章创建失败");
             return Optional.empty();
         }
+
+    }
+
+    @Override
+    public Optional<ArticleDO> updateArticle(@Valid UpdateArticleCommand updateArticleCommand,Long userId) {
+        ArticleDO targetArticle = updateArticleCommand.getTargetArticle();
+        if (!targetArticle.getUserId().equals(userId)) {
+            throw new BizException(ExceptionStatus.ERROR_NOT_AUTH);
+        }
+        String title = updateArticleCommand.getUpdateArticleParam().getTitle();
+        String description = updateArticleCommand.getUpdateArticleParam().getDescription();
+        String content = updateArticleCommand.getUpdateArticleParam().getContent();
+        Integer type = updateArticleCommand.getUpdateArticleParam().getType();
+        if (Strings.isNotEmpty(title)) {
+            targetArticle.setTitle(title);
+        }
+        if (Strings.isNotEmpty(description)) {
+            targetArticle.setDescription(description);
+        }
+        if (Strings.isNotEmpty(content)) {
+            targetArticle.setBody(content);
+        }
+        if (!Objects.isNull(type)) {
+            targetArticle.setType(type);
+        }
+        int i = articleMapper.updateById(targetArticle);
+        if (i > 0) {
+            return Optional.of(targetArticle);
+        } else {
+            return Optional.empty();
+        }
+
 
     }
 

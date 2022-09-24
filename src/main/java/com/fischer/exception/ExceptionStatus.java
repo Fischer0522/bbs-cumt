@@ -58,6 +58,7 @@ public enum ExceptionStatus {
 
     ERROR_DISLIKE_COMMENT_REPLY(10021,"取消点赞子评论失败"),
 
+    ERROR_UPDATE_ARTICLE(10022,"更新文章失败"),
 
     ERROR_NOT_LOGIN(20001,"未登录，请重新登录"),
 

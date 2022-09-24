@@ -16,6 +16,9 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.time.Duration;
 
+/**
+ * @author fisher
+ */
 @Configuration
 public class RedisConfig {
     @Value("${spring.cache.redis.time-to-live}")

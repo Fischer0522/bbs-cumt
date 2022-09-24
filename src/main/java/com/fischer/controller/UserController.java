@@ -116,12 +116,7 @@ public class UserController {
     @SaCheckLogin
     @DeleteMapping("logout")
     ResponseEntity<Object> logoutUser() {
-        /*UserDO user = jwtService.getUser(token);
-        UserDO userDO = userService.getUserById(user.getId())
-                .orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
-        redisService.deleteKey(user.getId());*/
         StpUtil.logout();
-       // UserVO userVO = new UserVO(userDO,token);
         return ResponseEntity.ok(1);
 
     }

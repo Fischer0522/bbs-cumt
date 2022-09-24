@@ -6,6 +6,8 @@ import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckRole;
 import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.stp.StpUtil;
+import com.fischer.data.UpdateArticleCommand;
+import com.fischer.data.UpdateArticleParam;
 import com.fischer.result.CommonResult;
 import com.fischer.result.ResponseResult;
 import com.fischer.exception.BizException;
@@ -59,6 +61,20 @@ public class ArticleController {
                 articleParam.getType(),
                 userId).orElseThrow(() -> new BizException(ExceptionStatus.INTERNAL_SERVER_ERROR));
         return ResponseEntity.ok(articleDO);
+    }
+
+    @SaCheckLogin
+    @PutMapping("{articleId}")
+    @SaCheckDisable("article")
+    ResponseEntity<ArticleDO> updateArticle (@Valid @RequestBody UpdateArticleParam updateArticleParam, @PathVariable Long articleId) {
+        Long userId = StpUtil.getLoginIdAsLong();
+        ArticleDO targetArticle = articleService.getArticleDOById(articleId)
+                .orElseThrow(() -> new BizException(ExceptionStatus.ERROR_GET_ARTICLE_FAIL));
+        UpdateArticleCommand updateArticleCommand = new UpdateArticleCommand(targetArticle, updateArticleParam);
+        ArticleDO articleDO = articleService.updateArticle(updateArticleCommand, userId)
+                .orElseThrow(() -> new BizException(ExceptionStatus.ERROR_UPDATE_ARTICLE));
+        return ResponseEntity.ok(articleDO);
+
     }
     @SaCheckLogin
     @DeleteMapping("{articleId}")
