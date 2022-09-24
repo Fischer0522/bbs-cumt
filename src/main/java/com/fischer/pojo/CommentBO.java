@@ -16,7 +16,8 @@ import java.util.List;
 public class CommentBO {
     private String id;
     private String body;
-    private String createAt;
+    private String createdAt;
+    private String updatedAt;
     private Long articleId;
     private Integer favoriteCount;
     private Boolean favorite;
@@ -27,7 +28,8 @@ public class CommentBO {
     public CommentBO(CommentDO commentDO, UserVO userVO,Integer favoriteCount,Boolean favorite,List<CommentReplyBO> commentReplyList){
         this.id = commentDO.getId().toString();
         this.body = commentDO.getBody();
-        this.createAt =commentDO.getCreatedAt();
+        this.createdAt =commentDO.getCreatedAt();
+        this.updatedAt = commentDO.getUpdatedAt();
         this.articleId =commentDO.getArticleId();
         this.favoriteCount = favoriteCount;
         this.favorite = favorite;

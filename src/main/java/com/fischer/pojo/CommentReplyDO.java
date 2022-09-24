@@ -20,8 +20,8 @@ public class CommentReplyDO implements Serializable {
     private Long fromId;
     private Long toId;
     private String content;
-    private String createTime;
-    private String updateTime;
+    private String createdAt;
+    private String updatedAt;
 
 
     public CommentReplyDO (Long commentId,Long fromId,Long toId,String content) {

@@ -16,7 +16,8 @@ public class ArticleBO {
     private String title;
     private String body;
     private String description;
-    private String createAt;
+    private String createdAt;
+    private String updatedAt;
     private Integer type;
     private Integer status;
     private Integer heat;
@@ -32,7 +33,8 @@ public class ArticleBO {
         this.title = articleDO.getTitle();
         this.body = articleDO.getBody();
         this.description = articleDO.getDescription();
-        this.createAt = articleDO.getCreatedAt();
+        this.createdAt = articleDO.getCreatedAt();
+        this.updatedAt = articleDO.getUpdatedAt();
         this.type = articleDO.getType();
         this.status = articleDO.getStatus();
         this.heat = articleDO.getHeat();

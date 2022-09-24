@@ -12,8 +12,8 @@ public class CommentReplyBO {
     private String id;
     private String commentId;
     private String content;
-    private String createTime;
-    private String updateTime;
+    private String createdAt;
+    private String updatedAt;
     private UserVO fromUser;
     private UserVO toUser;
     private Boolean favorite;
@@ -23,8 +23,8 @@ public class CommentReplyBO {
         this.id = commentReplyDO.getId().toString();
         this.commentId = commentReplyDO.getCommentId().toString();
         this.content = commentReplyDO.getContent();
-        this.createTime = commentReplyDO.getCreateTime();
-        this.updateTime = commentReplyDO.getUpdateTime();
+        this.createdAt = commentReplyDO.getCreatedAt();
+        this.updatedAt = commentReplyDO.getUpdatedAt();
         this.fromUser = fromUser;
         this.toUser = toUser;
         this.favorite = favorite;

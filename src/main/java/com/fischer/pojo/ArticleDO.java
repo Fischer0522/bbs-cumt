@@ -23,6 +23,7 @@ public class ArticleDO implements Serializable {
     private String body;
     private String description;
     private String createdAt;
+    private String updatedAt;
     private Integer type;
     private Integer status;
     private Integer heat;

@@ -23,6 +23,7 @@ public class CommentDO implements Serializable {
     private Long articleId;
     private Long userId;
     private String createdAt;
+    private String updatedAt;
 
     public CommentDO(String body,Long articleId,Long userId){
         this.body = body;
