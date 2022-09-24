@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 
 /**
  * @author fischer
@@ -20,17 +22,9 @@ public class CommentBO {
     private Boolean favorite;
     @JsonProperty(value = "author")
     private UserVO userVO;
+    private List<CommentReplyBO> commentReplyList;
 
-
-    public CommentBO(CommentDO commentDO, UserVO userVO){
-        this.id = commentDO.getId().toString();
-        this.body = commentDO.getBody();
-        this.createAt =commentDO.getCreatedAt();
-        this.articleId =commentDO.getArticleId();
-        this.userVO = userVO;
-    }
-
-    public CommentBO(CommentDO commentDO, UserVO userVO,Integer favoriteCount,Boolean favorite){
+    public CommentBO(CommentDO commentDO, UserVO userVO,Integer favoriteCount,Boolean favorite,List<CommentReplyBO> commentReplyList){
         this.id = commentDO.getId().toString();
         this.body = commentDO.getBody();
         this.createAt =commentDO.getCreatedAt();
@@ -38,5 +32,6 @@ public class CommentBO {
         this.favoriteCount = favoriteCount;
         this.favorite = favorite;
         this.userVO = userVO;
+        this.commentReplyList = commentReplyList;
     }
 }

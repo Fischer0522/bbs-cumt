@@ -48,6 +48,17 @@ public enum ExceptionStatus {
 
     ERROR_DISLIKE_COMMENT_FAIL(10016,"取消点赞评论失败"),
 
+    ERROR_NO_COMMENT_REPLY(10017,"删除子评论失败，当前删除的子评论可能已经不存在"),
+
+    ERROR_CREATE_REPLY(10018,"创建子评论失败"),
+
+    ERROR_DELETE_REPLY(10019,"删除子评论失败"),
+
+    ERROR_LIKE_COMMENT_REPLY(10020,"点赞子评论失败"),
+
+    ERROR_DISLIKE_COMMENT_REPLY(10021,"取消点赞子评论失败"),
+
+
     ERROR_NOT_LOGIN(20001,"未登录，请重新登录"),
 
     ERROR_NOT_AUTH(20002,"您当前无权限进行该操作"),
